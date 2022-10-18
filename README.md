@@ -2,15 +2,12 @@
 
 For details on the project, please visit [https://github.com/contractful/protocol-v1].
 
-## Bootstrapping the contractful frontend
-
-See [https://medium.com/@martink_rsa/creating-a-react-app-with-create-react-app-and-material-ui-380985fc2b19]
+## setup
 
 ```
-npx create-react-app contractful-app
-cd contractful-app
-npm install --legacy-peer-deps @material-ui/core
-npm install --legacy-peer-deps @material-ui/icons
+1. git clone https://github.com/contractful/frontend-v1.git
+2. cd frontend-v1
+3. cd contractfull-app
+4. npm i
+5. npx next dev
 ```
-
-
