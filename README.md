@@ -7,7 +7,7 @@ For details on the project, please visit [https://github.com/contractful/protoco
 ```
 1. git clone https://github.com/contractful/frontend-v1.git
 2. cd frontend-v1
-3. cd contractfull-app
+3. cd contractful-app
 4. npm i
 5. npx next dev
 ```
