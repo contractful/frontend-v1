@@ -1,50 +1,23 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 
-import AppBar from "@material-ui/core/AppBar";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { AccountBalanceWallet, Brush, Security } from "@material-ui/icons";
+import {
+    CssBaseline, Container, Grid, Button, Divider, Link, Avatar, TextField, FormControl, InputLabel, MenuItem, Select
+} from "@material-ui/core";
 
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
-import Link from "@material-ui/core/Link";
-import TextField from "@material-ui/core/TextField";
+import {
+    AccountBalanceWallet, Brush
+} from "@material-ui/icons";
 
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
+import ContractfulHeader from "../components/header";
+import ContractfulHtmlHead from "../components/html-head"
 
 const CreateHiringAgreement: NextPage = () => {
     return (
         <>
-        <Head>
-          <title>Contractful</title>
-          <meta
-            name="description"
-            content="Trustless and decentralized contracting solution"
-          />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-  
+        <ContractfulHtmlHead />
         <main>
           <CssBaseline />
-  
-          <AppBar position="static">
-            <Toolbar>
-              <Grid container justifyContent="center">
-                <Security></Security>
-                <Typography variant="h6" color="inherit">
-                  contractful Hiring Agreement
-                </Typography>
-              </Grid>
-            </Toolbar>
-          </AppBar>
+          <ContractfulHeader />
   
           <Container maxWidth="md">
             <Grid container>
