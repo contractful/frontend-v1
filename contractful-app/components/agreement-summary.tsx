@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage } from "next"
 
 import {
     CssBaseline, Grid, Button, Container, Divider
@@ -8,42 +8,11 @@ import {
     AccountBalanceWallet, Brush, NotInterested
 } from "@material-ui/icons";
 
-import ContractfulHeader from "../components/header"
-import ContractfulFooter from "../components/footer"
-import ContractfulHtmlHead from "../components/html-head"
+import TrafficLight from 'react-trafficlight'
 
-import TrafficLight from 'react-trafficlight';
-
-const ConsentHiringAgreement: NextPage = () => {
-  return (
-    <>
-        <ContractfulHtmlHead />
-        <main>
-            <CssBaseline />
-            <ContractfulHeader />
-
-            <Container maxWidth="md">
-                <Grid container>
-                    <Grid item xs>
-                        <h1>👋 Welcome 0xjohndoedeveloper.eth</h1>        
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        startIcon={<AccountBalanceWallet />}
-                        fullWidth
-                        >
-                        Wallet connected
-                        </Button>
-                    </Grid>
-                </Grid>
-                <h1>📨 You got 1️⃣ new contract to review.</h1>
-
-                <Divider />
-            </Container>
-
+const ContractfulAssignmentSummary = () => {
+    return (
+        <>
             <Container maxWidth="md">
                 <Grid container>
                     <Grid item xs>
@@ -78,7 +47,7 @@ const ConsentHiringAgreement: NextPage = () => {
                     <Grid item xs>
                         <ul>
                             <li>✅ Funds have been committed to this Hiring Agreement by 0xdavid_dao.eth.</li>
-                            <li>❌ You have not consented with the Hiring Agreement.</li>
+                            <li>❌ You have not consented with the Hiring Agreement yet.</li>
                         </ul>
                     </Grid>
                 </Grid>
@@ -109,36 +78,8 @@ hourly rate: 140.00 DAI, payment every 2 weeks (with successful sprint review).
 
                 <Divider />
             </Container>
+        </>
+    )
+}
 
-            <Container maxWidth="sm">
-            <div>
-                ℹ️ Complete the review of your Hiring Agreement from 0xdavid_dao.eth by consenting.
-            </div>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth
-              startIcon={<Brush />}
-            >
-              Consent with Hiring Agreement
-            </Button>
-            <div>&nbsp;</div>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              fullWidth
-              startIcon={<NotInterested />}
-            >
-                Decline Agreement
-            </Button>
-          </Container>
-
-          <ContractfulFooter />
-        </main>      
-    </>
-  );
-};
-
-export default ConsentHiringAgreement;
+export default ContractfulAssignmentSummary
