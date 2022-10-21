@@ -10,4 +10,9 @@ For details on the project, please visit [https://github.com/contractful/protoco
 3. cd contractful-app
 4. npm i
 5. npx next dev
+
+Additional packages
+
+npm install --legacy-peer-deps --save react-trafficlight
+# TODO module seems to be an outdated dependency
 ```

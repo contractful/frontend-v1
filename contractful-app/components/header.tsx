@@ -13,7 +13,7 @@ const ContractfulHeader = () => {
             <span> | </span>
             <Link href="/create">CreateHiringAgreement</Link>
             <span> | </span>
-            <Link href="/consent">ConsentAgreementHome</Link>
+            <Link href="/consent">ConsentHiringAgreement</Link>
 
             <AppBar position="static">
                 <Toolbar>

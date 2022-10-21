@@ -25,7 +25,7 @@ const CreateHiringAgreement: NextPage = () => {
                 <Avatar>JD</Avatar>
               </Grid>
               <Grid item xs>
-                <h1>👋 Welcome</h1>
+                <h1>👋 Welcome - connect your wallet to create a Hiring Agreement</h1>
               </Grid>
               <Grid item xs={4}>
                 <Button
@@ -186,6 +186,9 @@ const CreateHiringAgreement: NextPage = () => {
           </Container>
   
           <Container maxWidth="sm">
+            <div>
+                ℹ️ Your Hiring Agreement is complete. Please proceed creating the Hiring Agreement for 0xjohndoedeveloper.eth to review.
+            </div>
             <Button
               variant="contained"
               color="primary"
@@ -193,7 +196,7 @@ const CreateHiringAgreement: NextPage = () => {
               fullWidth
               startIcon={<Brush />}
             >
-              Sign contract to hire 0xjohndoedeveloper.eth
+              Create Hiring Agreement
             </Button>
           </Container>
         </main>
