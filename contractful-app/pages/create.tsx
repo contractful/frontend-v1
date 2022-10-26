@@ -2,13 +2,16 @@ import type { NextPage } from "next";
 
 import {
     CssBaseline, Container, Grid, Button, Divider, Link, Avatar, TextField, FormControl, InputLabel, MenuItem, Select
-} from "@material-ui/core";
+} from "@mui/material";
 
 import {
     AccountBalanceWallet, Brush
 } from "@material-ui/icons";
 
-import ContractfulHeader from "../components/header";
+import WalletIcon from '@mui/icons-material/Wallet'
+import BrushIcon from '@mui/icons-material/Brush';
+
+import ContractfulHeader from "../components/header"
 import ContractfulHtmlHead from "../components/html-head"
 
 const CreateHiringAgreement: NextPage = () => {
@@ -32,7 +35,7 @@ const CreateHiringAgreement: NextPage = () => {
                   variant="contained"
                   color="primary"
                   size="large"
-                  startIcon={<AccountBalanceWallet />}
+                  startIcon={<WalletIcon />}
                   fullWidth
                 >
                   Connect Wallet
@@ -194,7 +197,7 @@ const CreateHiringAgreement: NextPage = () => {
               color="primary"
               size="large"
               fullWidth
-              startIcon={<Brush />}
+              startIcon={<BrushIcon />}
             >
               Create Hiring Agreement
             </Button>

@@ -11,7 +11,6 @@ For details on the project, please visit [https://github.com/contractful/protoco
 4. npm i --legacy-peer-deps
 5. npx next dev
 
-<<<<<<< HEAD
 Additional packages
 
 npx create-next-app@latest --typescript
@@ -25,7 +24,5 @@ npm uninstall --legacy-peer-deps material-ui
 npm install --legacy-peer-deps @mui/material @emotion/react @emotion/styled
 npm install --legacy-peer-deps @mui/icons-material
 # TODO module seems to be an outdated dependency
-=======
 # react-trafficlight is an outdated dependency
->>>>>>> mijail
 ```

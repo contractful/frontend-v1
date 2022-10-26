@@ -3,11 +3,11 @@ import { useRouter } from 'next/router'
 
 import {
     CssBaseline, Grid, Button, Container, Divider
-} from "@material-ui/core";
+} from "@mui/material";
 
-import {
-    AccountBalanceWallet, Brush, NotInterested
-} from "@material-ui/icons";
+import WalletIcon from '@mui/icons-material/Wallet'
+import BrushIcon from '@mui/icons-material/Brush';
+import NotInterestedIcon from '@mui/icons-material/NotInterested'
 
 import ContractfulHeader from "../components/header"
 import ContractfulFooter from "../components/footer"
@@ -40,7 +40,7 @@ const ReviewHiringAgreement: NextPage = () => {
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<AccountBalanceWallet />}
+                        startIcon={<WalletIcon />}
                         fullWidth
                         >
                         Wallet connected
@@ -63,7 +63,7 @@ const ReviewHiringAgreement: NextPage = () => {
               color="primary"
               size="large"
               fullWidth
-              startIcon={<Brush />}
+              startIcon={<BrushIcon />}
             >
               Consent with Hiring Agreement
             </Button>
@@ -73,7 +73,7 @@ const ReviewHiringAgreement: NextPage = () => {
               color="secondary"
               size="small"
               fullWidth
-              startIcon={<NotInterested />}
+              startIcon={<NotInterestedIcon />}
             >
                 Decline Agreement
             </Button>

@@ -2,11 +2,11 @@ import type { NextPage } from "next"
 
 import {
     CssBaseline, Grid, Button, Container, Divider
-} from "@material-ui/core";
+} from "@mui/material";
 
-import {
-    AccountBalanceWallet, Brush, NotInterested
-} from "@material-ui/icons";
+import WalletIcon from '@mui/icons-material/Wallet'
+import BrushIcon from '@mui/icons-material/Brush';
+import NotInterestedIcon from '@mui/icons-material/NotInterested'
 
 import TrafficLight from 'react-trafficlight'
 
