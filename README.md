@@ -13,6 +13,15 @@ For details on the project, please visit [https://github.com/contractful/protoco
 
 Additional packages
 
+npx create-next-app@latest --typescript
+
 npm install --legacy-peer-deps --save react-trafficlight
+npm install --legacy-peer-deps tailwindcss@latest
+npm install --legacy-peer-deps mui@latest
+npm uninstall --legacy-peer-deps tailwindcss@latest
+npm uninstall --legacy-peer-deps material-ui
+
+npm install --legacy-peer-deps @mui/material @emotion/react @emotion/styled
+npm install --legacy-peer-deps @mui/icons-material
 # TODO module seems to be an outdated dependency
 ```

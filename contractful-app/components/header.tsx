@@ -1,9 +1,8 @@
-import { 
-    Link, AppBar, Toolbar, Grid, Typography, Container
-} from "@material-ui/core";
-import { 
-    Security
-} from "@material-ui/icons";
+import {
+    Link, AppBar, Toolbar, Typography, Container, Alert
+} from '@mui/material'
+
+import SecurityIcon from '@mui/icons-material/Security'
 
 const ContractfulHeader = () => {
     return (
@@ -20,19 +19,21 @@ const ContractfulHeader = () => {
             <span> ? </span>
             <Link href="/review?useCase=extend">extend</Link>
 
-            <AppBar position="static">
+            <AppBar
+                position="static"
+            >
                 <Toolbar>
-                <Container maxWidth="md">
-                    <Security style={{
-                            float: "left"
-                        }}
-                    />
-                    <Typography variant="h6" color="inherit">
-                    contractful Hiring Agreement
-                    </Typography>
-                </Container>
+                    <Container>
+                        <Typography variant="h6" component="div">
+                            <SecurityIcon />
+                            contractful Hiring Agreement
+                        </Typography>
+                    </Container>
                 </Toolbar>
             </AppBar>
+            <Alert severity="info">
+                    Note: This is a beta implementation on the blockchain testnet. If you want to use this in production, please visit <Link href="https://github.com/contractful" target="_new">https://github.com/contractful</Link> to get in touch.
+            </Alert>
         </>
     );
 }

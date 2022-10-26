@@ -1,93 +1,172 @@
-import type { NextPage } from "next";
+import type { NextPage } from "next"
 import Router from 'next/router'
 
-import {
-  CssBaseline, Container, Grid, Avatar, Divider, Button, Link
-} from "@material-ui/core";
+import { 
+    Button, Container, Grid, Typography, Paper, Divider
+} from "@mui/material"
 
-import {
-  Brush
-} from "@material-ui/icons";
+import { styled } from '@mui/system'
+
+import NoteAddIcon from '@mui/icons-material/NoteAdd'
+import BrushIcon from '@mui/icons-material/Brush';
+
+import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
 
 import ContractfulHeader from "../components/header"
-import ContractfulFooter from "../components/footer";
-import ContractfulHtmlHead from "../components/html-head"
+import ContractfulFooter from "../components/footer"
 
-const BtnCreateHiringAgreement = () => {
+const IntroBg = styled('div')({
+    background: 'url(' + imgBgStructureIntro.src + ') no-repeat',
+    backgroundSize: '100% 80%'
+})
 
-  const handleClick = (e) => {
+const handleClick = (e, targetUrl) => {
     e.preventDefault()
-    Router.push('/create')
-  }
-
-  return (
-    <>
-        <Container maxWidth="sm">
-          <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                fullWidth
-                startIcon={<Brush />}
-                onClick={handleClick}
-              >
-              Create Hiring Agreement
-          </Button>
-        </Container>
-    </>
-  )
+    Router.push(targetUrl)
 }
 
 const HiringAgreementHome: NextPage = () => {
-  return (
-    <>
-      <ContractfulHtmlHead />
-      <main>
-        <CssBaseline />
+    return (
+        <>
         <ContractfulHeader />
 
-        <Container maxWidth="md">
-            <Grid container>
-                <Grid item xs>
-                    <h1>👋 Welcome to your contractful Hiring Agreement with 0xjohndoedeveloper.eth</h1>        
+        <IntroBg>
+            <Container>
+                <Grid container pt={4}>
+                    <Grid item xs={2}>
+                        <Typography sx={{ 
+                                fontWeight: 'light'
+                            }}
+                        >
+                            If you are already familiar with contractful, please use the following quick links to start.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs></Grid>
+                    <Grid item xs={4}>
+                        <Typography sx={{ 
+                                fontWeight: 'light',
+                                fontSize: 'smaller'
+                            }}
+                            py={1}
+                        >
+                            Fair contracting
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            startIcon={<NoteAddIcon />}
+                            size="large"
+                            onClick={(e) => handleClick(e, '/create')}
+                        >
+                            Create Hiring Agreement
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                    <Typography sx={{ 
+                                fontWeight: 'light',
+                                fontSize: 'smaller'
+                            }}
+                            py={1}
+                        >
+                            Safely accepting an Agreement
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            startIcon={<BrushIcon />}
+                            size="large"
+                            onClick={(e) => handleClick(e, '/review?useCase=consent')}
+                        >
+                            Sign existing Agreement
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={1}>
-                    <Avatar>JD</Avatar>
+            </Container>
+
+            <Container>
+                <Grid container pt={8}>
+                    <Grid item xs={8}>
+                        <Typography variant="subtitle1">
+                            What is a contractful Hiring Agreement?
+                        </Typography>
+                        <Divider></Divider>
+                        <Typography variant="h3" pt={1}>
+                            Peer-2-peer safe and fair Hiring Agreements for everyone to use.
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                    </Grid>
+                </Grid>
+            </Container>
+
+            <Container>
+                <Grid container pt={6}>
+                    <Grid item xs={6} p={4}>
+                        <Paper elevation={24}>
+                            <Typography p={4}>
+                                <ul>
+                                    <li>✔️ Fair, safe and secure on-chain payment processing.</li>
+                                    <li>✔️ Clean budget planning.</li>
+                                    <li>✔️ From terms to payment: Direct contract between you and 0xjohndoedeveloper.eth. No third party involved.</li>
+                                </ul>
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs p={4}>
+                        <Paper elevation={24}>
+                            <Typography p={4}>
+                                <p>Hello World</p>
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </Container>
+
+            <Container maxWidth="sm">
+                <Typography variant="h2">
+                    <p>How it works?</p>
+                </Typography>
+                <Typography variant="h3">
+                    <p>1. First step</p>
+                    <p>2. Second step</p>
+                    <p>3. Third step</p>
+                </Typography>
+            </Container>
+        </IntroBg>
+
+        <Container>
+            <Grid container pt={4}>
+                <Grid item xs={6} p={4}>
+                    <Paper elevation={24}>
+                        <Typography p={4}>
+                            <p>For Clients</p>
+                            <p>Ready to use contractful for fair contracting</p>
+                            <Button
+                                onClick={(e) => handleClick(e, '/create')}
+                            >
+                                Create Hiring Agreement
+                            </Button>
+                        </Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs p={4}>
+                    <Paper elevation={24}>
+                        <Typography p={4}>
+                            <p>For Service provider</p>
+                            <p>Safely accepting an Agreement</p>
+                            <Button
+                                onClick={(e) => handleClick(e, '/review?useCase=consent')}
+                            >
+                                Sign existing Agreement
+                            </Button>
+                        </Typography>
+                    </Paper>
                 </Grid>
             </Grid>
-        </Container>
 
-        <BtnCreateHiringAgreement />
-
-        <Container maxWidth="md">
-          <Divider />
-          
-          <ul>
-            <li>✔️ Fair, safe and secure on-chain payment processing.</li>
-            <li>✔️ Clean budget planning.</li>
-            <li>✔️ From terms to payment: Direct contract between you and 0xjohndoedeveloper.eth. No third party involved.</li>
-          </ul>
-
-          <Divider />
-        </Container>
-
-        <Container maxWidth="md">
-          <h1>Ready to work with 0xjohndoedeveloper.eth?</h1>
-        </Container>
-
-        <BtnCreateHiringAgreement />
-
-        <Container maxWidth="md">
-          <Divider />
-
-          <h1>Already got an active Agreement?</h1>
-          <Link href="/review?useCase=check">Check status of Hiring Agreement</Link>
         </Container>
 
         <ContractfulFooter />
-      </main>
-    </>
-  );
-};
+        </>
+    )
+}
 
 export default HiringAgreementHome;
