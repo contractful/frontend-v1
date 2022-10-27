@@ -9,8 +9,11 @@ import { publicProvider } from "wagmi/providers/public";
 import "/public/contractful.css"
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+  [chain.polygonMumbai],
+  [
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY }),
+    publicProvider(),
+  ]
 );
 
 const { connectors } = getDefaultWallets({
