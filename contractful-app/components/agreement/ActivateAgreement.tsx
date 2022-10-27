@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress } from "@material-ui/core";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { useAccount, useWaitForTransaction } from "wagmi";
 import useActivateAgreement from "../../hooks/useActivateAgreement";
 import useGetUserAgreements from "../../hooks/useGetUserAgreements";
@@ -9,17 +9,12 @@ const ActivateAgreement = (props: Props) => {
   const { address } = useAccount();
   const { data: userAgreements } = useGetUserAgreements(address);
 
-  console.log("lastAgreement", userAgreements?.at(-1));
   const {
-    prepareError: activateAgreementPrepareError,
     isPrepareError: isActivateAgreementPrepareError,
     data: activateAgreementData,
-    error: activateAgreementError,
-    isError: isActivateAgreementError,
     isLoading: isActivateAgreementPendingSignature,
     write: activateAgreement,
     refetchPrepare: refetchActivateAgreementPrepare,
-    reset,
   } = useActivateAgreement(userAgreements?.at(-1)); // activates last agreement
 
   const {
