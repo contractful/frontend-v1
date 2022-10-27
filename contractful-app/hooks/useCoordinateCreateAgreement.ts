@@ -49,7 +49,6 @@ const useCoordinateCreateAgreement: () => {
     });
 
   // useCreateAgreement
-  console.log("isTokenApproveSuccess", isTokenApproveSuccess);
   const {
     prepareError: createAgreementPrepareError,
     error: createAgreementError,
@@ -63,11 +62,6 @@ const useCoordinateCreateAgreement: () => {
     reset: resetCreateAgreement,
   } = useCreateAgreement(
     agreementCreationParams.current,
-    isTokenApproveSuccess && agreementCreationParams.current !== undefined
-  );
-  console.log("createAgreement", createAgreement);
-  console.log(
-    "enabled",
     isTokenApproveSuccess && agreementCreationParams.current !== undefined
   );
 
@@ -115,7 +109,6 @@ const useCoordinateCreateAgreement: () => {
 
   // create agreement
   useEffect(() => {
-    console.log("isCreateAgreementIdle", isCreateAgreementIdle);
     if (isTokenApproveSuccess && isCreateAgreementPrepareFetch) {
       createAgreement?.();
     }

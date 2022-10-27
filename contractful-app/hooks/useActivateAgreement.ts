@@ -5,8 +5,6 @@ import { deployments } from "../deployments";
 const useActivateAgreement = (agreementId: BigNumber | undefined) => {
   const manager = deployments.contracts.Manager;
 
-  console.log("agreementId", agreementId?.toString());
-  console.log("enabled", agreementId ? true : false);
   const {
     config,
     error: prepareError,
@@ -20,9 +18,6 @@ const useActivateAgreement = (agreementId: BigNumber | undefined) => {
     // we cast undefined as BigNumber
     args: [agreementId ? agreementId : (agreementId as unknown as BigNumber)],
     enabled: agreementId ? true : false,
-    overrides: {
-      gasLimit: BigNumber.from(1000000),
-    },
   });
 
   const { data, error, isError, isLoading, write, reset } =
