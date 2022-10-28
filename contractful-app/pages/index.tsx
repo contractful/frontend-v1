@@ -2,7 +2,7 @@ import type { NextPage } from "next"
 import Router from 'next/router'
 
 import { 
-    Button, Container, Grid, Typography, Paper, Divider
+    CssBaseline, Button, Container, Grid, Typography, Paper, Divider
 } from "@mui/material"
 
 import { styled } from '@mui/system'
@@ -12,6 +12,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 
 import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
 
+import ContractfulHtmlHead from "../components/html-head"
 import ContractfulHeader from "../components/header"
 import ContractfulFooter from "../components/footer"
 
@@ -28,6 +29,8 @@ const handleClick = (e, targetUrl) => {
 const HiringAgreementHome: NextPage = () => {
     return (
         <>
+        <ContractfulHtmlHead />
+        <CssBaseline />
         <ContractfulHeader />
 
         <IntroBg>
@@ -35,14 +38,15 @@ const HiringAgreementHome: NextPage = () => {
                 <Grid container pt={4}>
                     <Grid item xs={2}>
                         <Typography sx={{ 
-                                fontWeight: 'light'
+                                fontWeight: 'light',
+                                fontSize: 'smaller'
                             }}
                         >
-                            If you are already familiar with contractful, please use the following quick links to start.
+                            If you are already familiar with contractful, please use the following quick links to get started.
                         </Typography>
                     </Grid>
                     <Grid item xs></Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} px={2}>
                         <Typography sx={{ 
                                 fontWeight: 'light',
                                 fontSize: 'smaller'
@@ -56,12 +60,13 @@ const HiringAgreementHome: NextPage = () => {
                             startIcon={<NoteAddIcon />}
                             size="large"
                             onClick={(e) => handleClick(e, '/create')}
+                            fullWidth
                         >
                             Create Hiring Agreement
                         </Button>
                     </Grid>
-                    <Grid item xs={4}>
-                    <Typography sx={{ 
+                    <Grid item xs={4} px={2}>
+                        <Typography sx={{ 
                                 fontWeight: 'light',
                                 fontSize: 'smaller'
                             }}
@@ -74,6 +79,7 @@ const HiringAgreementHome: NextPage = () => {
                             startIcon={<BrushIcon />}
                             size="large"
                             onClick={(e) => handleClick(e, '/review?useCase=consent')}
+                            fullWidth
                         >
                             Sign existing Agreement
                         </Button>
