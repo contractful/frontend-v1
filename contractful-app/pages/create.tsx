@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useState } from 'react';
+import { storeDesc, retrieveDesc } from '../hooks/useStoreIPFS';
 import {
     CssBaseline, Container, Grid, Button, Divider, Link, Avatar, TextField, FormControl, InputLabel, MenuItem, Select
 } from "@mui/material";
@@ -14,10 +15,9 @@ import BrushIcon from '@mui/icons-material/Brush';
 import ContractfulHeader from "../components/header"
 import ContractfulHtmlHead from "../components/html-head"
 
-var ipfsAPI = require("../hooks/useStoreIPFS");
-
 const CreateHiringAgreement: NextPage = () => {
-  const [desc, setDesc] = useState<string>();
+  const [desc, setDesc] = useState<string>(); // description entered in the textfield
+  const [retrievedDesc, setRetrievedDesc] = useState<string | null | undefined>(); // description retrieved + decrypted from IPFS
     return (
         <>
         <ContractfulHtmlHead />
@@ -213,7 +213,7 @@ const CreateHiringAgreement: NextPage = () => {
               size="large"
               fullWidth
               startIcon={<BrushIcon />}
-              onClick={() => {ipfsAPI.storeDesc(desc)}}
+              onClick={() => {storeDesc(desc)}}
             >
               Store description
             </Button>
@@ -223,8 +223,11 @@ const CreateHiringAgreement: NextPage = () => {
               size="large"
               fullWidth
               startIcon={<BrushIcon />}
+              onClick={() => {
+                setRetrievedDesc(retrieveDesc()); // as an example - this can be displayed in a textfield etc
+              }}
             >
-              Get Description
+              Retrieve Description
             </Button>
           </Container>
         </main>
