@@ -7,13 +7,18 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 
 import { 
-    CssBaseline, Button, Container, Grid, Typography, Paper, Divider
+    CssBaseline, Button, Container, Grid, Typography, Paper, FormControl, TextField,
+    Card, CardContent, RadioGroup, Radio, FormControlLabel,
+    Select, MenuItem, InputLabel
 } from "@mui/material"
 
 import { styled } from '@mui/system'
 
 import WalletIcon from '@mui/icons-material/Wallet'
-import BrushIcon from '@mui/icons-material/Brush';
+import BrushIcon from '@mui/icons-material/Brush'
+import TocIcon from '@mui/icons-material/Toc'
+import Diversity3Icon from '@mui/icons-material/Diversity3'
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
 
 import ContractfulHtmlHead from "../components/html-head"
 import ContractfulHeader from "../components/header"
@@ -121,7 +126,7 @@ const ReviewHiringAgreement: NextPage = () => {
                     <Typography variant="h6">
                         👋 Welcome
                     </Typography>
-                    <Typography>
+                    <Typography pt={1}>
                         Please connect your Wallet to start creating a Hiring Agreement.
                     </Typography>
                 </Grid>
@@ -150,21 +155,190 @@ const ReviewHiringAgreement: NextPage = () => {
                     <Typography variant="h6">
                             📝 Contract
                         </Typography>
-                        <Typography>
+                    <Typography pt={1} pb={4}>
                             Please fill in the details of the Hiring Agreement.
                     </Typography>
-                </Grid>
-            </Grid>
-        </Container>
 
-        <Container maxWidth="md">
-            <Grid container pt={2}>
-                <Grid item xs>
                     <Paper elevation={24}>
-                        <Typography p={4}>
-                            <p>Hello World</p>
-                        </Typography>
+
+                      <FormControl
+                        variant="standard"
+                      >
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'flex-end'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <WalletIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <TextField
+                            id="input-service-provider-addr"
+                            label="Ethereum public address or ENS name of your service provider"
+                            variant="standard"
+                            sx={{
+                              width: '80vh'
+                            }}
+                          />
+                        </Box>
+
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <TocIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <TextField
+                            id="contract-description"
+                            label="Detailed work and service deliverable description"
+                            multiline
+                            rows={4}
+                            sx={{
+                              width: '80vh'
+                            }}
+                          />
+
+                        </Box>
+
+
+
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <Diversity3Icon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="longterm"
+                            name="radio-buttons-group"
+                          >
+                            <Card sx={{
+                                width: '80vh'
+                              }}
+                              variant="outlined"
+                            >
+                              <CardContent>
+                                <FormControlLabel
+                                  value="longterm"
+                                  control={<Radio />}
+                                  label="Long-term arrangement" 
+                                />
+                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                  The Hiring Agreement aims for a long-term collaboration relationship.
+                                </Typography>
+                                <Typography variant="body2">
+                                  <ul>
+                                    <li>
+                                      The arrangement is planned for several months (usually 1-3, up to 6 and even more months).
+                                    </li>
+                                    <li>
+                                      The project is organized in 2 weeks sprint iterations.
+                                    </li>
+                                    <li>
+                                      Payment will be handled correspondingly by the smart contract.
+                                    </li>
+                                  </ul>
+                                </Typography>
+                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                  Contractual details of the arrangement:
+                                </Typography>
+
+                                <InputLabel id="engagement-length-select-label">
+                                  Length of engagement
+                                </InputLabel>
+                                <Select
+                                  labelId="engagement-length-select-label"
+                                  id="engagement-length-select"
+                                  label="Length of engagement"
+                                >
+                                  <MenuItem value={1}>1 month</MenuItem>
+                                  <MenuItem value={2}>2 months</MenuItem>
+                                  <MenuItem value={3}>3 months</MenuItem>
+                                  <MenuItem value={4}>4 months</MenuItem>
+                                  <MenuItem value={5}>5 months</MenuItem>
+                                  <MenuItem value={6}>6 months</MenuItem>
+                                </Select>
+
+
+                              </CardContent>
+                            </Card>
+
+                            <Card sx={{
+                                width: '80vh',
+                                mt: 1
+                              }}
+                              variant="outlined"                              
+                            >
+                              <CardContent>
+                                <FormControlLabel
+                                  value="shortterm"
+                                  control={<Radio />}
+                                  label="Short-term arrangement" 
+                                />
+                              </CardContent>
+                            </Card>
+
+
+                          </RadioGroup>
+                        </Box>
+
+
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'flex-end'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <RequestQuoteIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <TextField
+                            id="input-service-provider-addr"
+                            label="Hourly rate"
+                            variant="standard"
+                            sx={{
+                              width: '15vh'
+                            }}
+                          />
+                          <Typography pl={4}>
+                            USD (in DAI)
+                          </Typography>
+                        </Box>
+
+
+
+
+
+                      </FormControl>
+
+
                     </Paper>
+
+
                 </Grid>
             </Grid>
         </Container>
@@ -196,6 +370,8 @@ const ReviewHiringAgreement: NextPage = () => {
                 <Grid item xs={3}></Grid>
             </Grid>
         </Container>
+
+
 
 
         <ContractfulFooter />
