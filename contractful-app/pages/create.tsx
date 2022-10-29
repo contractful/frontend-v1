@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-
+import { useState } from 'react';
 import {
     CssBaseline, Container, Grid, Button, Divider, Link, Avatar, TextField, FormControl, InputLabel, MenuItem, Select
 } from "@mui/material";
@@ -14,7 +14,10 @@ import BrushIcon from '@mui/icons-material/Brush';
 import ContractfulHeader from "../components/header"
 import ContractfulHtmlHead from "../components/html-head"
 
+var ipfsAPI = require("../hooks/useStoreIPFS");
+
 const CreateHiringAgreement: NextPage = () => {
+  const [desc, setDesc] = useState<string>();
     return (
         <>
         <ContractfulHtmlHead />
@@ -76,6 +79,9 @@ const CreateHiringAgreement: NextPage = () => {
               maxRows={4}
               variant="outlined"
               fullWidth
+              onChange={(e) => {
+                setDesc(e.target.value);
+              }}
             />
           </Container>
   
@@ -200,6 +206,25 @@ const CreateHiringAgreement: NextPage = () => {
               startIcon={<BrushIcon />}
             >
               Create Hiring Agreement
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth
+              startIcon={<BrushIcon />}
+              onClick={() => {ipfsAPI.storeDesc(desc)}}
+            >
+              Store description
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth
+              startIcon={<BrushIcon />}
+            >
+              Get Description
             </Button>
           </Container>
         </main>
