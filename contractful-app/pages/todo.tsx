@@ -264,7 +264,7 @@ const ReviewHiringAgreement: NextPage = () => {
                                 </Typography>
 
                                 <InputLabel id="engagement-length-select-label">
-                                  Length of engagement
+                                  TODO Length of engagement
                                 </InputLabel>
                                 <Select
                                   labelId="engagement-length-select-label"
@@ -325,10 +325,27 @@ const ReviewHiringAgreement: NextPage = () => {
                             }}
                           />
                           <Typography pl={4}>
-                            USD (in DAI)
+                            US$ (in DAI)
                           </Typography>
                         </Box>
 
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'flex-end'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <RequestQuoteIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <Typography pl={4}>
+                            Resulting budget for the first payment cycle.
+                          </Typography>
+                        </Box>
 
 
 
