@@ -23,6 +23,9 @@ npm uninstall --legacy-peer-deps material-ui
 
 npm install --legacy-peer-deps @mui/material @emotion/react @emotion/styled
 npm install --legacy-peer-deps @mui/icons-material
+npm install --legacy-peer-deps @mui/x-date-pickers
+npm install --legacy-peer-deps dayjs
 # TODO module seems to be an outdated dependency
 # react-trafficlight is an outdated dependency
+
 ```
