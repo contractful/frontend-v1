@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
-
+import { useState } from 'react';
+import { storeDesc, retrieveDesc } from '../hooks/useStoreIPFS';
 import {
     CssBaseline, Container, Grid, Button, Divider, Link, Avatar, TextField, FormControl, InputLabel, MenuItem, Select
 } from "@mui/material";
@@ -15,6 +16,8 @@ import ContractfulHeader from "../components/header"
 import ContractfulHtmlHead from "../components/html-head"
 
 const CreateHiringAgreement: NextPage = () => {
+  const [desc, setDesc] = useState<string>(); // description entered in the textfield
+  const [retrievedDesc, setRetrievedDesc] = useState<string | null | undefined>(); // description retrieved + decrypted from IPFS
     return (
         <>
         <ContractfulHtmlHead />
@@ -76,6 +79,9 @@ const CreateHiringAgreement: NextPage = () => {
               maxRows={4}
               variant="outlined"
               fullWidth
+              onChange={(e) => {
+                setDesc(e.target.value);
+              }}
             />
           </Container>
   
@@ -200,6 +206,28 @@ const CreateHiringAgreement: NextPage = () => {
               startIcon={<BrushIcon />}
             >
               Create Hiring Agreement
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth
+              startIcon={<BrushIcon />}
+              onClick={() => {storeDesc(desc)}}
+            >
+              Store description
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth
+              startIcon={<BrushIcon />}
+              onClick={() => {
+                setRetrievedDesc(retrieveDesc()); // as an example - this can be displayed in a textfield etc
+              }}
+            >
+              Retrieve Description
             </Button>
           </Container>
         </main>
