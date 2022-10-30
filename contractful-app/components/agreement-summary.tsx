@@ -10,7 +10,7 @@ import NotInterestedIcon from '@mui/icons-material/NotInterested'
 
 import TrafficLight from 'react-trafficlight'
 
-const ContractfulAssignmentSummary = () => {
+const ContractfulAgreementSummary = () => {
     return (
         <>
             <Container maxWidth="md">
@@ -82,4 +82,4 @@ hourly rate: 140.00 DAI, payment every 2 weeks (with successful sprint review).
     )
 }
 
-export default ContractfulAssignmentSummary
+export default ContractfulAgreementSummary

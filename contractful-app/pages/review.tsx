@@ -12,7 +12,7 @@ import NotInterestedIcon from '@mui/icons-material/NotInterested'
 import ContractfulHeader from "../components/header"
 import ContractfulFooter from "../components/footer"
 import ContractfulHtmlHead from "../components/html-head"
-import ContractfulAssignmentSummary from "../components/agreement-summary"
+import ContractfulAgreementSummary from "../components/agreement-summary"
 
 import TrafficLight from 'react-trafficlight'
 
@@ -52,7 +52,7 @@ const ReviewHiringAgreement: NextPage = () => {
                 <Divider />
             </Container>
 
-            <ContractfulAssignmentSummary />
+            <ContractfulAgreementSummary />
 
             <Container maxWidth="sm">
             <div>

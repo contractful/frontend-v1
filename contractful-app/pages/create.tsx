@@ -1,238 +1,465 @@
-import type { NextPage } from "next";
-import { useState } from 'react';
-import { storeDesc, retrieveDesc } from '../hooks/useStoreIPFS';
-import {
-    CssBaseline, Container, Grid, Button, Divider, Link, Avatar, TextField, FormControl, InputLabel, MenuItem, Select
-} from "@mui/material";
+import type { NextPage } from "next"
 
-import {
-    AccountBalanceWallet, Brush
-} from "@material-ui/icons";
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+
+import { 
+    CssBaseline, Button, Container, Grid, Typography, Paper, FormControl, TextField,
+    Card, CardContent, RadioGroup, Radio, FormControlLabel,
+    Select, MenuItem, InputLabel, Divider, Stack
+} from "@mui/material"
+
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+
+import { styled } from '@mui/system'
 
 import WalletIcon from '@mui/icons-material/Wallet'
-import BrushIcon from '@mui/icons-material/Brush';
+import BrushIcon from '@mui/icons-material/Brush'
+import TocIcon from '@mui/icons-material/Toc'
+import Diversity3Icon from '@mui/icons-material/Diversity3'
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
 
-import ContractfulHeader from "../components/header"
 import ContractfulHtmlHead from "../components/html-head"
+import ContractfulHeader from "../components/header"
+import ContractfulFooter from "../components/footer"
+
+let dateEngagementStarts = new Date()
+
+const StepNumberCircle = styled('div')({
+    width: '8vh',
+    height: '8vh',
+    lineHeight: '8vh',
+    backgroundColor: '#1976d2',
+    borderRadius: '50%',
+    color: '#fff',
+    fontSize: 'xx-large',
+    textAlign: 'center',
+    verticalAlign: 'middle'
+})
 
 const CreateHiringAgreement: NextPage = () => {
-  const [desc, setDesc] = useState<string>(); // description entered in the textfield
-  const [retrievedDesc, setRetrievedDesc] = useState<string | null | undefined>(); // description retrieved + decrypted from IPFS
     return (
         <>
         <ContractfulHtmlHead />
-        <main>
-          <CssBaseline />
-          <ContractfulHeader />
-  
-          <Container maxWidth="md">
-            <Grid container>
-              <Grid item xs={1}>
-                <Avatar>JD</Avatar>
-              </Grid>
-              <Grid item xs>
-                <h1>👋 Welcome - connect your wallet to create a Hiring Agreement</h1>
-              </Grid>
-              <Grid item xs={4}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  startIcon={<WalletIcon />}
-                  fullWidth
-                >
-                  Connect Wallet
-                </Button>
-              </Grid>
+        <CssBaseline />
+        <ContractfulHeader />
+
+        <Container>
+            <Grid container pt={8}>
+                <Grid item xs={1}>
+                    <StepNumberCircle>
+                        1
+                    </StepNumberCircle>
+                </Grid>
+                <Grid item xs={7}>
+                    <Typography variant="h6">
+                        👋 Welcome
+                    </Typography>
+                    <Typography pt={1}>
+                        Please connect your Wallet to start creating a Hiring Agreement.
+                    </Typography>
+                </Grid>
+                <Grid item xs>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<WalletIcon />}
+                        fullWidth
+                        >
+                        Connect Wallet
+                    </Button>
+                </Grid>
             </Grid>
-  
-            <Divider></Divider>
-          </Container>
-  
-          <Container maxWidth="md">
-            <Grid container>
-              <Grid item xs>
-                <h2>Service provider:</h2>
-              </Grid>
-              <Grid item xs={8}>
-                0xjohndoedeveloper.eth
-              </Grid>
+        </Container>
+
+        <Container>
+            <Grid container pt={4}>
+                <Grid item xs={1}>
+                    <StepNumberCircle>
+                        2
+                    </StepNumberCircle>
+                </Grid>
+                <Grid item xs>
+                    <Typography variant="h6">
+                        📝 Contract
+                    </Typography>
+                    <Typography pt={1} pb={4}>
+                            Please fill in the details of the Hiring Agreement.
+                    </Typography>
+
+                    <Paper elevation={24}>
+
+                      <FormControl
+                        variant="standard"
+                      >
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <WalletIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <TextField
+                            id="input-service-provider-addr"
+                            label="Ethereum public address or ENS name of your service provider"
+                            variant="outlined"
+                            sx={{
+                              width: '80vh'
+                            }}
+                          />
+                        </Box>
+
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <TocIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <TextField
+                            id="contract-description"
+                            label="Detailed work and service deliverable description (plain text)"
+                            multiline
+                            rows={4}
+                            sx={{
+                              width: '80vh'
+                            }}
+                          />
+
+                        </Box>
+
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                          px={4}
+                          pt={4}
+                        >
+                          <Diversity3Icon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                          <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="longterm"
+                            name="radio-buttons-group"
+                          >
+                            <Card sx={{
+                                width: '80vh'
+                              }}
+                              variant="outlined"
+                            >
+                              <CardContent>
+                                <FormControlLabel
+                                  value="longterm"
+                                  control={<Radio />}
+                                  label="Long-term Agreement" 
+                                />
+                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                  The Hiring Agreement aims for a long-term collaboration relationship.
+                                </Typography>
+                                <Typography variant="body2">
+                                  <ul>
+                                    <li>
+                                      The arrangement is planned for several months (usually 1-3, up to 6 and even more months).
+                                    </li>
+                                    <li>
+                                      The project is organized in 2 weeks sprint iterations.
+                                    </li>
+                                    <li>
+                                      Payment will be handled correspondingly by the smart contract.
+                                    </li>
+                                  </ul>
+                                </Typography>
+                                
+                                <Divider />
+
+                                <Typography sx={{
+                                    my: 1.5
+                                  }}
+                                  color="text.secondary"
+                                >
+                                  Contractual details of the arrangement:
+                                </Typography>
+
+                                <Stack direction="row" sx={{
+                                    alignItems: 'flex-end'
+                                  }}
+                                >
+                                  <Typography sx={{
+                                      width:'30%'
+                                    }}
+                                    variant="body2"
+                                  >
+                                    Engagement period:
+                                  </Typography>
+                                  <TextField
+                                    id="input-engagement-period"
+                                    inputProps={{
+                                        inputMode: 'numeric',
+                                        pattern: '[0-9]*' 
+                                      }}
+                                    defaultValue="3"
+                                    label="Months"
+                                    variant="standard"
+                                  />
+                                </Stack>
+
+                                <Stack direction="row" sx={{
+                                    alignItems: 'flex-end'
+                                  }}
+                                  pt={4}
+                                >
+                                  <Typography sx={{
+                                      width: '30%'
+                                    }}
+                                    variant="body2"
+                                  >
+                                    Engagement begins on:
+                                  </Typography>
+                                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DesktopDatePicker
+                                      label="Date"
+                                      inputFormat="MM/DD/YYYY"
+                                      value={dateEngagementStarts}
+                                      onChange={() => {}}
+                                      renderInput={(params) =>
+                                        <TextField
+                                          {...params}
+                                          variant="standard"
+                                        />
+                                      }
+                                    />
+                                  </LocalizationProvider>
+                                </Stack>
+
+                                <Stack direction="row" sx={{
+                                    alignItems: 'flex-end'
+                                  }}
+                                  pt={4}
+                                >
+                                  <Typography sx={{
+                                      width:'30%'
+                                    }}
+                                    variant="body2"
+                                  >
+                                    Working hours:
+                                  </Typography>
+
+                                  <FormControl sx={{ width: '50%' }}>
+                                    <InputLabel id="label-select-commitment">
+                                      Commitment
+                                    </InputLabel>
+                                    <Select
+                                      labelId="label-select-commitment"
+                                      id="select-commitment"
+                                      label="Commitment"
+                                      variant="standard"
+                                      defaultValue={40}
+                                    >
+                                      <MenuItem value={40}>
+                                        Full-time: 40 hours per week
+                                      </MenuItem>
+                                      <MenuItem value={20}>
+                                        Part-time: 20 hours per week
+                                      </MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                </Stack>
+                              </CardContent>
+                            </Card>
+
+                            <Card sx={{
+                                width: '80vh',
+                                mt: 1
+                              }}
+                              variant="outlined"                              
+                            >
+                              <CardContent>
+                                <FormControlLabel
+                                  value="shortterm"
+                                  control={<Radio />}
+                                  label="Short-term Agreement" 
+                                />
+                              </CardContent>
+                            </Card>
+                          </RadioGroup>
+                        </Box>
+
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                          p={4}
+                        >
+                          <RequestQuoteIcon sx={{
+                              color: 'action.active',
+                              mr: 1,
+                              my: 0.5
+                            }}
+                          />
+                            <Card sx={{
+                                width: '80vh'
+                              }}
+                              variant="outlined"
+                            >
+                              <CardContent>
+
+                                <Typography sx={{
+                                      my: 1.5
+                                    }}
+                                    color="text.secondary"
+                                >
+                                  Financial details of the Hiring Agreement:
+                                </Typography>
+
+                                <Stack direction="row" sx={{
+                                    alignItems: 'flex-end'
+                                  }}
+                                >
+                                  <Typography sx={{
+                                      width:'30%'
+                                    }}
+                                    variant="body2"
+                                  >
+                                    Compensation:
+                                  </Typography>
+
+                                  <TextField
+                                    id="input-service-provider-addr"
+                                    label="Hourly rate"
+                                    variant="standard"
+                                    sx={{
+                                      width: '15vh'
+                                    }}
+                                  />
+                                  <Typography pl={4}>
+                                    US$ (in DAI)
+                                  </Typography>
+                                </Stack>
+
+                                <Stack direction="row" sx={{
+                                    alignItems: 'flex-end'
+                                  }}
+                                  py={4}
+                                >
+                                  <Typography sx={{
+                                      width:'30%'
+                                    }}
+                                    variant="body2"
+                                  >
+                                    Payment terms:
+                                  </Typography>
+
+                                  <FormControl sx={{ width: '70%' }}>
+                                    <InputLabel id="label-select-commitment">
+                                      Terms
+                                    </InputLabel>
+                                    <Select
+                                      labelId="label-select-commitment"
+                                      id="select-commitment"
+                                      label="Commitment"
+                                      variant="standard"
+                                      defaultValue={0}
+                                    >
+                                      <MenuItem value={0}>
+                                        Payment every 2 weeks (after successful sprint review)
+                                      </MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                </Stack>
+
+                                <Divider />
+                                  
+                                <Stack direction="row" sx={{
+                                    alignItems: 'flex-end'
+                                  }}
+                                  pt={4}
+                                >
+                                  <Typography sx={{
+                                      width:'30%'
+                                    }}
+                                    variant="body2"
+                                  >
+                                    Resulting contract budget:
+                                  </Typography>
+
+                                  <TextField
+                                    id="input-service-provider-addr"
+                                    label="Budget"
+                                    inputProps={{
+                                      readOnly: true
+                                    }}
+                                    defaultValue={12345.67}
+                                    variant="standard"
+                                    sx={{
+                                      width: '15vh'
+                                    }}
+                                  />
+                                  <Typography pl={4}>
+                                    DAI
+                                  </Typography>
+                                </Stack>
+                              </CardContent>
+                            </Card>
+                        </Box>
+                      </FormControl>
+                    </Paper>
+                </Grid>
             </Grid>
-            <Grid container>
-              <Grid item xs>
-                <h2>Client:</h2>
-              </Grid>
-              <Grid item xs={8}>
-                <Link href="#">Please connect your wallet</Link>
-              </Grid>
+        </Container>
+
+        <Container>
+            <Grid container pt={4}>
+                <Grid item xs={1}>
+                    <StepNumberCircle>
+                        3
+                    </StepNumberCircle>
+                </Grid>
+                <Grid item xs={2}></Grid>
+                <Grid item xs>
+                    <Typography py={1} sx={{
+                        textAlign: 'center'
+                    }}>
+                        Please review your contract carefully.<br />If all details are correct, please proceed to sign the Agreement.
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<BrushIcon />}
+                        fullWidth
+                        >
+                        Sign Agreement
+                    </Button>
+                </Grid>
+                <Grid item xs={3}></Grid>
             </Grid>
-  
-            <Divider></Divider>
-          </Container>
-  
-          <Container maxWidth="md">
-            <h1>Contracting details (assignment description):</h1>
-            <TextField
-              placeholder="Please type in the detailed assignment description ..."
-              multiline
-              minRows={2}
-              maxRows={4}
-              variant="outlined"
-              fullWidth
-              onChange={(e) => {
-                setDesc(e.target.value);
-              }}
-            />
-          </Container>
-  
-          <Container maxWidth="md">
-            <h2>Terms:</h2>
-            <Grid container>
-              <Grid item xs>
-                <h3>Engagement:</h3>
-              </Grid>
-              <Grid item xs={4}>
-                <FormControl fullWidth>
-                  <InputLabel id="engagement-length-select-label">
-                    Length of engagement
-                  </InputLabel>
-                  <Select
-                    labelId="engagement-length-select-label"
-                    id="engagement-length-select"
-                    label="Length of engagement"
-                  >
-                    <MenuItem value={1}>1 month</MenuItem>
-                    <MenuItem value={2}>2 months</MenuItem>
-                    <MenuItem value={3}>3 months</MenuItem>
-                    <MenuItem value={4}>4 months</MenuItem>
-                    <MenuItem value={5}>5 months</MenuItem>
-                    <MenuItem value={6}>6 months</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-  
-              <Grid item xs={4}>
-                <FormControl fullWidth>
-                  <InputLabel id="engagement-begins-select-label">
-                    Engagement begins
-                  </InputLabel>
-                  <Select
-                    labelId="engagement-begins-select-label"
-                    id="engagement-begins-select"
-                    label="Engagement begins"
-                  >
-                    <MenuItem value={0}>Tue, 10-18-2022</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Container>
-  
-          <Container maxWidth="md">
-            <Grid container>
-              <Grid item xs>
-                <h3>Type:</h3>
-              </Grid>
-              <Grid item xs={8}>
-                <FormControl fullWidth>
-                  <InputLabel id="engagement-type-select-label">
-                    Type of engagement
-                  </InputLabel>
-                  <Select
-                    labelId="engagement-type-select-label"
-                    id="engagement-type-select"
-                    label="Type of engagement"
-                  >
-                    <MenuItem value={40}>Full-time (40 hrs / week)</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Container>
-  
-          <Container maxWidth="md">
-            <Grid container>
-              <Grid item xs>
-                <h3>Hourly rate:</h3>
-              </Grid>
-              <Grid item xs={8}>
-                $140.00 (payable in DAI or ETH)
-              </Grid>
-            </Grid>
-          </Container>
-  
-          <Container maxWidth="md">
-            <Grid container>
-              <Grid item xs>
-                <h3>Payment:</h3>
-              </Grid>
-              <Grid item xs={8}>
-                <FormControl fullWidth>
-                  <InputLabel id="payment-select-label">Payment terms</InputLabel>
-                  <Select
-                    labelId="payment-select-label"
-                    id="payment-select"
-                    label="Payment terms"
-                  >
-                    <MenuItem value={2}>
-                      2 weeks (with successful sprint review)
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Container>
-  
-          <Container maxWidth="md">
-            <Grid container>
-              <Grid item xs>
-                <h3>Budget 1st cycle:</h3>
-              </Grid>
-              <Grid item xs={8}>
-                15,680.00 DAI (12.2 ETH)
-              </Grid>
-            </Grid>
-          </Container>
-  
-          <Container maxWidth="sm">
-            <div>
-                ℹ️ Your Hiring Agreement is complete. Please proceed creating the Hiring Agreement for 0xjohndoedeveloper.eth to review.
-            </div>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth
-              startIcon={<BrushIcon />}
-            >
-              Create Hiring Agreement
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth
-              startIcon={<BrushIcon />}
-              onClick={() => {storeDesc(desc)}}
-            >
-              Store description
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth
-              startIcon={<BrushIcon />}
-              onClick={() => {
-                setRetrievedDesc(retrieveDesc()); // as an example - this can be displayed in a textfield etc
-              }}
-            >
-              Retrieve Description
-            </Button>
-          </Container>
-        </main>
-      </>
-      )
+        </Container>
+
+        <ContractfulFooter />
+        </>
+    )
 }
 
-export default CreateHiringAgreement
+export default CreateHiringAgreement;
