@@ -1,22 +1,14 @@
 import type { NextPage } from "next"
 
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
-
 import { 
     CssBaseline, Button, Container, Grid, Typography, Paper, FormControl, TextField,
     Card, CardContent, RadioGroup, Radio, FormControlLabel,
-    Select, MenuItem, InputLabel, Divider, Stack
+    Select, MenuItem, InputLabel, Divider, Stack, Box
 } from "@mui/material"
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
-
-import { styled } from '@mui/system'
 
 import WalletIcon from '@mui/icons-material/Wallet'
 import BrushIcon from '@mui/icons-material/Brush'
@@ -27,20 +19,9 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
 import ContractfulHtmlHead from "../components/html-head"
 import ContractfulHeader from "../components/header"
 import ContractfulFooter from "../components/footer"
+import StepNumberCircle from "../components/step-number-circle"
 
 let dateEngagementStarts = new Date()
-
-const StepNumberCircle = styled('div')({
-    width: '8vh',
-    height: '8vh',
-    lineHeight: '8vh',
-    backgroundColor: '#1976d2',
-    borderRadius: '50%',
-    color: '#fff',
-    fontSize: 'xx-large',
-    textAlign: 'center',
-    verticalAlign: 'middle'
-})
 
 const CreateHiringAgreement: NextPage = () => {
     return (

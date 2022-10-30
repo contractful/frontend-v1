@@ -14,8 +14,6 @@ import ContractfulFooter from "../components/footer"
 import ContractfulHtmlHead from "../components/html-head"
 import ContractfulAgreementSummary from "../components/agreement-summary"
 
-import TrafficLight from 'react-trafficlight'
-
 const ReviewHiringAgreement: NextPage = () => {
     const router = useRouter()
     const useCase = ("useCase" in router.query) ? 

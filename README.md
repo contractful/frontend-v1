@@ -20,6 +20,7 @@ npm install --legacy-peer-deps tailwindcss@latest
 npm install --legacy-peer-deps mui@latest
 npm uninstall --legacy-peer-deps tailwindcss@latest
 npm uninstall --legacy-peer-deps material-ui
+npm uninstall --legacy-peer-deps react-trafficlight
 
 npm install --legacy-peer-deps @mui/material @emotion/react @emotion/styled
 npm install --legacy-peer-deps @mui/icons-material
