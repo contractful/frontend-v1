@@ -2,7 +2,7 @@ import type { NextPage } from "next"
 import { useRouter } from 'next/router'
 
 import { 
-    CssBaseline, Container, Grid, Typography, Button, Paper, Stack
+    CssBaseline, Container, Grid, Typography, Button, Stack, Divider
 } from "@mui/material"
 
 import WalletIcon from '@mui/icons-material/Wallet'
@@ -26,7 +26,7 @@ const ReviewHiringAgreement: NextPage = () => {
 
     const agreementData = {
       clientAddr: '0xF8215235b9526E22b3452e17b83Ae31B15357980',
-      descriptionTxt: 'TODO description from IPFS ...',
+      descriptionTxt: 'TODO description from IPFS ...\nFirst\nSecond\nThird\nFourth\Fifth\nSixth\nSeventh Sentence ...',
       engagementMonths: 3,
 //      engagementStartDate: new Date(),
       engagementStartDate: 'TODO',
@@ -35,6 +35,8 @@ const ReviewHiringAgreement: NextPage = () => {
       paymentTerms: 'TODO paymentTerms',
       resultingBudget: 11200.00
     }
+
+    const nowTime = new Date()
 
     return (
         <>
@@ -84,7 +86,9 @@ const ReviewHiringAgreement: NextPage = () => {
                         <Typography variant="h6">
                             📝 Contract
                         </Typography>
-                        <Stack direction="row" pt={1}>
+                        <Stack direction="row" pt={1} sx={{
+                          width:'100%'
+                        }}>
                             <TrafficLight
                                 RedOn
                                 Horizontal="false"
@@ -102,6 +106,7 @@ const ReviewHiringAgreement: NextPage = () => {
                             >
                                 ACTION NEEDED
                             </Typography>
+                            
                             <ul style={{
                                 margin: '0',
                                 padding: '0',
@@ -111,6 +116,18 @@ const ReviewHiringAgreement: NextPage = () => {
                               <li>✅ Funds have been committed to this Hiring Agreement.</li>
                               <li>❌ You have not consented to the Hiring Agreement yet.</li>
                             </ul>
+
+                            <Divider orientation="vertical" flexItem sx={{
+                                ml:4,
+                                mr:4
+                              }}
+                            />
+
+                            <Stack>
+                                <Typography>🗓️ {nowTime.getUTCDay()}. {nowTime.toLocaleString('en-EN', { timeZone: 'UTC', month: 'long' })} {nowTime.getUTCFullYear()}</Typography>
+                                <Typography>🕘 {String(nowTime.getUTCHours()).padStart(2, '0')}:{String(nowTime.getUTCMinutes()).padStart(2, '0')} (UTC)</Typography>
+                            </Stack>
+
                         </Stack>
                         <Typography pt={1} pb={4}>
                             Please review all details of your Hiring Agreement carefully.

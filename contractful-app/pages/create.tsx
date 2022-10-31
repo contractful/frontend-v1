@@ -24,6 +24,9 @@ import StepNumberCircle from "../components/step-number-circle"
 let dateEngagementStarts = new Date()
 
 const CreateHiringAgreement: NextPage = () => {
+
+    const DEFAULT_PAYMENT_TERMS = (14*24*60*60)
+
     return (
         <>
         <ContractfulHtmlHead />
@@ -67,11 +70,12 @@ const CreateHiringAgreement: NextPage = () => {
                     </StepNumberCircle>
                 </Grid>
                 <Grid item xs>
+
                     <Typography variant="h6">
                         📝 Contract
                     </Typography>
                     <Typography pt={1} pb={4}>
-                            Please fill in the details of the Hiring Agreement.
+                        Please fill in the details of the Hiring Agreement.
                     </Typography>
 
                     <Paper elevation={24}>
@@ -361,9 +365,9 @@ const CreateHiringAgreement: NextPage = () => {
                                       id="select-commitment"
                                       label="Commitment"
                                       variant="standard"
-                                      defaultValue={0}
+                                      defaultValue={DEFAULT_PAYMENT_TERMS}
                                     >
-                                      <MenuItem value={(14*24*60*60)}>
+                                      <MenuItem value={DEFAULT_PAYMENT_TERMS}>
                                         Payment every 2 weeks (after successful sprint review)
                                       </MenuItem>
                                     </Select>

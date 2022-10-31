@@ -1,5 +1,5 @@
 import {
-    Paper, Grid, Container, Divider, Box, Typography, Stack, TextField, Card, CardContent
+    Paper, Box, Typography, Stack, TextField, Card, CardContent, Divider
 } from "@mui/material";
 
 import WalletIcon from '@mui/icons-material/Wallet'
@@ -16,7 +16,7 @@ const ContractfulAgreementSummary = (props) => {
     return (
         <>
         <Paper elevation={24}>
-
+            
             <Box sx={{
                     display: 'flex',
                     alignItems: 'center'
@@ -30,17 +30,25 @@ const ContractfulAgreementSummary = (props) => {
                     my: 0.5
                 }}
                 />
-                <Stack sx={{
-                        variant:"outlined"
+                <Card sx={{
+                    width: '80vh'
                     }}
+                    variant="outlined"
                 >
-                    <Typography variant="body2">
-                        Public Ethereum address of the client that has created this Hiring Agreement:
-                    </Typography>
-                    <Typography variant="h6">
-                        {data['clientAddr']}
-                    </Typography>
-                </Stack>
+                    <CardContent>
+                    <Stack sx={{
+                            variant:"outlined"
+                        }}
+                    >
+                        <Typography variant="body2">
+                            Public Ethereum address of your client that has created this Hiring Agreement:
+                        </Typography>
+                        <Typography variant="h6" pt={1}>
+                            {data['clientAddr']}
+                        </Typography>
+                    </Stack>
+                    </CardContent>
+                </Card>
             </Box>
 
             <Box sx={{
@@ -56,25 +64,41 @@ const ContractfulAgreementSummary = (props) => {
                     my: 0.5
                     }}
                 />
-                <Stack sx={{
-                        variant:"outlined"
+
+
+                <Card sx={{
+                    width: '80vh'
                     }}
+                    variant="outlined"
                 >
-                    <Typography variant="body2">
+                    <CardContent>
+
+                    <Typography sx={{
+                            my: 1.5
+                        }}
+                        color="text.secondary"
+                    >
                         Detailed description of work and service deliverables:
                     </Typography>
 
-                    <TextField
-                        multiline
-                        readonly
-                        value={data['descriptionTxt']}
-                        rows={4}
-                        sx={{
-                            width: '80vh'
+                    <Divider />
+                    
+                    <Typography variant="body1" sx={{
+                            minHeight: '15vh',
+                            maxHeight: '15vh',
+                            overflow: 'auto',
+                            whiteSpace: 'pre-line',
+                            backgroundColor: 'rgba(0, 0, 0, 0.04)'
                         }}
-                    />
-                </Stack>
+                        pt={2}
+                    >
+                        {data['descriptionTxt']}
+                    </Typography>
+
+                    </CardContent>
+                </Card>
             </Box>
+
 
             <Box sx={{
                     display: 'flex',
@@ -89,30 +113,62 @@ const ContractfulAgreementSummary = (props) => {
                     my: 0.5
                     }}
                 />
-                <Stack sx={{
-                        variant:"outlined"
+
+                <Card sx={{
+                    width: '80vh'
                     }}
+                    variant="outlined"
                 >
-                    <Typography variant="body2">
-                        Long-term Hiring Agreement - collaboration:
+                    <CardContent>
+
+                    <Typography sx={{
+                            my: 1.5
+                        }}
+                        color="text.secondary"
+                    >
+                        Long-term Hiring Agreement - collaboration model:
                     </Typography>
 
-                    <Typography variant="h6">
-                        <ul style={{
-                                margin: '0'
+                    <Divider />
+
+                    <Stack direction="row" pt={2}>
+                        <Typography variant="body2" sx={{
+                                width:'20vh',
+                                display: 'flex',
+                                alignItems: 'center'
                             }}
                         >
-                            <li>Engagement period: {data['engagementMonths']} months</li>
-                            <li>Engagement begins on: {data['engagementStartDate']}</li>
-                            <li>{data['workingCommitment']}</li>
-                        </ul>
+                            Engagement period:
+                        </Typography>
+                        <Typography variant="h6">
+                            {data['engagementMonths']} months
+                        </Typography>
+                    </Stack>
+
+                    <Stack direction="row" pt={1}>
+                        <Typography variant="body2" sx={{
+                                width:'20vh',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
+                            Engagement begins on:
+                        </Typography>
+                        <Typography variant="h6">
+                            {data['engagementStartDate']}
+                        </Typography>
+                    </Stack>
+
+                    <Typography variant="h6" pt={1}>
+                        {data['workingCommitment']}
                     </Typography>
-                </Stack>
+                </CardContent>
+                </Card>
             </Box>
 
             <Box sx={{
-                display: 'flex',
-                alignItems: 'center'
+                    display: 'flex',
+                    alignItems: 'center'
                 }}
                 p={4}
             >
@@ -137,24 +193,53 @@ const ContractfulAgreementSummary = (props) => {
                         Financial details of the Hiring Agreement:
                     </Typography>
 
-                    <Typography variant="h6">
-                        <ul style={{
-                                margin: '0'
+                    <Divider />
+
+                    <Stack direction="row" pt={2}>
+                        <Typography variant="body2" sx={{
+                                width:'20vh',
+                                display: 'flex',
+                                alignItems: 'center'
                             }}
                         >
-                            <li>Hourly rate: {data['hourlyRate']} US$ (paid in DAI)</li>
-                            <li>{data['paymentTerms']}</li>
-                            <li>Budget: {data['resultingBudget']} DAI</li>
-                        </ul>
-                    </Typography>
+                            Hourly rate:
+                        </Typography>
+                        <Typography variant="h6">
+                            {data['hourlyRate']} US$ (paid in DAI)
+                        </Typography>
+                    </Stack>
 
+                    <Stack direction="row" pt={1}>
+                        <Typography variant="body2" sx={{
+                                width:'20vh',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
+                            Payment terms:
+                        </Typography>
+                        <Typography variant="h6">
+                            {data['paymentTerms']}
+                        </Typography>
+                    </Stack>
+
+                    <Stack direction="row" pt={1}>
+                        <Typography variant="body2" sx={{
+                                width:'20vh',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
+                            Budget:
+                        </Typography>
+                        <Typography variant="h6">
+                            {data['resultingBudget']} DAI
+                        </Typography>
+                    </Stack>
                     </CardContent>
                 </Card>
             </Box>
         </Paper>
-
-        <span>🗓️ 1st November 2022</span>
-        <span>🕘 14:00 (GMT+2)</span>
         </>
     )
 }
