@@ -36,8 +36,6 @@ const ReviewHiringAgreement: NextPage = () => {
       resultingBudget: 11200.00
     }
 
-    const nowTime = new Date()
-
     return (
         <>
             <ContractfulHtmlHead />
@@ -116,17 +114,6 @@ const ReviewHiringAgreement: NextPage = () => {
                               <li>✅ Funds have been committed to this Hiring Agreement.</li>
                               <li>❌ You have not consented to the Hiring Agreement yet.</li>
                             </ul>
-
-                            <Divider orientation="vertical" flexItem sx={{
-                                ml:4,
-                                mr:4
-                              }}
-                            />
-
-                            <Stack>
-                                <Typography>🗓️ {nowTime.getUTCDay()}. {nowTime.toLocaleString('en-EN', { timeZone: 'UTC', month: 'long' })} {nowTime.getUTCFullYear()}</Typography>
-                                <Typography>🕘 {String(nowTime.getUTCHours()).padStart(2, '0')}:{String(nowTime.getUTCMinutes()).padStart(2, '0')} (UTC)</Typography>
-                            </Stack>
 
                         </Stack>
                         <Typography pt={1} pb={4}>
