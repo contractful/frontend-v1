@@ -363,7 +363,7 @@ const CreateHiringAgreement: NextPage = () => {
                                       variant="standard"
                                       defaultValue={0}
                                     >
-                                      <MenuItem value={0}>
+                                      <MenuItem value={(14*24*60*60)}>
                                         Payment every 2 weeks (after successful sprint review)
                                       </MenuItem>
                                     </Select>

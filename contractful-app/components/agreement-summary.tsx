@@ -1,84 +1,160 @@
-import type { NextPage } from "next"
-
 import {
-    CssBaseline, Grid, Button, Container, Divider
+    Paper, Grid, Container, Divider, Box, Typography, Stack, TextField, Card, CardContent
 } from "@mui/material";
 
 import WalletIcon from '@mui/icons-material/Wallet'
-import BrushIcon from '@mui/icons-material/Brush'
-import NotInterestedIcon from '@mui/icons-material/NotInterested'
+import TocIcon from '@mui/icons-material/Toc'
+import Diversity3Icon from '@mui/icons-material/Diversity3'
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
 
 import TrafficLight from './TrafficLight'
 
-const ContractfulAgreementSummary = () => {
+const ContractfulAgreementSummary = (props) => {
+
+    const { data } = props
+
     return (
         <>
-            <Container maxWidth="md">
-                <Grid container>
-                    <Grid item xs>
-                        <h2>Hiring Agreement with 0xdavid_dao.eth</h2>
-                    </Grid>
-                    <Grid item xs>
-                        <span>🗓️ 1st November 2022</span>
-                        <span>🕘 14:00 (GMT+2)</span>
-                    </Grid>
-                </Grid>
-            </Container>
+        <Paper elevation={24}>
 
-            <Container maxWidth="md">
-                <h1>Engagement summary:</h1>
-                <Grid container>
-                    <Grid item xs={2}>
-                        <h2>Status:</h2>
-                    </Grid>
-                    <Grid item xs={1}>
-                        {/*<TrafficLight YellowOn />*/}
-                        <TrafficLight RedOn />
-                    </Grid>
-                    <Grid item xs={1}>
-                        <span
-                            style={{
-                                backgroundColor: '#F8E71C',
-                                fontSize: 'large'
+            <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}
+                px={4}
+                pt={4}
+            >
+                <WalletIcon sx={{
+                    color: 'action.active',
+                    mr: 1,
+                    my: 0.5
+                }}
+                />
+                <Stack sx={{
+                        variant:"outlined"
+                    }}
+                >
+                    <Typography variant="body2">
+                        Public Ethereum address of the client that has created this Hiring Agreement:
+                    </Typography>
+                    <Typography variant="h6">
+                        {data['clientAddr']}
+                    </Typography>
+                </Stack>
+            </Box>
+
+            <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}
+                px={4}
+                pt={4}
+            >
+                <TocIcon sx={{
+                    color: 'action.active',
+                    mr: 1,
+                    my: 0.5
+                    }}
+                />
+                <Stack sx={{
+                        variant:"outlined"
+                    }}
+                >
+                    <Typography variant="body2">
+                        Detailed description of work and service deliverables:
+                    </Typography>
+
+                    <TextField
+                        multiline
+                        readonly
+                        value={data['descriptionTxt']}
+                        rows={4}
+                        sx={{
+                            width: '80vh'
+                        }}
+                    />
+                </Stack>
+            </Box>
+
+            <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}
+                px={4}
+                pt={4}
+            >
+                <Diversity3Icon sx={{
+                    color: 'action.active',
+                    mr: 1,
+                    my: 0.5
+                    }}
+                />
+                <Stack sx={{
+                        variant:"outlined"
+                    }}
+                >
+                    <Typography variant="body2">
+                        Long-term Hiring Agreement - collaboration:
+                    </Typography>
+
+                    <Typography variant="h6">
+                        <ul style={{
+                                margin: '0'
                             }}
                         >
-                            TAKE<br />ACTION
-                        </span>
-                    </Grid>
-                    <Grid item xs>
-                        <ul>
-                            <li>✅ Funds have been committed to this Hiring Agreement by 0xdavid_dao.eth.</li>
-                            <li>❌ You have not consented with the Hiring Agreement yet.</li>
+                            <li>Engagement period: {data['engagementMonths']} months</li>
+                            <li>Engagement begins on: {data['engagementStartDate']}</li>
+                            <li>{data['workingCommitment']}</li>
                         </ul>
-                    </Grid>
-                </Grid>
+                    </Typography>
+                </Stack>
+            </Box>
 
-                <Grid container>
-                    <Grid item xs={2}>
-                        <h2>Description<br />and terms:</h2>
-                    </Grid>
-                    <Grid item xs>
-                        <p>
-                            $DESCRIPTION_TEXT
-                        </p>
-                        <p>
-                            3 months engagement, beginning 18th Oct 2022, Full time (40 hrs / week),
-hourly rate: 140.00 DAI, payment every 2 weeks (with successful sprint review).
-                        </p>
-                    </Grid>
-                </Grid>
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center'
+                }}
+                p={4}
+            >
+                <RequestQuoteIcon sx={{
+                    color: 'action.active',
+                    mr: 1,
+                    my: 0.5
+                }}
+                />
+                <Card sx={{
+                    width: '80vh'
+                    }}
+                    variant="outlined"
+                >
+                    <CardContent>
 
-                <Grid container>
-                    <Grid item xs={2}>
-                        <h2>Budget:</h2>
-                    </Grid>
-                    <Grid item xs>
-                        15,680.00 DAI (12.2 ETH)
-                    </Grid>
-                </Grid>
+                    <Typography sx={{
+                            my: 1.5
+                        }}
+                        color="text.secondary"
+                    >
+                        Financial details of the Hiring Agreement:
+                    </Typography>
 
-                <Divider />
-            </Container>
+                    <Typography variant="h6">
+                        <ul style={{
+                                margin: '0'
+                            }}
+                        >
+                            <li>Hourly rate: {data['hourlyRate']} US$ (paid in DAI)</li>
+                            <li>{data['paymentTerms']}</li>
+                            <li>Budget: {data['resultingBudget']} DAI</li>
+                        </ul>
+                    </Typography>
+
+                    </CardContent>
+                </Card>
+            </Box>
+        </Paper>
+
+        <span>🗓️ 1st November 2022</span>
+        <span>🕘 14:00 (GMT+2)</span>
         </>
     )
 }
