@@ -1,5 +1,11 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
+import {
+  Button, Avatar
+} from '@mui/material'
+
+import WalletIcon from '@mui/icons-material/Wallet'
+
 export const ConnectWalletButton = () => {
   return (
     <ConnectButton.Custom>
@@ -28,57 +34,55 @@ export const ConnectWalletButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button onClick={openConnectModal} type="button">
-                    Connect Wallet
-                  </button>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    startIcon={<WalletIcon />}
+                    fullWidth
+                    color="inherit"
+                    onClick={openConnectModal}
+                  >
+                      Connect Wallet
+                  </Button>
                 );
               }
 
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button">
-                    Wrong network
-                  </button>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    startIcon={<WalletIcon />}
+                    fullWidth
+                    color="inherit"
+                    onClick={openChainModal}
+                  >
+                      Wrong network
+                  </Button>
                 );
               }
 
               return (
-                <div style={{ display: "flex", gap: 12 }}>
-                  <button
-                    onClick={openChainModal}
-                    style={{ display: "flex", alignItems: "center" }}
-                    type="button"
-                  >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 12,
-                          height: 12,
-                          borderRadius: 999,
-                          overflow: "hidden",
-                          marginRight: 4,
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          <img
-                            alt={chain.name ?? "Chain icon"}
-                            src={chain.iconUrl}
-                            style={{ width: 12, height: 12 }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    {chain.name}
-                  </button>
-
-                  <button onClick={openAccountModal} type="button">
-                    {account.displayName}
-                    {account.displayBalance
-                      ? ` (${account.displayBalance})`
-                      : ""}
-                  </button>
-                </div>
+                <>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  startIcon={chain.hasIcon && (
+                    <Avatar
+                      src={chain.iconUrl} 
+                      sx={{ 
+                        width: 24,
+                        height: 24 
+                      }}
+                    />
+                  )}
+                  fullWidth
+                  color="inherit"
+                  onClick={openAccountModal}
+                >
+                    Connected ({chain.name})
+                </Button>
+              </>
               );
             })()}
           </div>

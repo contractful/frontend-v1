@@ -4,18 +4,21 @@ import * as React from 'react';
 
 import { 
     CssBaseline, Container, Grid, Typography, Button, Stack, Divider,
-    Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
+    Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+    Chip
 } from "@mui/material"
+
+import { useAccount } from 'wagmi'
 
 import WalletIcon from '@mui/icons-material/Wallet'
 import BrushIcon from '@mui/icons-material/Brush'
 import NotInterested from "@mui/icons-material/NotInterested"
 
-import ContractfulHtmlHead from "../components/html-head"
-import ContractfulHeader from "../components/header"
-import ContractfulFooter from "../components/footer"
-import StepNumberCircle from "../components/step-number-circle"
-import ContractfulAgreementSummary from "../components/agreement-summary"
+import ContractfulHtmlHead from "../components/HtmlHead"
+import ContractfulHeader from "../components/Header"
+import ContractfulFooter from "../components/Footer"
+import StepNumberCircle from "../components/StepNumberCircle"
+import ContractfulAgreementSummary from "../components/AgreementSummary"
 
 import TrafficLight from "../components/TrafficLight"
 
@@ -50,6 +53,9 @@ const ReviewHiringAgreement: NextPage = () => {
       setConfirmOpen(data)
     }
 
+    const { address } = useAccount()
+    const userPublicAddr = (address !== undefined) ? address : "Not provided"
+
     return (
         <>
             <ContractfulHtmlHead />
@@ -65,24 +71,21 @@ const ReviewHiringAgreement: NextPage = () => {
                             1
                         </StepNumberCircle>
                     </Grid>
-                    <Grid item xs={7}>
-                        <Typography variant="h6">
-                            👋 Welcome
-                        </Typography>
-                        <Typography pt={1}>
-                            Please connect your Wallet to review the Hiring Agreement that has been created for you.
-                        </Typography>
-                    </Grid>
                     <Grid item xs>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            startIcon={<WalletIcon />}
-                            fullWidth
-                            >
-                            Connect Wallet
-                        </Button>
+                        <Stack direction="row">
+                            <Typography variant="h6">
+                                👋 Welcome
+                            </Typography>
+                            <Chip label={userPublicAddr} variant="outlined" sx={{
+                                ml:2
+                                }}
+                            />
+                        </Stack>
+                        <Typography pt={1}>
+                        {(address !== undefined) ? 
+                          "Wallet connected. Please proceed with the creating a Hiring Agreement."
+                          : "Please connect your Wallet to start creating a Hiring Agreement."}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Container>
@@ -102,15 +105,15 @@ const ReviewHiringAgreement: NextPage = () => {
                           width:'100%'
                         }}>
                             <TrafficLight
-                                YellowOn
-                                Horizontal="false"
+                                RedOn
+                                Horizontal={true}
                             />
                             <Typography
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    backgroundColor: '#F8E71C',
-                                    color: '#000'
+                                    backgroundColor: '#D0021B',
+                                    color: '#fff'
                                 }}
                                 mx={4}
                                 px={2}

@@ -2,9 +2,11 @@ import type { NextPage } from "next"
 
 import { 
     CssBaseline, Button, Container, Grid, Typography, Paper, FormControl, TextField,
-    Card, CardContent, RadioGroup, Radio, FormControlLabel,
+    Card, CardContent, RadioGroup, Radio, FormControlLabel, Chip,
     Select, MenuItem, InputLabel, Divider, Stack, Box
 } from "@mui/material"
+
+import { useAccount } from 'wagmi'
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -16,16 +18,19 @@ import TocIcon from '@mui/icons-material/Toc'
 import Diversity3Icon from '@mui/icons-material/Diversity3'
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
 
-import ContractfulHtmlHead from "../components/html-head"
-import ContractfulHeader from "../components/header"
-import ContractfulFooter from "../components/footer"
-import StepNumberCircle from "../components/step-number-circle"
+import ContractfulHtmlHead from "../components/HtmlHead"
+import ContractfulHeader from "../components/Header"
+import ContractfulFooter from "../components/Footer"
+import StepNumberCircle from "../components/StepNumberCircle"
 
 let dateEngagementStarts = new Date()
 
 const CreateHiringAgreement: NextPage = () => {
 
-    const DEFAULT_PAYMENT_TERMS = (14*24*60*60)
+    const PAYMENT_TERMS_2WEEKS = (14*24*60*60)
+
+    const { address } = useAccount()
+    const userPublicAddr = (address !== undefined) ? address : "Unknown user"
 
     return (
         <>
@@ -40,24 +45,21 @@ const CreateHiringAgreement: NextPage = () => {
                         1
                     </StepNumberCircle>
                 </Grid>
-                <Grid item xs={7}>
-                    <Typography variant="h6">
-                        👋 Welcome
-                    </Typography>
-                    <Typography pt={1}>
-                        Please connect your Wallet to start creating a Hiring Agreement.
-                    </Typography>
-                </Grid>
                 <Grid item xs>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        startIcon={<WalletIcon />}
-                        fullWidth
-                        >
-                        Connect Wallet
-                    </Button>
+                    <Stack direction="row">
+                      <Typography variant="h6">
+                          👋 Welcome
+                      </Typography>
+                      <Chip label={userPublicAddr} variant="outlined" sx={{
+                          ml:2
+                        }}
+                      />
+                    </Stack>
+                    <Typography pt={1}>
+                        {(address !== undefined) ? 
+                          "Wallet connected. Please proceed with the creating a Hiring Agreement."
+                          : "Please connect your Wallet to start creating a Hiring Agreement."}
+                    </Typography>
                 </Grid>
             </Grid>
         </Container>
@@ -365,9 +367,12 @@ const CreateHiringAgreement: NextPage = () => {
                                       id="select-commitment"
                                       label="Commitment"
                                       variant="standard"
-                                      defaultValue={DEFAULT_PAYMENT_TERMS}
+                                      defaultValue={1*60}
                                     >
-                                      <MenuItem value={DEFAULT_PAYMENT_TERMS}>
+                                      <MenuItem value={1*60}>
+                                        Payment in 14 minutes representing 2 weeks (TESTING ONLY)
+                                      </MenuItem>
+                                      <MenuItem value={PAYMENT_TERMS_2WEEKS}>
                                         Payment every 2 weeks (after successful sprint review)
                                       </MenuItem>
                                     </Select>

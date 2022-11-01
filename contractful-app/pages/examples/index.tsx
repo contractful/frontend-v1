@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import ActivateAgreement from "../../components/agreement/ActivateAgreement";
 import CreateAgreement from "../../components/agreement/CreateAgreement";
 import AgreementParameters from "../../components/AgreementParameters";
-import { ConnectWalletButton } from "../../components/connectWalletButton";
+import { ConnectWalletButton } from "../../components/ConnectWalletButton";
 
 type Props = {};
 

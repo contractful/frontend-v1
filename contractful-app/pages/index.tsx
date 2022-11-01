@@ -12,9 +12,9 @@ import BrushIcon from '@mui/icons-material/Brush';
 
 import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
 
-import ContractfulHtmlHead from "../components/html-head"
-import ContractfulHeader from "../components/header"
-import ContractfulFooter from "../components/footer"
+import ContractfulHtmlHead from "../components/HtmlHead"
+import ContractfulHeader from "../components/Header"
+import ContractfulFooter from "../components/Footer"
 
 const IntroBg = styled('div')({
     background: 'url(' + imgBgStructureIntro.src + ') no-repeat',
@@ -31,7 +31,7 @@ const HiringAgreementHome: NextPage = () => {
         <>
         <ContractfulHtmlHead />
         <CssBaseline />
-        <ContractfulHeader />
+        <ContractfulHeader withWalletConnect={false} />
 
         <IntroBg>
             <Container>
