@@ -108,9 +108,9 @@ const ContractfulAgreementSummary = (props) => {
                 pt={4}
             >
                 <Diversity3Icon sx={{
-                    color: 'action.active',
-                    mr: 1,
-                    my: 0.5
+                        color: 'action.active',
+                        mr: 1,
+                        my: 0.5
                     }}
                 />
 
@@ -119,7 +119,7 @@ const ContractfulAgreementSummary = (props) => {
                     }}
                     variant="outlined"
                 >
-                    <CardContent>
+                <CardContent>
 
                     <Typography sx={{
                             my: 1.5
@@ -159,9 +159,19 @@ const ContractfulAgreementSummary = (props) => {
                         </Typography>
                     </Stack>
 
-                    <Typography variant="h6" pt={1}>
-                        {data['workingCommitment']}
-                    </Typography>
+                    <Stack direction="row" pt={1}>
+                        <Typography variant="body2" sx={{
+                                width:'20vh',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
+                            Commitment:
+                        </Typography>
+                        <Typography variant="h6">
+                            {data['workingCommitment']}
+                        </Typography>
+                    </Stack>
                 </CardContent>
                 </Card>
             </Box>

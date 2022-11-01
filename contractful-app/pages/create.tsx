@@ -72,7 +72,7 @@ const CreateHiringAgreement: NextPage = () => {
                 <Grid item xs>
 
                     <Typography variant="h6">
-                        📝 Contract
+                        📝 Create Hiring Agreement
                     </Typography>
                     <Typography pt={1} pb={4}>
                         Please fill in the details of the Hiring Agreement.

@@ -1,8 +1,10 @@
 import type { NextPage } from "next"
 import { useRouter } from 'next/router'
+import * as React from 'react';
 
 import { 
-    CssBaseline, Container, Grid, Typography, Button, Stack, Divider
+    CssBaseline, Container, Grid, Typography, Button, Stack, Divider,
+    Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 } from "@mui/material"
 
 import WalletIcon from '@mui/icons-material/Wallet'
@@ -34,6 +36,18 @@ const ReviewHiringAgreement: NextPage = () => {
       hourlyRate: 140.00,
       paymentTerms: 'TODO paymentTerms',
       resultingBudget: 11200.00
+    }
+
+    const [confirmOpen, setConfirmOpen] = React.useState(false)
+    const confirmDialogCancel = () =>{
+      setConfirmOpen(false)
+    }
+    const confirmDialogOk = () => {
+      setConfirmOpen(false)
+      confirmOpen['okFunc']()
+    }
+    const showConfirmDialog = (data) => {
+      setConfirmOpen(data)
     }
 
     return (
@@ -82,21 +96,21 @@ const ReviewHiringAgreement: NextPage = () => {
                     </Grid>
                     <Grid item xs>
                         <Typography variant="h6">
-                            📝 Contract
+                            📝 Review Hiring Agreement
                         </Typography>
                         <Stack direction="row" pt={1} sx={{
                           width:'100%'
                         }}>
                             <TrafficLight
-                                RedOn
+                                YellowOn
                                 Horizontal="false"
                             />
                             <Typography
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    backgroundColor: '#D0021B',
-                                    color: '#fff'
+                                    backgroundColor: '#F8E71C',
+                                    color: '#000'
                                 }}
                                 mx={4}
                                 px={2}
@@ -124,7 +138,7 @@ const ReviewHiringAgreement: NextPage = () => {
                     </Grid>
                 </Grid>
             </Container>
-
+            
             <Container>
                 <Grid container pt={4}>
                     <Grid item xs={1}>
@@ -135,8 +149,9 @@ const ReviewHiringAgreement: NextPage = () => {
                     <Grid item xs={2}></Grid>
                     <Grid item xs>
                         <Typography py={1} sx={{
-                            textAlign: 'center'
-                        }}>
+                              textAlign: 'center'
+                          }}
+                        >
                             Please review your contract carefully.<br />If all details are correct, please proceed to consent to the Agreement.
                         </Typography>
                         <Stack spacing={2}>
@@ -146,6 +161,17 @@ const ReviewHiringAgreement: NextPage = () => {
                                 size="large"
                                 startIcon={<BrushIcon />}
                                 fullWidth
+                                onClick={() => {
+                                  showConfirmDialog({
+                                    dialogTitle: 'Are you sure you want to consent to the Hiring Agreement?',
+                                    dialogBody: 'The underlying Smart Contract becomes active by consenting to the Agreement. The Agreement is binding for both parties.',
+                                    cancelCaption: 'Cancel',
+                                    okCaption: 'Consent to Agreement',
+                                    okFunc: (() => {
+                                      console.log('DEBUG In okFunc')
+                                    })
+                                  })
+                                  }}
                                 >
                                 Consent to the Agreement
                             </Button>
@@ -154,6 +180,17 @@ const ReviewHiringAgreement: NextPage = () => {
                                 color="warning"
                                 startIcon={<NotInterested />}
                                 fullWidth
+                                onClick={() => {
+                                  showConfirmDialog({
+                                    dialogTitle: 'Are you sure you want to decline the Hiring Agreement?',
+                                    dialogBody: 'Declining the Hiring Agreement invalidates the Smart Contract to which the budget has been transfered. Be very sure you really want to decline the Hiring Agreement.',
+                                    cancelCaption: 'Cancel',
+                                    okCaption: 'Really decline Agreement',
+                                    okFunc: (() => {
+                                      console.log('DEBUG In okFunc')
+                                    })
+                                  })
+                                  }}
                                 >
                                 Decline Agreement
                             </Button>
@@ -164,6 +201,30 @@ const ReviewHiringAgreement: NextPage = () => {
             </Container>
 
             <ContractfulFooter />
+            
+            <Dialog
+                open={confirmOpen}
+                onClose={confirmDialogCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                  {confirmOpen['dialogTitle']}
+              </DialogTitle>
+              <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                      {confirmOpen['dialogBody']}
+                  </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                  <Button onClick={confirmDialogCancel} variant="contained" color="error" autoFocus>
+                      {confirmOpen['cancelCaption']}
+                  </Button>
+                  <Button onClick={confirmDialogOk}>
+                      {confirmOpen['okCaption']}
+                  </Button>
+              </DialogActions>
+            </Dialog>
         </>
     )
 }
