@@ -95,7 +95,7 @@ const HiringAgreementHome: NextPage = () => {
                         </Typography>
                         <Divider></Divider>
                         <Typography variant="h3" pt={1}>
-                            Peer-2-peer safe and fair Hiring Agreements for everyone to use.
+                            Peer-2-peer safe and fair Hiring Agreements for everyone in the crypto industry.
                         </Typography>
                     </Grid>
                     <Grid item>

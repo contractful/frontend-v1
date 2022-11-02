@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { NextPage } from "next";
 
 import {
@@ -26,7 +27,13 @@ import {
   StepLabel,
   StepContent,
   Alert,
-  AlertTitle
+  AlertTitle,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Link
 } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -149,6 +156,16 @@ const CreateHiringAgreement: NextPage = () => {
   // Model constants
 
   const PAYMENT_TERMS_2WEEKS = (14*24*60*60)
+
+  // State of ConfirmDialog
+
+  const [betaDialogOpen, setBetaDialogOpen] = React.useState(false)
+  const betaDialogOk = () => {
+    setBetaDialogOpen(false)
+  }
+  const showBetaDialog = () => {
+    setBetaDialogOpen(true)
+  }
 
   return (
     <>
@@ -413,6 +430,9 @@ const CreateHiringAgreement: NextPage = () => {
                                       label="Commitment"
                                       variant="standard"
                                       defaultValue={40}
+                                      onChange={(e) => {
+                                        (e.target.value !== 40) && showBetaDialog();
+                                      }}
                                     >
                                       <MenuItem value={40}>
                                         Full-time: 40 hours per week
@@ -556,9 +576,12 @@ const CreateHiringAgreement: NextPage = () => {
                                     label="Commitment"
                                     variant="standard"
                                     defaultValue={1*60}
+                                    onChange={(e) => {
+                                      (e.target.value !== (1*60)) && showBetaDialog();
+                                    }}
                                     >
                                       <MenuItem value={1*60}>
-                                        <b style={{color:'#d32f2f'}}>TESTING ONLY:</b> Payment in 14 minutes representing 2 weeks
+                                        <b style={{color:'#d32f2f'}}>TESTING ONLY:</b> Payment in 14 minutes (imitating 2 weeks)
                                       </MenuItem>
                                       <MenuItem value={PAYMENT_TERMS_2WEEKS}>
                                         Payment every 2 weeks (after successful sprint review)
@@ -675,6 +698,28 @@ const CreateHiringAgreement: NextPage = () => {
       </Box>
 
       <ContractfulFooter />
+
+      <Dialog
+          open={betaDialogOpen}
+          onClose={betaDialogOk}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+            contractful Hiring Agreement beta note
+        </DialogTitle>
+        <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Note: This is a beta implementation deployed to the Polygon Mumbai testnet. If you want to use this in production on mainnet, please visit <Link href="https://github.com/contractful" target="_new">https://github.com/contractful</Link> to get in touch.
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={betaDialogOk} variant="text" autoFocus>
+              Ok, thanks for the information
+            </Button>
+        </DialogActions>
+      </Dialog>
+
     </>
   );
 };
