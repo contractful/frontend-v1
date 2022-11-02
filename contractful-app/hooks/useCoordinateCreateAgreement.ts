@@ -14,7 +14,9 @@ const useCoordinateCreateAgreement: () => {
     _spenderAddress?: Address,
     _amount?: BigNumber
   ) => void;
+  isError: boolean;
   errorMessage: string | undefined;
+  reset: () => void;
   isTokenApprovePendingSignature: boolean;
   isTokenApproveMining: boolean;
   isTokenApproveSuccess: boolean;
@@ -23,6 +25,7 @@ const useCoordinateCreateAgreement: () => {
   isCreateAgreementSuccess: boolean;
 } = () => {
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [isError, setIsError] = useState<boolean>(false);
 
   const agreementCreationParams = useRef<AgreementCreationParams>();
   const tokenAddress = useRef<Address>();
@@ -74,12 +77,6 @@ const useCoordinateCreateAgreement: () => {
 
   // handle results
   useEffect(() => {
-    if (isCreateAgreementSuccess) {
-      resetApproveToken();
-      resetCreateAgreement();
-      return;
-    }
-
     if (
       isCreateAgreementError ||
       isCreateAgreementPrepareError ||
@@ -94,11 +91,9 @@ const useCoordinateCreateAgreement: () => {
           createAgreementPrepareError
         )?.message
       );
-      resetApproveToken();
-      resetCreateAgreement();
+      setIsError(true);
     }
   }, [
-    isCreateAgreementSuccess,
     isCreateAgreementError,
     isCreateAgreementPrepareError,
     isApproveTokenError,
@@ -113,6 +108,13 @@ const useCoordinateCreateAgreement: () => {
       createAgreement?.();
     }
   }, [isTokenApproveSuccess, isCreateAgreementPrepareFetch]);
+
+  const reset = () => {
+    resetApproveToken();
+    resetCreateAgreement();
+    setErrorMessage(undefined);
+    setIsError(false);
+  };
 
   // set state + approve token
   const coordinateCreateAgreement = (
@@ -130,7 +132,9 @@ const useCoordinateCreateAgreement: () => {
 
   return {
     coordinateCreateAgreement,
+    isError,
     errorMessage,
+    reset,
     isTokenApprovePendingSignature,
     isTokenApproveMining,
     isTokenApproveSuccess,
