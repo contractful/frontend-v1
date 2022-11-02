@@ -10,3 +10,16 @@ export interface AgreementCreationParams {
   underlayingToken: Address;
   contractor: Address;
 }
+
+export type AgreementParams = {
+  acceptanceDeadline: BigNumber;
+  activationDate: BigNumber;
+  contractee: Address;
+  contractor: Address;
+  establishmentFeeRate_: BigNumber;
+  maturityDate: BigNumber;
+  paymentCycleAmount: BigNumber;
+  paymentCycleDuration: BigNumber;
+  penalizationAmount_: BigNumber;
+  underlayingToken: Address;
+};
