@@ -2,15 +2,21 @@ import type { NextPage } from "next"
 import Router from 'next/router'
 
 import { 
-    CssBaseline, Button, Container, Grid, Typography, Paper, Divider
+    CssBaseline, Button, Container, Grid, Typography, Paper, Divider, Link, Stack,
 } from "@mui/material"
 
 import { styled } from '@mui/system'
 
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import BrushIcon from '@mui/icons-material/Brush';
+import GppGoodTwoToneIcon from '@mui/icons-material/GppGoodTwoTone';
+import SmartToyTwoToneIcon from '@mui/icons-material/SmartToyTwoTone';
+import PieChartTwoToneIcon from '@mui/icons-material/PieChartTwoTone';
 
 import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
+import imgMoodImage from '../public/static/mood-image.png'
+import imgIconChainlink from '../public/static/icon-Chainlink.png'
+import imgIconPolygon from '../public/static/icon-Polygon.png'
 
 import ContractfulHtmlHead from "../components/HtmlHead"
 import ContractfulHeader from "../components/Header"
@@ -53,7 +59,7 @@ const HiringAgreementHome: NextPage = () => {
                             }}
                             py={1}
                         >
-                            Fair contracting
+                            Fair and automated contracting
                         </Typography>
                         <Button
                             variant="outlined"
@@ -78,7 +84,7 @@ const HiringAgreementHome: NextPage = () => {
                             variant="outlined"
                             startIcon={<BrushIcon />}
                             size="large"
-                            onClick={(e) => handleClick(e, '/review?useCase=consent')}
+                            onClick={(e) => handleClick(e, '/review')}
                             fullWidth
                         >
                             Sign existing Agreement
@@ -95,13 +101,125 @@ const HiringAgreementHome: NextPage = () => {
                         </Typography>
                         <Divider></Divider>
                         <Typography variant="h3" pt={1}>
-                            Peer-2-peer safe and fair Hiring Agreements for everyone in the crypto industry.
+                            Peer-2-peer safe and secure Hiring Agreements for everyone to use.
                         </Typography>
                     </Grid>
                     <Grid item>
                     </Grid>
                 </Grid>
             </Container>
+
+
+            <Container>
+                <Grid container pt={4} sx={{
+                            background: 'url(' + imgMoodImage.src + ') no-repeat',
+                            height: '564px'
+                        }}
+                    >
+                    <Grid items xs={6}>
+                    </Grid>
+                    <Grid items xs>
+                        <Stack direction="column" spacing={4} pt={4}>
+                            <Stack direction="row" spacing={4}>
+                                <Paper
+                                    elevation={6}
+                                    sx={{
+                                        p: 2,
+                                        width: '100%'
+                                    }}                                
+                                >
+                                    <GppGoodTwoToneIcon sx={{
+                                            width:'48px',
+                                            height:'48px'
+                                        }}
+                                    />
+                                    <Typography variant="h6">
+                                        Safe on a global scale.
+                                    </Typography>
+                                    <Typography sx={{ 
+                                        color: '#666',
+                                        fontSize: 'smaller'
+                                    }}>
+                                        The Agreement is powered by a Smart Contract that works as an escrow to the hiring budget.
+                                    </Typography>
+                                </Paper>
+                                <Paper
+                                    elevation={6}
+                                    sx={{
+                                        p: 2,
+                                        width: '100%'
+                                    }}                                
+                                >
+                                    <SmartToyTwoToneIcon sx={{
+                                            width:'48px',
+                                            height:'48px'
+                                        }}
+                                    />
+                                    <Typography variant="h6">
+                                        Fully automated.
+                                    </Typography>
+                                    <Typography sx={{ 
+                                        color: '#666',
+                                        fontSize: 'smaller'
+                                    }}>
+                                        Fair, safe and secure on-chain aotomated payment processing.
+                                    </Typography>
+                                </Paper>
+                            </Stack>
+                            <Stack direction="row" spacing={4}>
+                                <Paper
+                                    elevation={6}
+                                    sx={{
+                                        p: 2,
+                                        width: '100%'
+                                    }}                                
+                                >
+                                    <Stack direction="row">
+                                        <img src={imgIconPolygon.src} alt="Polygon Logo" width="48px" />
+                                        <Typography variant="h6" px={1} pt={1}>
+                                            +
+                                        </Typography>
+                                        <img src={imgIconChainlink.src} alt="Chainlink Logo" width="48px" />
+                                    </Stack>
+                                    
+                                    <Typography variant="h6">
+                                        Secured by the Polygon blockchain and Chainlink Oracles.
+                                    </Typography>
+                                    <Typography sx={{ 
+                                        color: '#666',
+                                        fontSize: 'smaller'
+                                    }}>
+                                        100% trust minimized Agreements.
+                                    </Typography>
+                                </Paper>
+                                <Paper
+                                    elevation={6}
+                                    sx={{
+                                        p: 2,
+                                        width: '100%'
+                                    }}                                
+                                >
+                                    <PieChartTwoToneIcon sx={{
+                                            width:'48px',
+                                            height:'48px'
+                                        }}
+                                    />
+                                    <Typography variant="h6">
+                                        Budget in control.
+                                    </Typography>
+                                    <Typography sx={{ 
+                                        color: '#666',
+                                        fontSize: 'smaller'
+                                    }}>
+                                        TODO
+                                    </Typography>
+                                </Paper>
+                            </Stack>
+                        </Stack>
+                    </Grid>
+                </Grid>                
+            </Container>
+
 
             <Container>
                 <Grid container pt={6}>
@@ -170,6 +288,11 @@ const HiringAgreementHome: NextPage = () => {
 
         </Container>
 
+        <Container>
+            <Typography variant="caption">
+                Image credits: <Link href="https://www.vecteezy.com/members/fatmawatilauda70555">fatmawatilauda70555 on vecteezy.com</Link>.
+            </Typography>
+        </Container>
         <ContractfulFooter />
         </>
     )
