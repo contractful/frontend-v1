@@ -19,11 +19,13 @@ export default class ContractfulHeader extends React.Component {
                 <Link href="/create">CreateHiringAgreement</Link>
                 <span> | </span>
                 <span>ReviewHiringAgreement ? </span>
-                <Link href="/review?useCase=consent">consent</Link>
+                <Link href="/review/123456789?useCase=consent">consent</Link>
                 <span> ? </span>
-                <Link href="/review?useCase=check">check</Link>
+                <Link href="/review/123456789?useCase=check">check</Link>
                 <span> ? </span>
-                <Link href="/review?useCase=extend">extend</Link>
+                <Link href="/review/123456789?useCase=extend">extend</Link>
+                <span> | </span>
+                <Link href="/examples">/examples</Link>
 
                 <AppBar
                     position="static"

@@ -33,7 +33,7 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 
   return (
     <>
-      <Paper elevation={24}>
+      <Paper elevation={12}>
         <Box
           sx={{
             display: "flex",
