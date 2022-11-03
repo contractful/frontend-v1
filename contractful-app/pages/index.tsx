@@ -21,6 +21,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 import GppGoodTwoToneIcon from '@mui/icons-material/GppGoodTwoTone';
 import SmartToyTwoToneIcon from '@mui/icons-material/SmartToyTwoTone';
 import PieChartTwoToneIcon from '@mui/icons-material/PieChartTwoTone';
+import ReplyIcon from '@mui/icons-material/Reply';
 
 import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
 import imgMoodImage from '../public/static/mood-image.png'
@@ -53,25 +54,7 @@ const HiringAgreementHome: NextPage = () => {
         <IntroBg>
             <Container>
                 <Grid container pt={4}>
-                    <Grid item xs={2}>
-                        <Typography sx={{ 
-                                color: '#666',
-                                fontSize: 'smaller'
-                            }}
-                        >
-                            If you are already familiar with contractful, please use the following quick links to get started.
-                        </Typography>
-                    </Grid>
-                    <Grid item xs></Grid>
-                    <Grid item xs={4} px={2}>
-                        <Typography sx={{ 
-                                color: '#666',
-                                fontSize: 'smaller'
-                            }}
-                            py={1}
-                        >
-                            Fair and automated contracting
-                        </Typography>
+                    <Grid item xs={5} px={2}>
                         <Button
                             variant="outlined"
                             startIcon={<NoteAddIcon />}
@@ -82,15 +65,30 @@ const HiringAgreementHome: NextPage = () => {
                             Create Hiring Agreement
                         </Button>
                     </Grid>
-                    <Grid item xs={4} px={2}>
-                        <Typography sx={{ 
-                                color: '#666',
-                                fontSize: 'smaller'
+                    <Grid item xs={2} sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <ReplyIcon sx={{
+                                pb: 1
                             }}
-                            py={1}
+                        />
+                        <Typography sx={{
+                                fontSize: 'smaller',
+                                color: '#666'
+                            }}
                         >
-                            Safely accepting an Agreement
+                            Quick links
                         </Typography>
+                        <ReplyIcon sx={{
+                                transform: 'scaleX(-1)',
+                                pb: 1
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={5} px={2}>
                         <Button
                             variant="outlined"
                             startIcon={<BrushIcon />}
