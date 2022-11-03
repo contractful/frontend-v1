@@ -120,7 +120,6 @@ const HiringAgreementHome: NextPage = () => {
                 </Grid>
             </Container>
 
-
             <Container>
                 <Grid container pt={4} sx={{
                             background: 'url(' + imgMoodImage.src + ') no-repeat',
@@ -248,7 +247,7 @@ const HiringAgreementHome: NextPage = () => {
                     <ol>
                         <li style={{ paddingBottom: 32 }}>Build your team: Come to individual Agreements (off-chain).</li>
                         <li style={{ paddingBottom: 32 }}>Formulate all details of the Agreement and use contractful to deploy them on-chain.</li>
-                        <li style={{ paddingBottom: 32 }}>Manage budget and payments automatically for a long-term collaboration.</li>
+                        <li style={{ paddingBottom: 32 }}>Manage budget and payments automatically for a long-term collaboration relationship.</li>
                     </ol>
                 </Typography>
             </Container>
