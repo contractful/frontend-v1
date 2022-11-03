@@ -171,7 +171,11 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 </Typography>
                 <Typography variant="h6">
                   {maturityDate
-                    ?.sub(activationDate)
+                    ?.sub(
+                      activationDate.toString() !== "0"
+                        ? activationDate
+                        : acceptanceDeadline
+                    )
                     .div(BigNumber.from(24 * 60 * 60 * 30))
                     .toString()}{" "}
                   months
@@ -193,6 +197,26 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   {activationDate?.toString()}
                 </Typography>
               </Stack>
+
+              {acceptanceDeadline?.toString() !== "0" && (
+                <Stack direction="row" pt={2}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      width: "20vh",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    Acceptance deadline:
+                  </Typography>
+                  <Typography variant="h6">
+                    {new Date(
+                      parseInt(acceptanceDeadline?.toString()) * 1000
+                    ).toLocaleDateString("en-US")}
+                  </Typography>
+                </Stack>
+              )}
 
               <Typography variant="h6" pt={1}>
                 {""}
@@ -268,6 +292,7 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   Payment terms:
                 </Typography>
                 <Typography variant="h6">
+                  Every{" "}
                   {paymentCycleDuration
                     ?.div(BigNumber.from(24 * 60 * 60))
                     .toString()}{" "}

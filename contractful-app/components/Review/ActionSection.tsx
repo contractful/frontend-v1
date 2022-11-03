@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { BigNumber, ethers } from "ethers";
+import { formatEther } from "ethers/lib/utils";
 import { useAccount } from "wagmi";
 import { AgreementParams } from "../../../utils/types";
 
@@ -113,7 +114,7 @@ const ActionSection = (props: Props) => {
     );
   }
 
-  const { maturityDate, paymentCycleDuration, contractee } =
+  const { maturityDate, paymentCycleDuration, contractee, paymentCycleAmount } =
     agreementParameters;
 
   const agreementDuration = maturityDate.sub(activationDate);
@@ -122,7 +123,7 @@ const ActionSection = (props: Props) => {
   let validChallengePeriod = false;
   const reminder =
     agreementDuration.mod(paymentCycleDuration).toString() !== "0";
-  for (let i = 0; i < migrations.toNumber(); i++) {
+  for (let i = 0; i < parseInt(migrations.toString()); i++) {
     const migrationPeriod = activationDate.add(
       paymentCycleDuration.mul(BigNumber.from(i + 1))
     );
@@ -149,7 +150,7 @@ const ActionSection = (props: Props) => {
     }
   }
 
-  if (activationDate.toString() !== "0" && address == contractee) {
+  if (address == contractee) {
     return (
       <>
         <StepLabel>{"Cancel or Challenge Agreement"}</StepLabel>
@@ -161,31 +162,36 @@ const ActionSection = (props: Props) => {
                 <AlertTitle>
                   These actions are final and cannot be undone.
                 </AlertTitle>
-                <List>
-                  <ListItem>
-                    <Box>
-                      <Typography variant="subtitle2">
-                        Cancel Agreement
-                      </Typography>
-                      If you cancel the agreement the budget for the days worked
-                      will be transferred to the contractor and you will be
-                      penalized. The rest of the budget will be returned to you.
-                      <br />
-                      <br />
-                    </Box>
-                  </ListItem>
-                  <ListItem>
-                    <Box>
-                      <Typography variant="subtitle2">
-                        Challenge Agreement
-                      </Typography>
-                      Once the actual sprint is done you will have 5 days to
-                      challenge the contractor's work. The dispute will be
-                      submitted to the Contractful DAO and the most justice
-                      course of action will be taken.
-                    </Box>
-                  </ListItem>
-                </List>
+                {activationDate.toString() === "0" ? (
+                  "Since the Contractor has not consented to the Agreement yet, you can cancel the Agreement without being penalized. The agreement will be invalidated and the budget will be returned to you."
+                ) : (
+                  <List>
+                    <ListItem>
+                      <Box>
+                        <Typography variant="subtitle2">
+                          Cancel Agreement
+                        </Typography>
+                        If you cancel the agreement the budget for the days
+                        worked will be transferred to the contractor and you
+                        will be penalized. The rest of the budget will be
+                        returned to you.
+                        <br />
+                        <br />
+                      </Box>
+                    </ListItem>
+                    <ListItem>
+                      <Box>
+                        <Typography variant="subtitle2">
+                          Challenge Agreement
+                        </Typography>
+                        Once the actual sprint is done you will have 5 days to
+                        challenge the contractor's work. The dispute will be
+                        submitted to the Contractful DAO and the most justice
+                        course of action will be taken.
+                      </Box>
+                    </ListItem>
+                  </List>
+                )}
               </Alert>
               {
                 <Stack pt={2} spacing={2}>
@@ -200,7 +206,11 @@ const ActionSection = (props: Props) => {
                         dialogTitle:
                           "Are you sure you want to cancel the agreement?",
                         dialogBody:
-                          "The budget for the days worked will be transferred to the contractor and you will be penalized.",
+                          activationDate.toString() === "0"
+                            ? `This action is final. A total of ${formatEther(
+                                paymentCycleAmount
+                              )} DAI will be returned to you.`
+                            : "The budget for the days worked will be transferred to the contractor and you will be penalized.",
                         cancelCaption: "Keep Agreement",
                         okCaption: "Cancel Agreement",
                         okFunc: () => {

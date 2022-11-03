@@ -156,7 +156,7 @@ const ReviewHiringAgreement: NextPage = () => {
               <Grid container pt={2} pl={3}>
                 <Grid item xs>
                   <Stack direction="row">
-                    <Typography variant="h6">👋 Welcome</Typography>
+                    <Typography variant="h6">👋 Welcome back</Typography>
                     {isWalletConnected() && (
                       <Chip
                         label={address}
@@ -167,16 +167,10 @@ const ReviewHiringAgreement: NextPage = () => {
                       />
                     )}
                   </Stack>
-                  <Typography pt={1}>
-                    {address !== undefined
-                      ? "Wallet connected. Please proceed with the creating a Hiring Agreement."
-                      : "Please connect your Wallet to start creating a Hiring Agreement."}
-                  </Typography>
                 </Grid>
               </Grid>
             </StepContent>
           </Step>
-
           <Step key="2" active={isWalletConnected()} completed={false}>
             <StepLabel>Review Hiring Agreement</StepLabel>
             <StepContent>
@@ -232,7 +226,6 @@ const ReviewHiringAgreement: NextPage = () => {
               </Grid>
             </StepContent>
           </Step>
-
           <Step key="3" active={isWalletConnected()} completed={false}>
             {/* challengeDuration is hardcoded for now */}
             <ActionSection
