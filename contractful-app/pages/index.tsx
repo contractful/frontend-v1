@@ -2,7 +2,16 @@ import type { NextPage } from "next"
 import Router from 'next/router'
 
 import { 
-    CssBaseline, Button, Container, Grid, Typography, Paper, Divider, Link, Stack,
+    CssBaseline,
+    Button,
+    Container,
+    Grid,
+    Typography,
+    Paper,
+    Divider,
+    Stack,
+    Avatar,
+    Box
 } from "@mui/material"
 
 import { styled } from '@mui/system'
@@ -17,6 +26,8 @@ import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
 import imgMoodImage from '../public/static/mood-image.png'
 import imgIconChainlink from '../public/static/icon-Chainlink.png'
 import imgIconPolygon from '../public/static/icon-Polygon.png'
+import imgForClient from "../public/static/for-client-avatar.png"
+import imgForServiceProvider from "../public/static/for-serviceprovider-avatar.png"
 
 import ContractfulHtmlHead from "../components/HtmlHead"
 import ContractfulHeader from "../components/Header"
@@ -44,7 +55,7 @@ const HiringAgreementHome: NextPage = () => {
                 <Grid container pt={4}>
                     <Grid item xs={2}>
                         <Typography sx={{ 
-                                fontWeight: 'light',
+                                color: '#666',
                                 fontSize: 'smaller'
                             }}
                         >
@@ -54,7 +65,7 @@ const HiringAgreementHome: NextPage = () => {
                     <Grid item xs></Grid>
                     <Grid item xs={4} px={2}>
                         <Typography sx={{ 
-                                fontWeight: 'light',
+                                color: '#666',
                                 fontSize: 'smaller'
                             }}
                             py={1}
@@ -73,7 +84,7 @@ const HiringAgreementHome: NextPage = () => {
                     </Grid>
                     <Grid item xs={4} px={2}>
                         <Typography sx={{ 
-                                fontWeight: 'light',
+                                color: '#666',
                                 fontSize: 'smaller'
                             }}
                             py={1}
@@ -150,30 +161,6 @@ const HiringAgreementHome: NextPage = () => {
                                         width: '100%'
                                     }}                                
                                 >
-                                    <SmartToyTwoToneIcon sx={{
-                                            width:'48px',
-                                            height:'48px'
-                                        }}
-                                    />
-                                    <Typography variant="h6">
-                                        Fully automated.
-                                    </Typography>
-                                    <Typography sx={{ 
-                                        color: '#666',
-                                        fontSize: 'smaller'
-                                    }}>
-                                        Fair, safe and secure on-chain aotomated payment processing.
-                                    </Typography>
-                                </Paper>
-                            </Stack>
-                            <Stack direction="row" spacing={4}>
-                                <Paper
-                                    elevation={6}
-                                    sx={{
-                                        p: 2,
-                                        width: '100%'
-                                    }}                                
-                                >
                                     <Stack direction="row">
                                         <img src={imgIconPolygon.src} alt="Polygon Logo" width="48px" />
                                         <Typography variant="h6" px={1} pt={1}>
@@ -192,6 +179,30 @@ const HiringAgreementHome: NextPage = () => {
                                         100% trust minimized Agreements.
                                     </Typography>
                                 </Paper>
+                            </Stack>
+                            <Stack direction="row" spacing={4}>
+                                <Paper
+                                    elevation={6}
+                                    sx={{
+                                        p: 2,
+                                        width: '100%'
+                                    }}                                
+                                >
+                                    <SmartToyTwoToneIcon sx={{
+                                            width:'48px',
+                                            height:'48px'
+                                        }}
+                                    />
+                                    <Typography variant="h6">
+                                        Automated payments.
+                                    </Typography>
+                                    <Typography sx={{ 
+                                        color: '#666',
+                                        fontSize: 'smaller'
+                                    }}>
+                                        Fair, safe and secure on-chain automated payment processing.
+                                    </Typography>
+                                </Paper>
                                 <Paper
                                     elevation={6}
                                     sx={{
@@ -205,13 +216,13 @@ const HiringAgreementHome: NextPage = () => {
                                         }}
                                     />
                                     <Typography variant="h6">
-                                        Budget in control.
+                                        Full budget control.
                                     </Typography>
                                     <Typography sx={{ 
                                         color: '#666',
                                         fontSize: 'smaller'
                                     }}>
-                                        TODO
+                                        The Agreement ensures clean budget planning that matches your product development roadmap.
                                     </Typography>
                                 </Paper>
                             </Stack>
@@ -220,38 +231,25 @@ const HiringAgreementHome: NextPage = () => {
                 </Grid>                
             </Container>
 
-
-            <Container>
-                <Grid container pt={6}>
-                    <Grid item xs={6} p={4}>
-                        <Paper elevation={24}>
-                            <Typography p={4}>
-                                <ul>
-                                    <li>✔️ Fair, safe and secure on-chain payment processing.</li>
-                                    <li>✔️ Clean budget planning.</li>
-                                    <li>✔️ From terms to payment: Direct contract between you and 0xjohndoedeveloper.eth. No third party involved.</li>
-                                </ul>
-                            </Typography>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs p={4}>
-                        <Paper elevation={24}>
-                            <Typography p={4}>
-                                <p>Hello World</p>
-                            </Typography>
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
-
-            <Container maxWidth="sm">
-                <Typography variant="h2">
-                    <p>How it works?</p>
+            <Container sx={{
+                pt:4
+            }}>
+                <Typography variant="h1" sx={{
+                        width: '100%',
+                        textAlign: 'center'
+                    }}
+                >
+                    How it works?
                 </Typography>
+            </Container>
+            
+            <Container>
                 <Typography variant="h3">
-                    <p>1. First step</p>
-                    <p>2. Second step</p>
-                    <p>3. Third step</p>
+                    <ol>
+                        <li style={{ paddingBottom: 32 }}>Build your team: Come to individual Agreements (off-chain).</li>
+                        <li style={{ paddingBottom: 32 }}>Formulate all details of the Agreement and use contractful to deploy them on-chain.</li>
+                        <li style={{ paddingBottom: 32 }}>Manage budget and payments automatically for a long-term collaboration.</li>
+                    </ol>
                 </Typography>
             </Container>
         </IntroBg>
@@ -259,41 +257,107 @@ const HiringAgreementHome: NextPage = () => {
         <Container>
             <Grid container pt={4}>
                 <Grid item xs={6} p={4}>
-                    <Paper elevation={24}>
-                        <Typography p={4}>
-                            <p>For Clients</p>
-                            <p>Ready to use contractful for fair contracting</p>
-                            <Button
-                                onClick={(e) => handleClick(e, '/create')}
+                    <Stack>
+                        <div style={{
+                                width: '100%',                             
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Avatar sx={{
+                                    width: '150px',
+                                    height: '150px',
+                                    border: "1px solid #bbb"
+                                }}
+                                src={imgForClient.src}
                             >
-                                Create Hiring Agreement
-                            </Button>
-                        </Typography>
-                    </Paper>
+                            </Avatar>
+                        </div>
+                        <Paper elevation={12} style={{
+                                marginTop: '-45px'
+                            }}
+                        >
+                            <Typography variant="h4" pt={7} pl={4}>
+                                Build your team
+                            </Typography>
+                            <Typography px={4} pt={1}>
+                                <b>As a client:</b> Ready to use contractful to create a Hiring Agreement.
+                            </Typography>
+                            <Box pt={1} px={4} pb={4} sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Button
+                                    onClick={(e) => handleClick(e, '/create')}
+                                    variant="contained"
+                                    color="primary"
+                                    size="large"
+                                    startIcon={<NoteAddIcon />}
+                                    sx={{
+                                        width: '75%'
+                                    }}
+                                >
+                                    Create Hiring Agreement
+                                </Button>
+                            </Box>
+                        </Paper>
+                    </Stack>
                 </Grid>
                 <Grid item xs p={4}>
-                    <Paper elevation={24}>
-                        <Typography p={4}>
-                            <p>For Service provider</p>
-                            <p>Safely accepting an Agreement</p>
-                            <Button
-                                onClick={(e) => handleClick(e, '/review?useCase=consent')}
+                    <Stack>
+                        <div style={{
+                                width: '100%',                             
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Avatar sx={{
+                                    width: '150px',
+                                    height: '150px',
+                                    border: "1px solid #bbb"
+                                }}
+                                src={imgForServiceProvider.src}
                             >
-                                Sign existing Agreement
-                            </Button>
-                        </Typography>
-                    </Paper>
+                            </Avatar>
+                        </div>
+                        <Paper elevation={12} style={{
+                                marginTop: '-45px'
+                            }}
+                        >
+                            <Typography variant="h4" pt={7} pl={4}>
+                                Start your collaboration
+                            </Typography>
+                            <Typography px={4} pt={1}>
+                                <b>As a service provider:</b> Review and consent to an Agreement prepared for you.
+                            </Typography>
+                            <Box pt={1} px={4} pb={4} sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Button
+                                    onClick={(e) => handleClick(e, '/review')}
+                                    variant="contained"
+                                    color="primary"
+                                    size="large"
+                                    startIcon={<BrushIcon />}
+                                    sx={{
+                                        width: '75%'
+                                    }}
+                                >
+                                    Sign existing Agreement
+                                </Button>
+                            </Box>
+                        </Paper>
+                    </Stack>
                 </Grid>
             </Grid>
-
         </Container>
 
-        <Container>
-            <Typography variant="caption">
-                Image credits: <Link href="https://www.vecteezy.com/members/fatmawatilauda70555">fatmawatilauda70555 on vecteezy.com</Link>.
-            </Typography>
-        </Container>
-        <ContractfulFooter />
+        <ContractfulFooter withImageCredits={true} />
         </>
     )
 }
