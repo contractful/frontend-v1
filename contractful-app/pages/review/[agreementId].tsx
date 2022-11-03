@@ -238,9 +238,6 @@ const ReviewHiringAgreement: NextPage = () => {
             <ActionSection
               agreementParameters={agreementParameters}
               challengeDuration={BigNumber.from(24 * 60 * 60 * 5)}
-              confirmOpen={confirmOpen}
-              confirmDialogOk={confirmDialogOk}
-              confirmDialogCancel={confirmDialogCancel}
               showConfirmDialog={showConfirmDialog}
               handleConsentToAgreement={handleConsentToAgreement}
             />

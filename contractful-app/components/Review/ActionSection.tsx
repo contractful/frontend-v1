@@ -20,17 +20,6 @@ import { AgreementParams } from "../../../utils/types";
 type Props = {
   agreementParameters: AgreementParams;
   challengeDuration: BigNumber;
-  confirmOpen:
-    | {
-        dialogTitle: string;
-        dialogBody: string;
-        cancelCaption: string;
-        okCaption: string;
-        okFunc: () => {};
-      }
-    | undefined;
-  confirmDialogOk: () => void;
-  confirmDialogCancel: () => void;
   showConfirmDialog: ({}) => void;
   handleConsentToAgreement: () => void;
 };
@@ -39,9 +28,6 @@ const ActionSection = (props: Props) => {
   const {
     agreementParameters,
     challengeDuration,
-    confirmOpen,
-    confirmDialogOk,
-    confirmDialogCancel,
     showConfirmDialog,
     handleConsentToAgreement,
   } = props;
