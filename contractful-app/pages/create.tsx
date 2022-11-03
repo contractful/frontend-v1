@@ -106,21 +106,33 @@ const CreateHiringAgreement: NextPage = () => {
       hourlyRate,
       contractor,
     } = e.target as typeof e.target & {
-      acceptancePeriod: { value: number };
-      engagementPeriod: { value: number };
-      paymentCycleDuration: { value: number };
-      hourlyRate: { value: number };
+      acceptancePeriod: { value: string };
+      engagementPeriod: { value: string };
+      paymentCycleDuration: { value: string };
+      hourlyRate: { value: string };
       contractor: { value: Address };
     };
 
     coordinateCreateAgreement(
       selectedToken,
       {
-        acceptanceDeadline: BigNumber.from(Date.now() + acceptancePeriod.value),
-        maturityDate: BigNumber.from(Date.now() + engagementPeriod.value),
-        paymentCycleDuration: BigNumber.from(paymentCycleDuration.value),
+        acceptanceDeadline: BigNumber.from(
+          Math.round(
+            Date.now() / 1000 + parseInt(acceptancePeriod.value) * 86400
+          ) // days
+        ),
+        maturityDate: BigNumber.from(
+          Math.round(
+            Date.now() / 1000 + parseInt(engagementPeriod.value) * 86400 * 30
+          ) // months
+        ),
+        paymentCycleDuration: BigNumber.from(
+          Math.round(parseInt(paymentCycleDuration.value))
+        ),
         paymentCycleAmount: BigNumber.from(
-          hourlyRate.value * paymentCycleDuration.value
+          Math.round(
+            parseInt(hourlyRate.value) * parseInt(paymentCycleDuration.value)
+          )
         ),
         underlayingToken: selectedToken,
         contractor: contractor.value,
@@ -365,6 +377,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     defaultValue="3"
                                     label="Months"
                                     variant="standard"
+                                    type="string"
                                   />
                                 </Stack>
 
@@ -431,6 +444,7 @@ const CreateHiringAgreement: NextPage = () => {
                                         e.target.value !== 40 &&
                                           showBetaDialog();
                                       }}
+                                      type="number"
                                     >
                                       <MenuItem value={40}>
                                         Full-time: 40 hours per week
@@ -467,6 +481,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     defaultValue="3"
                                     label="Days"
                                     variant="standard"
+                                    type="number"
                                   />
                                 </Stack>
                               </CardContent>
@@ -573,9 +588,10 @@ const CreateHiringAgreement: NextPage = () => {
                                     name="paymentCycleDuration"
                                     label="Commitment"
                                     variant="standard"
-                                    defaultValue={1 * 60}
+                                    type="number"
+                                    defaultValue={14 * 60}
                                     onChange={(e) => {
-                                      e.target.value !== 1 * 60 &&
+                                      e.target.value !== 14 * 60 &&
                                         showBetaDialog();
                                     }}
                                   >
@@ -619,6 +635,7 @@ const CreateHiringAgreement: NextPage = () => {
                                   }}
                                   defaultValue={12345.67}
                                   variant="standard"
+                                  type="number"
                                   sx={{
                                     width: "15vh",
                                   }}
