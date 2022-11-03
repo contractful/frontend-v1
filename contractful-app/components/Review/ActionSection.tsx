@@ -13,7 +13,7 @@ import {
   StepLabel,
   Typography,
 } from "@mui/material";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { AgreementParams } from "../../../utils/types";
 
@@ -48,9 +48,13 @@ const ActionSection = (props: Props) => {
 
   const { address } = useAccount();
 
-  console.log("confirmOpen", confirmOpen);
+  if (
+    !agreementParameters ||
+    agreementParameters.contractee === ethers.constants.AddressZero
+  ) {
+    return <></>;
+  }
 
-  if (!agreementParameters) return <></>;
   const { activationDate, contractor } = agreementParameters;
 
   if (activationDate.toString() == "0" && address == contractor) {
