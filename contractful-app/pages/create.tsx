@@ -1,7 +1,9 @@
-import * as React from 'react';
 import type { NextPage } from "next";
+import * as React from "react";
 
 import {
+  Alert,
+  AlertTitle,
   Box,
   Button,
   Card,
@@ -9,31 +11,29 @@ import {
   Chip,
   Container,
   CssBaseline,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   FormControl,
   FormControlLabel,
   Grid,
   InputLabel,
+  Link,
   MenuItem,
   Paper,
   Radio,
   RadioGroup,
   Select,
   Stack,
+  Step,
+  StepContent,
+  StepLabel,
+  Stepper,
   TextField,
   Typography,
-  Stepper,
-  Step,
-  StepLabel,
-  StepContent,
-  Alert,
-  AlertTitle,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Link
 } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -148,24 +148,24 @@ const CreateHiringAgreement: NextPage = () => {
   }, [isCreateAgreementSuccess, isError]);
 
   // Helper (e.g. completion state of the Stepper)
-  
+
   const isWalletConnected = () => {
-    return (address !== undefined)
-  }
+    return address !== undefined;
+  };
 
   // Model constants
 
-  const PAYMENT_TERMS_2WEEKS = (14*24*60*60)
+  const PAYMENT_TERMS_2WEEKS = 14 * 24 * 60 * 60;
 
   // State of ConfirmDialog
 
-  const [betaDialogOpen, setBetaDialogOpen] = React.useState(false)
+  const [betaDialogOpen, setBetaDialogOpen] = React.useState(false);
   const betaDialogOk = () => {
-    setBetaDialogOpen(false)
-  }
+    setBetaDialogOpen(false);
+  };
   const showBetaDialog = () => {
-    setBetaDialogOpen(true)
-  }
+    setBetaDialogOpen(true);
+  };
 
   return (
     <>
@@ -174,36 +174,31 @@ const CreateHiringAgreement: NextPage = () => {
       <ContractfulHeader />
 
       <form onSubmit={(e) => handleCreateAgreementSubmit(e)}>
-        <Container sx={{
-            mt:4
+        <Container
+          sx={{
+            mt: 4,
           }}
         >
-
           <Stepper
             activeStep={isWalletConnected() ? 1 : 0}
             orientation="vertical"
           >
-            <Step
-              key="1"
-              active={true}
-              completed={isWalletConnected()}
-            >
-              <StepLabel>
-                Connect Wallet
-              </StepLabel>
+            <Step key="1" active={true} completed={isWalletConnected()}>
+              <StepLabel>Connect Wallet</StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
                     <Stack direction="row">
                       <Typography variant="h6">👋 Welcome</Typography>
-                      {isWalletConnected() &&
-                      <Chip
-                        label={address}
-                        variant="outlined"
-                        sx={{
-                          ml: 2,
-                        }}
-                      />}
+                      {isWalletConnected() && (
+                        <Chip
+                          label={address}
+                          variant="outlined"
+                          sx={{
+                            ml: 2,
+                          }}
+                        />
+                      )}
                     </Stack>
                     <Typography pt={1}>
                       {isWalletConnected()
@@ -215,16 +210,9 @@ const CreateHiringAgreement: NextPage = () => {
               </StepContent>
             </Step>
 
-            <Step
-              key="2"
-              active={isWalletConnected()}
-              completed={false}
-            >
-              <StepLabel>
-                Fill in details for the Hiring Agreement
-              </StepLabel>
+            <Step key="2" active={isWalletConnected()} completed={false}>
+              <StepLabel>Fill in details for the Hiring Agreement</StepLabel>
               <StepContent>
-
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
                     <Typography variant="h6">📝 Contract</Typography>
@@ -317,23 +305,27 @@ const CreateHiringAgreement: NextPage = () => {
                               variant="outlined"
                             >
                               <CardContent>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                <Typography
+                                  sx={{ mb: 1.5 }}
+                                  color="text.secondary"
+                                >
                                   The Hiring Agreement aims for a long-term
                                   collaboration relationship.
                                 </Typography>
                                 <Typography variant="body2">
                                   <ul>
                                     <li>
-                                      The arrangement is planned for several months
-                                      (usually 1-3, up to 6 and even more months).
+                                      The arrangement is planned for several
+                                      months (usually 1-3, up to 6 and even more
+                                      months).
                                     </li>
                                     <li>
                                       The project is organized in 2 weeks sprint
                                       iterations.
                                     </li>
                                     <li>
-                                      Payment will be handled correspondingly by the
-                                      smart contract.
+                                      Payment will be handled correspondingly by
+                                      the smart contract.
                                     </li>
                                   </ul>
                                 </Typography>
@@ -391,14 +383,19 @@ const CreateHiringAgreement: NextPage = () => {
                                   >
                                     Engagement begins on:
                                   </Typography>
-                                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                  <LocalizationProvider
+                                    dateAdapter={AdapterDayjs}
+                                  >
                                     <DesktopDatePicker
                                       label="Date"
                                       inputFormat="MM/DD/YYYY"
                                       value={dateEngagementStarts}
                                       onChange={() => {}}
                                       renderInput={(params) => (
-                                        <TextField {...params} variant="standard" />
+                                        <TextField
+                                          {...params}
+                                          variant="standard"
+                                        />
                                       )}
                                     />
                                   </LocalizationProvider>
@@ -431,7 +428,8 @@ const CreateHiringAgreement: NextPage = () => {
                                       variant="standard"
                                       defaultValue={40}
                                       onChange={(e) => {
-                                        (e.target.value !== 40) && showBetaDialog();
+                                        e.target.value !== 40 &&
+                                          showBetaDialog();
                                       }}
                                     >
                                       <MenuItem value={40}>
@@ -575,17 +573,22 @@ const CreateHiringAgreement: NextPage = () => {
                                     name="paymentCycleDuration"
                                     label="Commitment"
                                     variant="standard"
-                                    defaultValue={1*60}
+                                    defaultValue={1 * 60}
                                     onChange={(e) => {
-                                      (e.target.value !== (1*60)) && showBetaDialog();
+                                      e.target.value !== 1 * 60 &&
+                                        showBetaDialog();
                                     }}
-                                    >
-                                      <MenuItem value={1*60}>
-                                        <b style={{color:'#d32f2f'}}>TESTING ONLY:</b> Payment in 14 minutes (imitating 2 weeks)
-                                      </MenuItem>
-                                      <MenuItem value={PAYMENT_TERMS_2WEEKS}>
-                                        Payment every 2 weeks (after successful sprint review)
-                                      </MenuItem>
+                                  >
+                                    <MenuItem value={14 * 60}>
+                                      <b style={{ color: "#d32f2f" }}>
+                                        TESTING ONLY:
+                                      </b>{" "}
+                                      Payment in 14 minutes (imitating 2 weeks)
+                                    </MenuItem>
+                                    <MenuItem value={PAYMENT_TERMS_2WEEKS}>
+                                      Payment every 2 weeks (after successful
+                                      sprint review)
+                                    </MenuItem>
                                   </Select>
                                 </FormControl>
                               </Stack>
@@ -629,44 +632,41 @@ const CreateHiringAgreement: NextPage = () => {
                     </Paper>
                   </Grid>
                 </Grid>
-
               </StepContent>
             </Step>
 
-          <Step
-            key="3"
-            active={isWalletConnected()}
-            completed={false}
-          >
-            <StepLabel>
-              Sign the Agreement to make it available
-            </StepLabel>
-            <StepContent>
-              <Grid container pt={4}>
-                <Grid item xs={2}></Grid>
-                <Grid item xs>
-                  <Alert severity="info">
-                    <AlertTitle>Please review all details of the Hiring Agreement carefully.</AlertTitle>
-                    If all details are correct, you can continue to sign the
-                    Agreement. It will be made available to your service provider.
-                  </Alert>
-                  <Stack pt={2}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      startIcon={<BrushIcon />}
-                      fullWidth
-                      type="submit"
-                    >
-                      Sign Agreement
-                    </Button>
-                  </Stack>
+            <Step key="3" active={isWalletConnected()} completed={false}>
+              <StepLabel>Sign the Agreement to make it available</StepLabel>
+              <StepContent>
+                <Grid container pt={4}>
+                  <Grid item xs={2}></Grid>
+                  <Grid item xs>
+                    <Alert severity="info">
+                      <AlertTitle>
+                        Please review all details of the Hiring Agreement
+                        carefully.
+                      </AlertTitle>
+                      If all details are correct, you can continue to sign the
+                      Agreement. It will be made available to your service
+                      provider.
+                    </Alert>
+                    <Stack pt={2}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<BrushIcon />}
+                        fullWidth
+                        type="submit"
+                      >
+                        Sign Agreement
+                      </Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={3}></Grid>
                 </Grid>
-                <Grid item xs={3}></Grid>
-              </Grid>
               </StepContent>
-          </Step>
+            </Step>
           </Stepper>
         </Container>
       </form>
@@ -700,26 +700,31 @@ const CreateHiringAgreement: NextPage = () => {
       <ContractfulFooter />
 
       <Dialog
-          open={betaDialogOpen}
-          onClose={betaDialogOk}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+        open={betaDialogOpen}
+        onClose={betaDialogOk}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-            contractful Hiring Agreement beta note
+          contractful Hiring Agreement beta note
         </DialogTitle>
         <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Note: This is a beta implementation deployed to the Polygon Mumbai testnet. If you want to use this in production on mainnet, please visit <Link href="https://github.com/contractful" target="_new">https://github.com/contractful</Link> to get in touch.
-            </DialogContentText>
+          <DialogContentText id="alert-dialog-description">
+            Note: This is a beta implementation deployed to the Polygon Mumbai
+            testnet. If you want to use this in production on mainnet, please
+            visit{" "}
+            <Link href="https://github.com/contractful" target="_new">
+              https://github.com/contractful
+            </Link>{" "}
+            to get in touch.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
-            <Button onClick={betaDialogOk} variant="text" autoFocus>
-              Ok, thanks for the information
-            </Button>
+          <Button onClick={betaDialogOk} variant="text" autoFocus>
+            Ok, thanks for the information
+          </Button>
         </DialogActions>
       </Dialog>
-
     </>
   );
 };
