@@ -130,7 +130,7 @@ const HiringAgreementHome: NextPage = () => {
                         <Stack direction="column" spacing={4} pt={4}>
                             <Stack direction="row" spacing={4}>
                                 <Paper
-                                    elevation={6}
+                                    elevation={0}
                                     sx={{
                                         p: 2,
                                         width: '100%'
@@ -152,7 +152,7 @@ const HiringAgreementHome: NextPage = () => {
                                     </Typography>
                                 </Paper>
                                 <Paper
-                                    elevation={6}
+                                    elevation={0}
                                     sx={{
                                         p: 2,
                                         width: '100%'
@@ -179,7 +179,7 @@ const HiringAgreementHome: NextPage = () => {
                             </Stack>
                             <Stack direction="row" spacing={4}>
                                 <Paper
-                                    elevation={6}
+                                    elevation={0}
                                     sx={{
                                         p: 2,
                                         width: '100%'
@@ -201,7 +201,7 @@ const HiringAgreementHome: NextPage = () => {
                                     </Typography>
                                 </Paper>
                                 <Paper
-                                    elevation={6}
+                                    elevation={0}
                                     sx={{
                                         p: 2,
                                         width: '100%'
@@ -241,9 +241,9 @@ const HiringAgreementHome: NextPage = () => {
             </Container>
             
             <Container>
-                <Typography variant="h3">
+                <Typography variant="h5">
                     <ol>
-                        <li style={{ paddingBottom: 32 }}>Build your team: Come to individual Agreements (off-chain).</li>
+                        <li style={{ paddingBottom: 32 }}>Build your team: Come up with individual Agreements (off-chain).</li>
                         <li style={{ paddingBottom: 32 }}>Formulate all details of the Agreement and use contractful to deploy them on-chain.</li>
                         <li style={{ paddingBottom: 32 }}>Manage budget and payments automatically for a long-term collaboration relationship.</li>
                     </ol>
