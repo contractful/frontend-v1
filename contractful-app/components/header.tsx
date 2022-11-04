@@ -4,7 +4,7 @@ import {
     Link, AppBar, Toolbar, Typography, Container, Alert, Stack, Grid
 } from '@mui/material'
 
-import SecurityIcon from '@mui/icons-material/Security'
+import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 
 import { ConnectWalletButton } from './ConnectWalletButton'
 
@@ -35,7 +35,7 @@ export default class ContractfulHeader extends React.Component {
                             <Grid container>
                                 <Grid item xs={4}>
                                     <Stack direction="row" spacing={1}>
-                                        <SecurityIcon />
+                                        <StickyNote2OutlinedIcon />
                                         <Typography variant="h6">
                                             contractful Hiring Agreement
                                         </Typography>
