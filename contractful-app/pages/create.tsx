@@ -58,8 +58,6 @@ import ContractfulHtmlHead from "../components/HtmlHead";
 import { deployments } from "../deployments";
 import useCoordinateCreateAgreement from "../hooks/useCoordinateCreateAgreement";
 
-let dateEngagementStarts = new Date();
-
 const CreateHiringAgreement: NextPage = () => {
   // hard-coded for now
   const { address } = useAccount();
@@ -101,18 +99,21 @@ const CreateHiringAgreement: NextPage = () => {
     // deconstruct form data
     const {
       acceptancePeriod,
+      beginningDate,
       engagementPeriod,
       paymentCycleDuration,
       hourlyRate,
       contractor,
     } = e.target as typeof e.target & {
       acceptancePeriod: { value: string };
+      beginningDate: { value: string };
       engagementPeriod: { value: string };
       paymentCycleDuration: { value: string };
       hourlyRate: { value: string };
       contractor: { value: Address };
     };
 
+    console.log("beginningDate", beginningDate.value);
     coordinateCreateAgreement(
       selectedToken,
       {
@@ -120,6 +121,9 @@ const CreateHiringAgreement: NextPage = () => {
           Math.round(
             Date.now() / 1000 + parseInt(acceptancePeriod.value) * 86400
           ) // days
+        ),
+        beginningDate: BigNumber.from(
+          Math.round(Date.parse(beginningDate.value) / 1000)
         ),
         maturityDate: BigNumber.from(
           Math.round(
@@ -136,6 +140,7 @@ const CreateHiringAgreement: NextPage = () => {
         ),
         underlayingToken: selectedToken,
         contractor: contractor.value,
+        descriptionURI: "IPFS",
       },
       manager.address,
       ethers.constants.MaxUint256
@@ -402,10 +407,11 @@ const CreateHiringAgreement: NextPage = () => {
                                     <DesktopDatePicker
                                       label="Date"
                                       inputFormat="MM/DD/YYYY"
-                                      value={dateEngagementStarts}
+                                      value={"11/20/2022"}
                                       onChange={() => {}}
                                       renderInput={(params) => (
                                         <TextField
+                                          name="beginningDate"
                                           {...params}
                                           variant="standard"
                                         />

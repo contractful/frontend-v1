@@ -35,6 +35,7 @@ import ActionSection from "../../components/Review/ActionSection";
 import TrafficLight from "../../components/TrafficLight";
 import useActivateAgreement from "../../hooks/useActivateAgreement";
 import useGetAgreementParameters from "../../hooks/useGetAgreementParameters";
+import useGetAgreementState from "../../hooks/useGetAgreementState";
 
 const ReviewHiringAgreement: NextPage = () => {
   const router = useRouter();
@@ -51,6 +52,10 @@ const ReviewHiringAgreement: NextPage = () => {
   const { agreementId } = router.query;
 
   const { data: agreementParameters } = useGetAgreementParameters(
+    agreementId ? BigNumber.from(agreementId) : undefined
+  );
+
+  const { data: agreementState } = useGetAgreementState(
     agreementId ? BigNumber.from(agreementId) : undefined
   );
 
@@ -230,6 +235,7 @@ const ReviewHiringAgreement: NextPage = () => {
             {/* challengeDuration is hardcoded for now */}
             <ActionSection
               agreementParameters={agreementParameters}
+              agreementState={agreementState}
               challengeDuration={BigNumber.from(24 * 60 * 60 * 5)}
               showConfirmDialog={showConfirmDialog}
               handleConsentToAgreement={handleConsentToAgreement}

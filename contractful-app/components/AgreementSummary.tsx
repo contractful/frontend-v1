@@ -20,7 +20,7 @@ import { AgreementParams } from "../../utils/types";
 const ContractfulAgreementSummary = (props: AgreementParams) => {
   const {
     acceptanceDeadline,
-    activationDate,
+    beginningDate,
     contractee,
     contractor,
     establishmentFeeRate_,
@@ -172,8 +172,8 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 <Typography variant="h6">
                   {maturityDate
                     ?.sub(
-                      activationDate.toString() !== "0"
-                        ? activationDate
+                      beginningDate.toString() !== "0"
+                        ? beginningDate
                         : acceptanceDeadline
                     )
                     .div(BigNumber.from(24 * 60 * 60 * 30))
@@ -194,7 +194,9 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   Engagement begins on:
                 </Typography>
                 <Typography variant="h6">
-                  {activationDate?.toString()}
+                  {new Date(
+                    parseInt(beginningDate?.toString()) * 1000
+                  ).toLocaleDateString("en-US")}
                 </Typography>
               </Stack>
 

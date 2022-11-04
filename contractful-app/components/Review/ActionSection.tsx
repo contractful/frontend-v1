@@ -16,10 +16,11 @@ import {
 import { BigNumber, ethers } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import { useAccount } from "wagmi";
-import { AgreementParams } from "../../../utils/types";
+import { AgreementParams, AgreementState } from "../../../utils/types";
 
 type Props = {
   agreementParameters: AgreementParams;
+  agreementState: AgreementState;
   challengeDuration: BigNumber;
   showConfirmDialog: ({}) => void;
   handleConsentToAgreement: () => void;
@@ -28,6 +29,7 @@ type Props = {
 const ActionSection = (props: Props) => {
   const {
     agreementParameters,
+    agreementState,
     challengeDuration,
     showConfirmDialog,
     handleConsentToAgreement,
@@ -36,15 +38,17 @@ const ActionSection = (props: Props) => {
   const { address } = useAccount();
 
   if (
+    !agreementState ||
     !agreementParameters ||
     agreementParameters.contractee === ethers.constants.AddressZero
   ) {
     return <></>;
   }
 
-  const { activationDate, contractor } = agreementParameters;
+  const { beginningDate, contractor } = agreementParameters;
+  const { active, closed } = agreementState;
 
-  if (activationDate.toString() == "0" && address == contractor) {
+  if (!active && !closed && address == contractor) {
     return (
       <>
         <StepLabel>{"Consent to the Hiring Agreement"}</StepLabel>
@@ -117,14 +121,14 @@ const ActionSection = (props: Props) => {
   const { maturityDate, paymentCycleDuration, contractee, paymentCycleAmount } =
     agreementParameters;
 
-  const agreementDuration = maturityDate.sub(activationDate);
+  const agreementDuration = maturityDate.sub(beginningDate);
   const migrations = agreementDuration.div(paymentCycleDuration);
 
   let validChallengePeriod = false;
   const reminder =
     agreementDuration.mod(paymentCycleDuration).toString() !== "0";
   for (let i = 0; i < parseInt(migrations.toString()); i++) {
-    const migrationPeriod = activationDate.add(
+    const migrationPeriod = beginningDate.add(
       paymentCycleDuration.mul(BigNumber.from(i + 1))
     );
 
@@ -162,7 +166,7 @@ const ActionSection = (props: Props) => {
                 <AlertTitle>
                   These actions are final and cannot be undone.
                 </AlertTitle>
-                {activationDate.toString() === "0" ? (
+                {!active && !closed ? (
                   "Since the Contractor has not consented to the Agreement yet, you can cancel the Agreement without being penalized. The agreement will be invalidated and the budget will be returned to you."
                 ) : (
                   <List>
@@ -206,7 +210,7 @@ const ActionSection = (props: Props) => {
                         dialogTitle:
                           "Are you sure you want to cancel the agreement?",
                         dialogBody:
-                          activationDate.toString() === "0"
+                          !active && !closed
                             ? `This action is final. A total of ${formatEther(
                                 paymentCycleAmount
                               )} DAI will be returned to you.`
