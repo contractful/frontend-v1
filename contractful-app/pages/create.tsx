@@ -40,7 +40,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import BrushIcon from "@mui/icons-material/Brush";
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import WalletIcon from "@mui/icons-material/Wallet";
 
@@ -201,7 +201,9 @@ const CreateHiringAgreement: NextPage = () => {
             orientation="vertical"
           >
             <Step key="1" active={true} completed={isWalletConnected()}>
-              <StepLabel>Connect Wallet</StepLabel>
+              <StepLabel>
+                Your Wallet
+              </StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
@@ -219,7 +221,7 @@ const CreateHiringAgreement: NextPage = () => {
                     </Stack>
                     <Typography pt={1}>
                       {isWalletConnected()
-                        ? "Wallet connected. Please proceed with the creating a Hiring Agreement."
+                        ? "Wallet connected. Please proceed with the creating a Hiring Agreement. Use our secure solution to put the Hiring Agreement on-chain."
                         : "Please connect your Wallet to start creating a Hiring Agreement."}
                     </Typography>
                   </Grid>
@@ -228,7 +230,9 @@ const CreateHiringAgreement: NextPage = () => {
             </Step>
 
             <Step key="2" active={isWalletConnected()} completed={false}>
-              <StepLabel>Fill in details for the Hiring Agreement</StepLabel>
+              <StepLabel>
+                Contract
+              </StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
@@ -354,6 +358,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     my: 1.5,
                                   }}
                                   color="text.secondary"
+                                  variant="h6"
                                 >
                                   Contractual details of the arrangement:
                                 </Typography>
@@ -381,8 +386,8 @@ const CreateHiringAgreement: NextPage = () => {
                                     }}
                                     defaultValue="3"
                                     label="Months"
-                                    variant="standard"
                                     type="string"
+                                    variant="outlined"
                                   />
                                 </Stack>
 
@@ -665,24 +670,20 @@ const CreateHiringAgreement: NextPage = () => {
                   <Grid item xs={2}></Grid>
                   <Grid item xs>
                     <Alert severity="info">
-                      <AlertTitle>
-                        Please review all details of the Hiring Agreement
-                        carefully.
-                      </AlertTitle>
+                      <AlertTitle>Please review all details of the Hiring Agreement carefully.</AlertTitle>
                       If all details are correct, you can continue to sign the
-                      Agreement. It will be made available to your service
-                      provider.
+                      Agreement. It will be made available to your service provider.
                     </Alert>
                     <Stack pt={2}>
                       <Button
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<BrushIcon />}
+                        startIcon={<DriveFileRenameOutlineIcon />}
                         fullWidth
                         type="submit"
                       >
-                        Sign Agreement
+                        Create Agreement
                       </Button>
                     </Stack>
                   </Grid>
