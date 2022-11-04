@@ -53,57 +53,7 @@ const HiringAgreementHome: NextPage = () => {
 
         <IntroBg>
             <Container>
-                <Grid container pt={4}>
-                    <Grid item xs={5} px={2}>
-                        <Button
-                            variant="outlined"
-                            startIcon={<NoteAddIcon />}
-                            size="large"
-                            onClick={(e) => handleClick(e, '/create')}
-                            fullWidth
-                        >
-                            Create Hiring Agreement
-                        </Button>
-                    </Grid>
-                    <Grid item xs={2} sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <ReplyIcon sx={{
-                                pb: 1
-                            }}
-                        />
-                        <Typography sx={{
-                                fontSize: 'smaller',
-                                color: '#666'
-                            }}
-                        >
-                            Quick links
-                        </Typography>
-                        <ReplyIcon sx={{
-                                transform: 'scaleX(-1)',
-                                pb: 1
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={5} px={2}>
-                        <Button
-                            variant="outlined"
-                            startIcon={<BrushIcon />}
-                            size="large"
-                            onClick={(e) => handleClick(e, '/review')}
-                            fullWidth
-                        >
-                            Sign existing Agreement
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Container>
-
-            <Container>
-                <Grid container pt={8}>
+                <Grid container pt={6}>
                     <Grid item xs={8}>
                         <Typography variant="subtitle1">
                             What is a contractful Hiring Agreement?
@@ -119,13 +69,40 @@ const HiringAgreementHome: NextPage = () => {
             </Container>
 
             <Container>
-                <Grid container pt={4} sx={{
+                <Grid container pt={6} pb={4}>
+                    <Grid item xs={5} px={2}>
+                        <Button
+                            variant="outlined"
+                            startIcon={<NoteAddIcon />}
+                            size="large"
+                            onClick={(e) => handleClick(e, '/create')}
+                            fullWidth
+                        >
+                            Create Hiring Agreement
+                        </Button>
+                    </Grid>
+                    <Grid item xs></Grid>
+                    <Grid item xs={5} px={2}>
+                        <Button
+                            variant="outlined"
+                            startIcon={<BrushIcon />}
+                            size="large"
+                            onClick={(e) => handleClick(e, '/review')}
+                            fullWidth
+                        >
+                            Sign existing Agreement
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Container>
+
+            <Container>
+                <Grid container sx={{
                             background: 'url(' + imgMoodImage.src + ') no-repeat',
                             height: '564px'
                         }}
                     >
-                    <Grid items xs={6}>
-                    </Grid>
+                    <Grid items xs={6}></Grid>
                     <Grid items xs>
                         <Stack direction="column" spacing={4} pt={4}>
                             <Stack direction="row" spacing={4}>
@@ -227,9 +204,114 @@ const HiringAgreementHome: NextPage = () => {
                     </Grid>
                 </Grid>                
             </Container>
+            
+            <Container>
+                <Grid container>
+                    <Grid item xs={6} p={4}>
+                        <Stack>
+                            <div style={{
+                                    width: '100%',                             
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Avatar sx={{
+                                        width: '150px',
+                                        height: '150px',
+                                        border: "1px solid #bbb"
+                                    }}
+                                    src={imgForClient.src}
+                                >
+                                </Avatar>
+                            </div>
+                            <Paper elevation={12} style={{
+                                    marginTop: '-45px'
+                                }}
+                            >
+                                <Typography variant="h4" pt={7} pl={4}>
+                                    Build your team
+                                </Typography>
+                                <Typography px={4} pt={1}>
+                                    <b>As a client:</b> Ready to use contractful to create a Hiring Agreement.
+                                </Typography>
+                                <Box pt={2} px={4} pb={4} sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <Button
+                                        onClick={(e) => handleClick(e, '/create')}
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        startIcon={<NoteAddIcon />}
+                                        sx={{
+                                            width: '75%',
+                                            boxShadow: 'none'
+                                        }}
+                                    >
+                                        Create Hiring Agreement
+                                    </Button>
+                                </Box>
+                            </Paper>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs p={4}>
+                        <Stack>
+                            <div style={{
+                                    width: '100%',                             
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Avatar sx={{
+                                        width: '150px',
+                                        height: '150px',
+                                        border: "1px solid #bbb"
+                                    }}
+                                    src={imgForServiceProvider.src}
+                                >
+                                </Avatar>
+                            </div>
+                            <Paper elevation={12} style={{
+                                    marginTop: '-45px'
+                                }}
+                            >
+                                <Typography variant="h4" pt={7} pl={4}>
+                                    Start your collaboration
+                                </Typography>
+                                <Typography px={4} pt={1}>
+                                    <b>As a service provider:</b> Review and consent to an Agreement prepared for you.
+                                </Typography>
+                                <Box pt={2} px={4} pb={4} sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <Button
+                                        onClick={(e) => handleClick(e, '/review')}
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        startIcon={<BrushIcon />}
+                                        sx={{
+                                            width: '75%',
+                                            boxShadow: 'none'
+                                        }}
+                                    >
+                                        Sign existing Agreement
+                                    </Button>
+                                </Box>
+                            </Paper>
+                        </Stack>
+                    </Grid>
+                </Grid>
+            </Container>
 
             <Container sx={{
-                pt:4
+                pt:8
             }}>
                 <Typography variant="h1" sx={{
                         width: '100%',
@@ -239,8 +321,8 @@ const HiringAgreementHome: NextPage = () => {
                     How it works?
                 </Typography>
             </Container>
-            
-            <Container>
+
+            <Container maxWidth="sm">
                 <Typography variant="h5">
                     <ol>
                         <li style={{ paddingBottom: 32 }}>Build your team: Come up with individual Agreements (off-chain).</li>
@@ -249,110 +331,8 @@ const HiringAgreementHome: NextPage = () => {
                     </ol>
                 </Typography>
             </Container>
-        </IntroBg>
 
-        <Container>
-            <Grid container pt={4}>
-                <Grid item xs={6} p={4}>
-                    <Stack>
-                        <div style={{
-                                width: '100%',                             
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Avatar sx={{
-                                    width: '150px',
-                                    height: '150px',
-                                    border: "1px solid #bbb"
-                                }}
-                                src={imgForClient.src}
-                            >
-                            </Avatar>
-                        </div>
-                        <Paper elevation={12} style={{
-                                marginTop: '-45px'
-                            }}
-                        >
-                            <Typography variant="h4" pt={7} pl={4}>
-                                Build your team
-                            </Typography>
-                            <Typography px={4} pt={1}>
-                                <b>As a client:</b> Ready to use contractful to create a Hiring Agreement.
-                            </Typography>
-                            <Box pt={1} px={4} pb={4} sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}>
-                                <Button
-                                    onClick={(e) => handleClick(e, '/create')}
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    startIcon={<NoteAddIcon />}
-                                    sx={{
-                                        width: '75%'
-                                    }}
-                                >
-                                    Create Hiring Agreement
-                                </Button>
-                            </Box>
-                        </Paper>
-                    </Stack>
-                </Grid>
-                <Grid item xs p={4}>
-                    <Stack>
-                        <div style={{
-                                width: '100%',                             
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <Avatar sx={{
-                                    width: '150px',
-                                    height: '150px',
-                                    border: "1px solid #bbb"
-                                }}
-                                src={imgForServiceProvider.src}
-                            >
-                            </Avatar>
-                        </div>
-                        <Paper elevation={12} style={{
-                                marginTop: '-45px'
-                            }}
-                        >
-                            <Typography variant="h4" pt={7} pl={4}>
-                                Start your collaboration
-                            </Typography>
-                            <Typography px={4} pt={1}>
-                                <b>As a service provider:</b> Review and consent to an Agreement prepared for you.
-                            </Typography>
-                            <Box pt={1} px={4} pb={4} sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}>
-                                <Button
-                                    onClick={(e) => handleClick(e, '/review')}
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    startIcon={<BrushIcon />}
-                                    sx={{
-                                        width: '75%'
-                                    }}
-                                >
-                                    Sign existing Agreement
-                                </Button>
-                            </Box>
-                        </Paper>
-                    </Stack>
-                </Grid>
-            </Grid>
-        </Container>
+        </IntroBg>
 
         <ContractfulFooter withImageCredits={true} />
         </>
