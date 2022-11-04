@@ -43,6 +43,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import WalletIcon from "@mui/icons-material/Wallet";
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import TocIcon from "@mui/icons-material/Toc";
@@ -190,6 +193,14 @@ const CreateHiringAgreement: NextPage = () => {
       <CssBaseline />
       <ContractfulHeader />
 
+      <Container
+          sx={{
+            mt: 4
+          }}
+        >
+        <Typography variant="h6">👋 Welcome - start here to create and deploy a Hiring Agreement.</Typography>
+      </Container>
+
       <form onSubmit={(e) => handleCreateAgreementSubmit(e)}>
         <Container
           sx={{
@@ -207,23 +218,39 @@ const CreateHiringAgreement: NextPage = () => {
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
-                    <Stack direction="row">
-                      <Typography variant="h6">👋 Welcome</Typography>
-                      {isWalletConnected() && (
-                        <Chip
-                          label={address}
-                          variant="outlined"
-                          sx={{
-                            ml: 2,
-                          }}
-                        />
-                      )}
+
+                    <Stack direction="column">
+                      {isWalletConnected() ? (
+                        
+                        <Stack direction="column" spacing={1}>
+                          <Stack direction="row" spacing={1}>
+                            <VerifiedUserIcon />
+                            <Typography>
+                              Connected
+                            </Typography>
+                            <Chip
+                              label={address}
+                              variant="outlined"
+                              sx={{
+                                mb:1
+                              }}
+                            />
+                          </Stack>
+                          <Typography>
+                            Please proceed to securely create a Hiring Agreement.
+                          </Typography>
+                        </Stack>
+
+                      ) : (
+                      <Stack direction="row" spacing={1}>
+                        <LocalPoliceIcon />
+                        <Typography>
+                            Please connect your Wallet to securely create a Hiring Agreement.
+                        </Typography>
+                      </Stack>
+                    )}
                     </Stack>
-                    <Typography pt={1}>
-                      {isWalletConnected()
-                        ? "Wallet connected. Please proceed with the creating a Hiring Agreement. Use our secure solution to put the Hiring Agreement on-chain."
-                        : "Please connect your Wallet to start creating a Hiring Agreement."}
-                    </Typography>
+
                   </Grid>
                 </Grid>
               </StepContent>
@@ -236,21 +263,23 @@ const CreateHiringAgreement: NextPage = () => {
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
-                    <Typography variant="h6">📝 Contract</Typography>
-                    <Typography pt={1} pb={4}>
-                      Please fill in the details of the Hiring Agreement.
-                    </Typography>
 
-                    <Paper elevation={12}>
+                    <Stack direction="row" spacing={1} mb={4}>
+                      <StickyNote2OutlinedIcon />
+                      <Typography>
+                        Please fill in the details of the Hiring Agreement.
+                      </Typography>
+                    </Stack>
+
+                    <Paper elevation={12} sx={{
+                        mb: 4
+                      }}
+                    >
                       <FormControl
                         variant="standard"
                         onSubmit={(e) => handleCreateAgreementSubmit(e)}
                       >
                         <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
                           px={4}
                           pt={4}
                         >
@@ -258,7 +287,7 @@ const CreateHiringAgreement: NextPage = () => {
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              my: 0.5,
+                              mt: 2
                             }}
                           />
                           <TextField
@@ -273,10 +302,6 @@ const CreateHiringAgreement: NextPage = () => {
                         </Box>
 
                         <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
                           px={4}
                           pt={4}
                         >
@@ -284,7 +309,7 @@ const CreateHiringAgreement: NextPage = () => {
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              my: 0.5,
+                              mt: 2
                             }}
                           />
                           <TextField
@@ -299,26 +324,18 @@ const CreateHiringAgreement: NextPage = () => {
                           />
                         </Box>
 
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
+                        <Stack
                           px={4}
                           pt={4}
+                          direction="row"
                         >
                           <Diversity3Icon
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              my: 0.5,
+                              mt: 2
                             }}
                           />
-                          <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="longterm"
-                            name="radio-buttons-group"
-                          >
                             <Card
                               sx={{
                                 width: "80vh",
@@ -327,8 +344,11 @@ const CreateHiringAgreement: NextPage = () => {
                             >
                               <CardContent>
                                 <Typography
-                                  sx={{ mb: 1.5 }}
+                                  sx={{
+                                    mb: 1.5
+                                  }}
                                   color="text.secondary"
+                                  variant="h6"
                                 >
                                   The Hiring Agreement aims for a long-term
                                   collaboration relationship.
@@ -386,8 +406,8 @@ const CreateHiringAgreement: NextPage = () => {
                                     }}
                                     defaultValue="3"
                                     label="Months"
-                                    type="string"
-                                    variant="outlined"
+                                    type="number"
+                                    variant="standard"
                                   />
                                 </Stack>
 
@@ -497,37 +517,17 @@ const CreateHiringAgreement: NextPage = () => {
                                 </Stack>
                               </CardContent>
                             </Card>
+                        </Stack>
 
-                            <Card
-                              sx={{
-                                width: "80vh",
-                                mt: 1,
-                              }}
-                              variant="outlined"
-                            >
-                              <CardContent>
-                                <FormControlLabel
-                                  value="shortterm"
-                                  control={<Radio />}
-                                  label="Short-term Agreement"
-                                />
-                              </CardContent>
-                            </Card>
-                          </RadioGroup>
-                        </Box>
-
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
+                        <Stack
                           p={4}
+                          direction="row"
                         >
                           <RequestQuoteIcon
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              my: 0.5,
+                              mt: 4
                             }}
                           />
                           <Card
@@ -542,8 +542,9 @@ const CreateHiringAgreement: NextPage = () => {
                                   my: 1.5,
                                 }}
                                 color="text.secondary"
+                                variant="h6"
                               >
-                                Financial details of the Hiring Agreement:
+                                Financial arrangement of the Hiring Agreement:
                               </Typography>
 
                               <Stack
@@ -655,7 +656,7 @@ const CreateHiringAgreement: NextPage = () => {
                               </Stack>
                             </CardContent>
                           </Card>
-                        </Box>
+                        </Stack>
                       </FormControl>
                     </Paper>
                   </Grid>
@@ -664,15 +665,14 @@ const CreateHiringAgreement: NextPage = () => {
             </Step>
 
             <Step key="3" active={isWalletConnected()} completed={false}>
-              <StepLabel>Sign the Agreement to make it available</StepLabel>
+              <StepLabel>Create and deploy the Agreement to make it available</StepLabel>
               <StepContent>
-                <Grid container pt={4}>
-                  <Grid item xs={2}></Grid>
-                  <Grid item xs>
+                <Grid container pt={4} pl={3}>
+                  <Grid item xs={8}>
                     <Alert severity="info">
                       <AlertTitle>Please review all details of the Hiring Agreement carefully.</AlertTitle>
-                      If all details are correct, you can continue to sign the
-                      Agreement. It will be made available to your service provider.
+                      If all details are correct, you can continue to create the
+                      Agreement. The Agreement will then be deployed to Polygon and made available to your service provider.
                     </Alert>
                     <Stack pt={2}>
                       <Button
@@ -687,7 +687,7 @@ const CreateHiringAgreement: NextPage = () => {
                       </Button>
                     </Stack>
                   </Grid>
-                  <Grid item xs={3}></Grid>
+                  <Grid item xs></Grid>
                 </Grid>
               </StepContent>
             </Step>
