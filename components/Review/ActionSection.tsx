@@ -16,7 +16,7 @@ import {
 import { BigNumber, ethers } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import { useAccount } from "wagmi";
-import { AgreementParams, AgreementState } from "../../../utils/types";
+import { AgreementParams, AgreementState } from "../../utils/types";
 
 type Props = {
   agreementParameters: AgreementParams;

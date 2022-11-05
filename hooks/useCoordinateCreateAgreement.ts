@@ -1,9 +1,9 @@
 import { BigNumber, ethers } from "ethers";
 import { useEffect, useRef, useState } from "react";
 import { useWaitForTransaction } from "wagmi";
-import { Address, AgreementCreationParams } from "../../utils/types";
 import { deployments } from "../deployments";
 import { networkConfig } from "../helper.config";
+import { Address, AgreementCreationParams } from "../utils/types";
 import useApprove from "./useApprove";
 import useCreateAgreement from "./useCreateAgreement";
 

@@ -1,6 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 import { erc20ABI, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { Address } from "../../utils/types";
+import { Address } from "../utils/types";
 
 const useApprove = (
   tokenAddress: Address,

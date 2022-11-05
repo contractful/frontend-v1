@@ -49,7 +49,6 @@ import TocIcon from "@mui/icons-material/Toc";
 import { BigNumber, ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { Address } from "../../utils/types";
 import CreateAgreementStatus from "../components/CreateAgreement/CreateAgreementStatus";
 import ContractfulFooter from "../components/Footer";
 import SnackbarAlert from "../components/general/SnackbarAlert";
@@ -57,6 +56,7 @@ import ContractfulHeader from "../components/Header";
 import ContractfulHtmlHead from "../components/HtmlHead";
 import { deployments } from "../deployments";
 import useCoordinateCreateAgreement from "../hooks/useCoordinateCreateAgreement";
+import { Address } from "../utils/types";
 
 const CreateHiringAgreement: NextPage = () => {
   // hard-coded for now
