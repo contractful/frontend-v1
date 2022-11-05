@@ -606,7 +606,7 @@ const CreateHiringAgreement: NextPage = () => {
                                   >
                                     <MenuItem value={14 * 60}>
                                       <b style={{ color: "#d32f2f" }}>
-                                        TESTING ONLY:
+                                        TESTING:
                                       </b>{" "}
                                       Payment in 14 minutes (imitating 2 weeks)
                                     </MenuItem>
