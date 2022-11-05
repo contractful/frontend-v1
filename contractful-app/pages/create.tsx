@@ -18,14 +18,11 @@ import {
   DialogTitle,
   Divider,
   FormControl,
-  FormControlLabel,
   Grid,
   InputLabel,
   Link,
   MenuItem,
   Paper,
-  Radio,
-  RadioGroup,
   Select,
   Stack,
   Step,
@@ -668,7 +665,7 @@ const CreateHiringAgreement: NextPage = () => {
               <StepLabel>Create and deploy the Agreement to make it available</StepLabel>
               <StepContent>
                 <Grid container pt={4} pl={3}>
-                  <Grid item xs={8}>
+                  <Grid item xs={9}>
                     <Alert severity="info">
                       <AlertTitle>Please review all details of the Hiring Agreement carefully.</AlertTitle>
                       If all details are correct, you can continue to create the
