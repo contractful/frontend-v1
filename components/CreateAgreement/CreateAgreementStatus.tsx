@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 
 export interface Props {
   open: boolean;
-  onClose: (value: string) => void;
+  onClose: (e: React.MouseEvent<HTMLElement>) => void;
   isTokenApprovePendingSignature: boolean;
   isTokenApproveMining: boolean;
   isTokenApproveSuccess: boolean;

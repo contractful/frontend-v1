@@ -85,7 +85,7 @@ const CreateHiringAgreement: NextPage = () => {
 
   const manager = deployments.contracts.Manager;
 
-  const handleCreateAgreementSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleCreateAgreementSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     reset();
     if (!address) {
@@ -147,8 +147,10 @@ const CreateHiringAgreement: NextPage = () => {
     );
   };
 
-  const handleCloseCreateAgreementStatuses = (e) => {
-    if (isError || isCreateAgreementSuccess || !address) {
+  const handleCloseCreateAgreementStatuses = (
+    e: React.MouseEvent<HTMLElement>
+  ) => {
+      if (isError || isCreateAgreementSuccess || !address) {
       setOpenStatusesDialog(false);
     }
   };
@@ -565,7 +567,7 @@ const CreateHiringAgreement: NextPage = () => {
                                   label="Hourly rate"
                                   variant="standard"
                                   sx={{
-                                    width: "15vh",
+                                    width: "30%",
                                   }}
                                 />
                                 <Typography pl={4}>US$ (in DAI)</Typography>
@@ -646,7 +648,7 @@ const CreateHiringAgreement: NextPage = () => {
                                   variant="standard"
                                   type="number"
                                   sx={{
-                                    width: "15vh",
+                                    width: "30%",
                                   }}
                                 />
                                 <Typography pl={4}>DAI</Typography>

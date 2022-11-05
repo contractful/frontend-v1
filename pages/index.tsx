@@ -1,4 +1,5 @@
 import type { NextPage } from "next"
+import Image from "next/image";
 import Router from 'next/router'
 
 import { 
@@ -102,7 +103,7 @@ const HiringAgreementHome: NextPage = () => {
                             height: '564px'
                         }}
                     >
-                    <Grid items xs={6}></Grid>
+                    <Grid items xs={6}> </Grid>
                     <Grid items xs>
                         <Stack direction="column" spacing={4} pt={4}>
                             <Stack direction="row" spacing={4}>
@@ -136,11 +137,21 @@ const HiringAgreementHome: NextPage = () => {
                                     }}                                
                                 >
                                     <Stack direction="row">
-                                        <img src={imgIconPolygon.src} alt="Polygon Logo" width="48px" />
-                                        <Typography variant="h6" px={1} pt={1}>
-                                            +
-                                        </Typography>
-                                        <img src={imgIconChainlink.src} alt="Chainlink Logo" width="48px" />
+                                    <Image
+                                        src={imgIconPolygon.src}
+                                        alt="Polygon Logo"
+                                        width="48px"
+                                        height="48px"
+                                    />
+                                    <Typography variant="h6" px={1} pt={1}>
+                                        +
+                                    </Typography>
+                                    <Image
+                                        src={imgIconChainlink.src}
+                                        alt="Chainlink Logo"
+                                        width="48px"
+                                        height="48px"
+                                    />
                                     </Stack>
                                     
                                     <Typography variant="h6">

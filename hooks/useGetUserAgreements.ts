@@ -1,6 +1,6 @@
 import { useContractRead } from "wagmi";
-import { Address } from "../../utils/types";
 import { deployments } from "../deployments";
+import { Address } from "../utils/types";
 
 const useGetUserAgreements = (address: Address | undefined) => {
   const manager = deployments.contracts.Manager;

@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { deployments } from "../deployments";
-import { AgreementCreationParams } from "./../../utils/types";
+import { AgreementCreationParams } from "./../utils/types";
 
 const useCreateAgreement = (
   // more params can be added to match the usePrepareContractWrite and useContractWrite hook optional configurations

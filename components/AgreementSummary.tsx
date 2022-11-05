@@ -15,7 +15,7 @@ import WalletIcon from "@mui/icons-material/Wallet";
 
 import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
-import { AgreementParams } from "../../utils/types";
+import { AgreementParams } from "../utils/types";
 
 const ContractfulAgreementSummary = (props: AgreementParams) => {
   const {
