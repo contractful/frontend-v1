@@ -11,6 +11,11 @@ For details on the project, please visit [https://github.com/contractful/protoco
 4. npm i --legacy-peer-deps
 5. npx next dev
 
+Use to build / test:
+
+npx next build
+npx next lint
+
 Additional packages
 
 npx create-next-app@latest --typescript
