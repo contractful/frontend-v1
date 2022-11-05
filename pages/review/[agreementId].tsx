@@ -167,10 +167,10 @@ const ReviewHiringAgreement: NextPage = () => {
       <ContractfulHeader />
 
       <Container
-          sx={{
-            mt: 4
-          }}
-        >
+        sx={{
+          mt: 4
+        }}
+      >
         <Typography variant="h6">👋 Welcome - please go ahead to review Hiring Agreement and take action, if needed.</Typography>
       </Container>
 
@@ -189,36 +189,36 @@ const ReviewHiringAgreement: NextPage = () => {
               <Grid container pt={2} pl={3}>
                 <Grid item xs>
                   <Stack direction="column">
-                      {isWalletConnected() ? (
-                        
-                        <Stack direction="column" spacing={1}>
-                          <Stack direction="row" spacing={1}>
-                            <VerifiedUserIcon />
-                            <Typography>
-                              Connected
-                            </Typography>
-                            <Chip
-                              label={address}
-                              variant="outlined"
-                              sx={{
-                                mb:1
-                              }}
-                            />
-                          </Stack>
-                          <Typography>
-                            Please proceed to review your Hiring Agreement.
-                          </Typography>
-                        </Stack>
+                    {isWalletConnected() ? (
 
-                      ) : (
+                      <Stack direction="column" spacing={1}>
+                        <Stack direction="row" spacing={1}>
+                          <VerifiedUserIcon />
+                          <Typography>
+                            Connected
+                          </Typography>
+                          <Chip
+                            label={address}
+                            variant="outlined"
+                            sx={{
+                              mb: 1
+                            }}
+                          />
+                        </Stack>
+                        <Typography>
+                          Please proceed to review your Hiring Agreement.
+                        </Typography>
+                      </Stack>
+
+                    ) : (
                       <Stack direction="row" spacing={1}>
                         <LocalPoliceIcon />
                         <Typography>
-                            Please connect your Wallet to review your Hiring Agreement.
+                          Please connect your Wallet to review your Hiring Agreement.
                         </Typography>
                       </Stack>
                     )}
-                    </Stack>
+                  </Stack>
                 </Grid>
               </Grid>
             </StepContent>
@@ -233,72 +233,72 @@ const ReviewHiringAgreement: NextPage = () => {
                   Please review the status of your Hiring Agreement and take action if needed.
                 </Typography>
               </Stack>
-              
+
               <Grid container pt={2} pl={3}>
                 <Grid item xs={9}>
 
                   {(agreementStatus === AgreementStatus.ReadyToConsent) && (
                     <>
-                    <Alert severity="error">
-                      <AlertTitle sx={{ pb:2 }}>Status summary of your Hiring Agreement</AlertTitle>
-                      <Stack direction="column" spacing={1}>
-                        <Typography>
+                      <Alert severity="error">
+                        <AlertTitle sx={{ pb: 2 }}>Status summary of your Hiring Agreement</AlertTitle>
+                        <Stack direction="column" spacing={1}>
+                          <Typography>
                             ✅ Funds have been committed to this Hiring Agreement by your client.
-                        </Typography>
-                        <Typography>
+                          </Typography>
+                          <Typography>
                             ❌ You have not consented to the Hiring Agreement yet.
-                        </Typography>
-                        <Typography sx={{ pt:2 }}>
-                          <b>What's next?</b>
-                        </Typography>
-                        <Typography>
+                          </Typography>
+                          <Typography sx={{ pt: 2 }}>
+                            <b>What's next?</b>
+                          </Typography>
+                          <Typography>
                             👉 Go ahead to review all details of the Hiring Agreement below. You can then choose to consent to it.
-                        </Typography>
-                      </Stack>
-                    </Alert>
+                          </Typography>
+                        </Stack>
+                      </Alert>
                     </>
                   )}
 
                   {(agreementStatus === AgreementStatus.ActiveForServiceProvider) && (
                     <>
-                    <Alert severity="success">
-                      <AlertTitle sx={{ pb:2 }}>Status summary of your Hiring Agreement</AlertTitle>
-                      <Stack direction="column" spacing={1}>
-                        <Typography>
-                          ✅ Funds have been committed to this Hiring Agreement by your client.
-                        </Typography>
-                        <Typography>
-                         ✅ You have consented to the Hiring Agreement.
-                       </Typography>
-                       <Typography
-                         variant="h6"
-                         sx={{
-                          pt:2,
-                        }}
-                        >
-                        🎉 Well done. Nothing to do. Enjoy your collaboration.
-                       </Typography>
-                      </Stack>
-                    </Alert>
+                      <Alert severity="success">
+                        <AlertTitle sx={{ pb: 2 }}>Status summary of your Hiring Agreement</AlertTitle>
+                        <Stack direction="column" spacing={1}>
+                          <Typography>
+                            ✅ Funds have been committed to this Hiring Agreement by your client.
+                          </Typography>
+                          <Typography>
+                            ✅ You have consented to the Hiring Agreement.
+                          </Typography>
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              pt: 2,
+                            }}
+                          >
+                            🎉 Well done. Nothing to do. Enjoy your collaboration.
+                          </Typography>
+                        </Stack>
+                      </Alert>
                     </>
                   )}
 
                   {(agreementStatus === AgreementStatus.ActiveForClient) && (
                     <>
-                    <Alert severity="success">
-                      <AlertTitle sx={{ pb:2 }}>Status summary of your Hiring Agreement</AlertTitle>
-                      <Stack direction="column" spacing={1}>
-                        <Typography>
-                          ✅ Funds have been committed to this Hiring Agreement by your client.
-                        </Typography>
-                        <Typography>
-                         ✅ Your service provider has consented to the Hiring Agreement.
-                       </Typography>
-                       <Typography>
-                        👉 In case of a critical violation of the Agreement, you are able to review and challenge it.
-                       </Typography>
-                      </Stack>
-                    </Alert>
+                      <Alert severity="success">
+                        <AlertTitle sx={{ pb: 2 }}>Status summary of your Hiring Agreement</AlertTitle>
+                        <Stack direction="column" spacing={1}>
+                          <Typography>
+                            ✅ Funds have been committed to this Hiring Agreement by your client.
+                          </Typography>
+                          <Typography>
+                            ✅ Your service provider has consented to the Hiring Agreement.
+                          </Typography>
+                          <Typography>
+                            👉 In case of a critical violation of the Agreement, you are able to review and challenge it.
+                          </Typography>
+                        </Stack>
+                      </Alert>
                     </>
                   )}
 
@@ -308,8 +308,8 @@ const ReviewHiringAgreement: NextPage = () => {
 
               <Box pt={2} pl={3}>
                 <ContractfulAgreementSummary
-                      {...(agreementParameters ? agreementParameters : undefined)}
-                    />
+                  {...(agreementParameters ? agreementParameters : undefined)}
+                />
               </Box>
 
             </StepContent>
@@ -343,11 +343,11 @@ const ReviewHiringAgreement: NextPage = () => {
           message={
             isActivateAgreementError
               ? // We don't check for the prepare error because if the user is not the allowed contractor it will spam the
-                // user with errors
-                activateAgreementError?.message?.split("(")[0]
+              // user with errors
+              activateAgreementError?.message?.split("(")[0]
               : !address
-              ? "Connect your wallet first"
-              : "Your agreement is active! You can review it in your agreements page"
+                ? "Connect your wallet first"
+                : "Your agreement is active! You can review it in your agreements page"
           }
         />
       </Box>

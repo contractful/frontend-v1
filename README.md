@@ -28,5 +28,6 @@ npm install --legacy-peer-deps @mui/x-date-pickers
 npm install --legacy-peer-deps dayjs
 # TODO module seems to be an outdated dependency
 # react-trafficlight is an outdated dependency
-
 ```
+
+Using the following VS Code (Version: 1.73.0 (Universal)) formatter for Typescript/React: `vscode.typescript-language-features`.

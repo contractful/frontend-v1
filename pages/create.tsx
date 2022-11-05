@@ -150,7 +150,7 @@ const CreateHiringAgreement: NextPage = () => {
   const handleCloseCreateAgreementStatuses = (
     e: React.MouseEvent<HTMLElement>
   ) => {
-      if (isError || isCreateAgreementSuccess || !address) {
+    if (isError || isCreateAgreementSuccess || !address) {
       setOpenStatusesDialog(false);
     }
   };
@@ -193,10 +193,10 @@ const CreateHiringAgreement: NextPage = () => {
       <ContractfulHeader />
 
       <Container
-          sx={{
-            mt: 4
-          }}
-        >
+        sx={{
+          mt: 4
+        }}
+      >
         <Typography variant="h6">👋 Welcome - start here to create and deploy a Hiring Agreement.</Typography>
       </Container>
 
@@ -220,7 +220,7 @@ const CreateHiringAgreement: NextPage = () => {
 
                     <Stack direction="column">
                       {isWalletConnected() ? (
-                        
+
                         <Stack direction="column" spacing={1}>
                           <Stack direction="row" spacing={1}>
                             <VerifiedUserIcon />
@@ -231,7 +231,7 @@ const CreateHiringAgreement: NextPage = () => {
                               label={address}
                               variant="outlined"
                               sx={{
-                                mb:1
+                                mb: 1
                               }}
                             />
                           </Stack>
@@ -241,13 +241,13 @@ const CreateHiringAgreement: NextPage = () => {
                         </Stack>
 
                       ) : (
-                      <Stack direction="row" spacing={1}>
-                        <LocalPoliceIcon />
-                        <Typography>
+                        <Stack direction="row" spacing={1}>
+                          <LocalPoliceIcon />
+                          <Typography>
                             Please connect your Wallet to securely create a Hiring Agreement.
-                        </Typography>
-                      </Stack>
-                    )}
+                          </Typography>
+                        </Stack>
+                      )}
                     </Stack>
 
                   </Grid>
@@ -271,8 +271,8 @@ const CreateHiringAgreement: NextPage = () => {
                     </Stack>
 
                     <Paper elevation={12} sx={{
-                        mb: 4
-                      }}
+                      mb: 4
+                    }}
                     >
                       <FormControl
                         variant="standard"
@@ -335,187 +335,187 @@ const CreateHiringAgreement: NextPage = () => {
                               mt: 2
                             }}
                           />
-                            <Card
-                              sx={{
-                                width: "80vh",
-                              }}
-                              variant="outlined"
-                            >
-                              <CardContent>
+                          <Card
+                            sx={{
+                              width: "80vh",
+                            }}
+                            variant="outlined"
+                          >
+                            <CardContent>
+                              <Typography
+                                sx={{
+                                  mb: 1.5
+                                }}
+                                color="text.secondary"
+                                variant="h6"
+                              >
+                                The Hiring Agreement aims for a long-term
+                                collaboration relationship.
+                              </Typography>
+                              <Typography variant="body2">
+                                <ul>
+                                  <li>
+                                    The arrangement is planned for several
+                                    months (usually 1-3, up to 6 and even more
+                                    months).
+                                  </li>
+                                  <li>
+                                    The project is organized in 2 weeks sprint
+                                    iterations.
+                                  </li>
+                                  <li>
+                                    Payment will be handled correspondingly by
+                                    the smart contract.
+                                  </li>
+                                </ul>
+                              </Typography>
+
+                              <Divider />
+
+                              <Typography
+                                sx={{
+                                  my: 1.5,
+                                }}
+                                color="text.secondary"
+                                variant="h6"
+                              >
+                                Contractual details of the arrangement:
+                              </Typography>
+
+                              <Stack
+                                direction="row"
+                                sx={{
+                                  alignItems: "flex-end",
+                                }}
+                              >
                                 <Typography
                                   sx={{
-                                    mb: 1.5
+                                    width: "30%",
                                   }}
-                                  color="text.secondary"
-                                  variant="h6"
+                                  variant="body2"
                                 >
-                                  The Hiring Agreement aims for a long-term
-                                  collaboration relationship.
+                                  Engagement period:
                                 </Typography>
-                                <Typography variant="body2">
-                                  <ul>
-                                    <li>
-                                      The arrangement is planned for several
-                                      months (usually 1-3, up to 6 and even more
-                                      months).
-                                    </li>
-                                    <li>
-                                      The project is organized in 2 weeks sprint
-                                      iterations.
-                                    </li>
-                                    <li>
-                                      Payment will be handled correspondingly by
-                                      the smart contract.
-                                    </li>
-                                  </ul>
-                                </Typography>
+                                <TextField
+                                  id="input-engagement-period"
+                                  name="engagementPeriod"
+                                  inputProps={{
+                                    inputMode: "numeric",
+                                    pattern: "[0-9]*",
+                                  }}
+                                  defaultValue="3"
+                                  label="Months"
+                                  type="number"
+                                  variant="standard"
+                                />
+                              </Stack>
 
-                                <Divider />
-
+                              <Stack
+                                direction="row"
+                                sx={{
+                                  alignItems: "flex-end",
+                                }}
+                                pt={4}
+                              >
                                 <Typography
                                   sx={{
-                                    my: 1.5,
+                                    width: "30%",
                                   }}
-                                  color="text.secondary"
-                                  variant="h6"
+                                  variant="body2"
                                 >
-                                  Contractual details of the arrangement:
+                                  Engagement begins on:
+                                </Typography>
+                                <LocalizationProvider
+                                  dateAdapter={AdapterDayjs}
+                                >
+                                  <DesktopDatePicker
+                                    label="Date"
+                                    inputFormat="MM/DD/YYYY"
+                                    value={"11/20/2022"}
+                                    onChange={() => { }}
+                                    renderInput={(params) => (
+                                      <TextField
+                                        name="beginningDate"
+                                        {...params}
+                                        variant="standard"
+                                      />
+                                    )}
+                                  />
+                                </LocalizationProvider>
+                              </Stack>
+
+                              <Stack
+                                direction="row"
+                                sx={{
+                                  alignItems: "flex-end",
+                                }}
+                                pt={4}
+                              >
+                                <Typography
+                                  sx={{
+                                    width: "30%",
+                                  }}
+                                  variant="body2"
+                                >
+                                  Working hours:
                                 </Typography>
 
-                                <Stack
-                                  direction="row"
-                                  sx={{
-                                    alignItems: "flex-end",
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                      width: "30%",
-                                    }}
-                                    variant="body2"
-                                  >
-                                    Engagement period:
-                                  </Typography>
-                                  <TextField
-                                    id="input-engagement-period"
-                                    name="engagementPeriod"
-                                    inputProps={{
-                                      inputMode: "numeric",
-                                      pattern: "[0-9]*",
-                                    }}
-                                    defaultValue="3"
-                                    label="Months"
-                                    type="number"
+                                <FormControl sx={{ width: "50%" }}>
+                                  <InputLabel id="label-select-commitment">
+                                    Commitment
+                                  </InputLabel>
+                                  <Select
+                                    labelId="label-select-commitment"
+                                    id="select-commitment"
+                                    label="Commitment"
                                     variant="standard"
-                                  />
-                                </Stack>
-
-                                <Stack
-                                  direction="row"
-                                  sx={{
-                                    alignItems: "flex-end",
-                                  }}
-                                  pt={4}
-                                >
-                                  <Typography
-                                    sx={{
-                                      width: "30%",
+                                    defaultValue={40}
+                                    onChange={(e) => {
+                                      e.target.value !== 40 &&
+                                        showBetaDialog();
                                     }}
-                                    variant="body2"
-                                  >
-                                    Engagement begins on:
-                                  </Typography>
-                                  <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
-                                  >
-                                    <DesktopDatePicker
-                                      label="Date"
-                                      inputFormat="MM/DD/YYYY"
-                                      value={"11/20/2022"}
-                                      onChange={() => {}}
-                                      renderInput={(params) => (
-                                        <TextField
-                                          name="beginningDate"
-                                          {...params}
-                                          variant="standard"
-                                        />
-                                      )}
-                                    />
-                                  </LocalizationProvider>
-                                </Stack>
-
-                                <Stack
-                                  direction="row"
-                                  sx={{
-                                    alignItems: "flex-end",
-                                  }}
-                                  pt={4}
-                                >
-                                  <Typography
-                                    sx={{
-                                      width: "30%",
-                                    }}
-                                    variant="body2"
-                                  >
-                                    Working hours:
-                                  </Typography>
-
-                                  <FormControl sx={{ width: "50%" }}>
-                                    <InputLabel id="label-select-commitment">
-                                      Commitment
-                                    </InputLabel>
-                                    <Select
-                                      labelId="label-select-commitment"
-                                      id="select-commitment"
-                                      label="Commitment"
-                                      variant="standard"
-                                      defaultValue={40}
-                                      onChange={(e) => {
-                                        e.target.value !== 40 &&
-                                          showBetaDialog();
-                                      }}
-                                      type="number"
-                                    >
-                                      <MenuItem value={40}>
-                                        Full-time: 40 hours per week
-                                      </MenuItem>
-                                      <MenuItem value={20}>
-                                        Part-time: 20 hours per week
-                                      </MenuItem>
-                                    </Select>
-                                  </FormControl>
-                                </Stack>
-
-                                <Stack
-                                  direction="row"
-                                  sx={{
-                                    alignItems: "flex-end",
-                                  }}
-                                  mt={4}
-                                >
-                                  <Typography
-                                    sx={{
-                                      width: "30%",
-                                    }}
-                                    variant="body2"
-                                  >
-                                    Acceptance period:
-                                  </Typography>
-                                  <TextField
-                                    id="acceptance-period"
-                                    name="acceptancePeriod"
-                                    inputProps={{
-                                      inputMode: "numeric",
-                                      pattern: "[0-9]*",
-                                    }}
-                                    defaultValue="3"
-                                    label="Days"
-                                    variant="standard"
                                     type="number"
-                                  />
-                                </Stack>
-                              </CardContent>
-                            </Card>
+                                  >
+                                    <MenuItem value={40}>
+                                      Full-time: 40 hours per week
+                                    </MenuItem>
+                                    <MenuItem value={20}>
+                                      Part-time: 20 hours per week
+                                    </MenuItem>
+                                  </Select>
+                                </FormControl>
+                              </Stack>
+
+                              <Stack
+                                direction="row"
+                                sx={{
+                                  alignItems: "flex-end",
+                                }}
+                                mt={4}
+                              >
+                                <Typography
+                                  sx={{
+                                    width: "30%",
+                                  }}
+                                  variant="body2"
+                                >
+                                  Acceptance period:
+                                </Typography>
+                                <TextField
+                                  id="acceptance-period"
+                                  name="acceptancePeriod"
+                                  inputProps={{
+                                    inputMode: "numeric",
+                                    pattern: "[0-9]*",
+                                  }}
+                                  defaultValue="3"
+                                  label="Days"
+                                  variant="standard"
+                                  type="number"
+                                />
+                              </Stack>
+                            </CardContent>
+                          </Card>
                         </Stack>
 
                         <Stack
@@ -714,8 +714,8 @@ const CreateHiringAgreement: NextPage = () => {
             errorMessage
               ? errorMessage.split("(")[0]
               : !address
-              ? "Connect your wallet first"
-              : "Your Agreement has been created! You can review it on your agreements page."
+                ? "Connect your wallet first"
+                : "Your Agreement has been created! You can review it on your agreements page."
           }
         />
       </Box>
