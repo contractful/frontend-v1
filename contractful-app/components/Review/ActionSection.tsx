@@ -188,10 +188,10 @@ const ActionSection = (props: Props) => {
                         <Typography variant="subtitle2">
                           Challenge Agreement
                         </Typography>
-                        Once the actual sprint is done you will have 5 days to
+                        {`Once the actual sprint is done you will have 5 days to
                         challenge the contractor's work. The dispute will be
                         submitted to the Contractful DAO and the most justice
-                        course of action will be taken.
+                        course of action will be taken.`}
                       </Box>
                     </ListItem>
                   </List>

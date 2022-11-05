@@ -189,7 +189,21 @@ const ReviewHiringAgreement: NextPage = () => {
                       width: "100%",
                     }}
                   >
-                    <TrafficLight RedOn Horizontal={true} />
+                    <TrafficLight
+                      RedOn
+                      Horizontal={true}
+                      onRedClick={undefined}
+                      onYellowClick={undefined}
+                      onGreenClick={undefined}
+                      YellowOn={undefined}
+                      GreenOn={undefined}
+                      Size={undefined}
+                      BlackColor={undefined}
+                      DisabledColor={undefined}
+                      RedColor={undefined}
+                      YellowColor={undefined}
+                      GreenColor={undefined}
+                    />
                     <Typography
                       sx={{
                         display: "flex",
@@ -245,7 +259,7 @@ const ReviewHiringAgreement: NextPage = () => {
       </Container>
       <ActivateAgreementStatus
         open={openActivateAgreementStatusDialog}
-        onClose={(e) => handleCloseActivateAgreementStatuses(e)}
+        onClose={() => handleCloseActivateAgreementStatuses()}
         isActivateAgreementPendingSignature={
           isActivateAgreementPendingSignature
         }
