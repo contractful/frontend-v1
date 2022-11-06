@@ -249,7 +249,7 @@ const ReviewHiringAgreement: NextPage = () => {
                             ❌ You have not consented to the Hiring Agreement yet.
                           </Typography>
                           <Typography sx={{ pt: 2 }}>
-                            <b>What's next?</b>
+                            <b>What&apos;s next?</b>
                           </Typography>
                           <Typography>
                             👉 Go ahead to review all details of the Hiring Agreement below. You can then choose to consent to it.
