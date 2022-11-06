@@ -757,8 +757,8 @@ const CreateHiringAgreement: NextPage = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Note: This is a beta implementation deployed of the contractful Hiring Agreements. If you are interested in this feature, please
-            visit{" "}
+            Note: This is a beta implementation of the contractful Hiring Agreements deployed to the Polygon Network.{" "}
+            If you are interested in functionality for the service beyond the beta scope, please visit{" "}
             <Link href="https://github.com/contractful" target="_new">
               https://github.com/contractful
             </Link>{" "}
