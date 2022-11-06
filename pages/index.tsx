@@ -17,12 +17,11 @@ import {
 
 import { styled } from '@mui/system'
 
-import NoteAddIcon from '@mui/icons-material/NoteAdd'
-import BrushIcon from '@mui/icons-material/Brush';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import GppGoodTwoToneIcon from '@mui/icons-material/GppGoodTwoTone';
 import SmartToyTwoToneIcon from '@mui/icons-material/SmartToyTwoTone';
 import PieChartTwoToneIcon from '@mui/icons-material/PieChartTwoTone';
-import ReplyIcon from '@mui/icons-material/Reply';
 
 import imgBgStructureIntro from '../public/static/bg-structure-intro.png'
 import imgMoodImage from '../public/static/mood-image.png'
@@ -74,7 +73,7 @@ const HiringAgreementHome: NextPage = () => {
                         <Grid item xs={5} px={2}>
                             <Button
                                 variant="outlined"
-                                startIcon={<NoteAddIcon />}
+                                startIcon={<DriveFileRenameOutlineIcon />}
                                 size="large"
                                 onClick={(e) => handleClick(e, '/create')}
                                 fullWidth
@@ -86,12 +85,12 @@ const HiringAgreementHome: NextPage = () => {
                         <Grid item xs={5} px={2}>
                             <Button
                                 variant="outlined"
-                                startIcon={<BrushIcon />}
+                                startIcon={<AutorenewIcon />}
                                 size="large"
                                 onClick={(e) => handleClick(e, '/review')}
                                 fullWidth
                             >
-                                Sign existing Agreement
+                                Review Agreement
                             </Button>
                         </Grid>
                     </Grid>
@@ -256,7 +255,7 @@ const HiringAgreementHome: NextPage = () => {
                                             variant="contained"
                                             color="primary"
                                             size="large"
-                                            startIcon={<NoteAddIcon />}
+                                            startIcon={<DriveFileRenameOutlineIcon />}
                                             sx={{
                                                 width: '75%',
                                                 boxShadow: 'none'
@@ -306,13 +305,13 @@ const HiringAgreementHome: NextPage = () => {
                                             variant="contained"
                                             color="primary"
                                             size="large"
-                                            startIcon={<BrushIcon />}
+                                            startIcon={<AutorenewIcon />}
                                             sx={{
                                                 width: '75%',
                                                 boxShadow: 'none'
                                             }}
                                         >
-                                            Sign existing Agreement
+                                            Review Agreement
                                         </Button>
                                     </Box>
                                 </Paper>

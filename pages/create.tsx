@@ -47,7 +47,7 @@ import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import TocIcon from "@mui/icons-material/Toc";
 import { BigNumber, ethers } from "ethers";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { Address } from "../../utils/types";
 import CreateAgreementStatus from "../components/CreateAgreement/CreateAgreementStatus";
@@ -135,7 +135,8 @@ const CreateHiringAgreement: NextPage = () => {
         ),
         paymentCycleAmount: BigNumber.from(
           Math.round(
-            parseInt(hourlyRate.value) * parseInt(paymentCycleDuration.value)
+            //            parseInt(hourlyRate.value) * parseInt(paymentCycleDuration.value)
+            parseInt(hourlyRate.value) * DAYS_PER_PAYMENT_PERIOD * WORKING_HOURS_PER_DAY
           )
         ),
         underlayingToken: selectedToken,
@@ -172,9 +173,21 @@ const CreateHiringAgreement: NextPage = () => {
     return address !== undefined;
   };
 
-  // Model constants
+  // Model state and constants
 
   const PAYMENT_TERMS_2WEEKS = 14 * 24 * 60 * 60;
+  const DAYS_PER_PAYMENT_PERIOD = 10;
+  const WORKING_HOURS_PER_DAY = 8;
+
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [budget, setBudget] = useState<Number | null>(null);
+  const [workingCommitment, setWorkingCommitment] = useState<Number>(40);
+
+  const amountFormatter = new Intl.NumberFormat('en-US', {
+    // These options are needed to round to whole numbers if that's what you want.
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
+  });
 
   // State of ConfirmDialog
 
@@ -197,7 +210,7 @@ const CreateHiringAgreement: NextPage = () => {
           mt: 4
         }}
       >
-        <Typography variant="h6">👋 Welcome - start here to create and deploy a Hiring Agreement.</Typography>
+        <Typography variant="h6">👋 Welcome - start here to create and deploy your Hiring Agreement.</Typography>
       </Container>
 
       <form onSubmit={(e) => handleCreateAgreementSubmit(e)}>
@@ -349,23 +362,22 @@ const CreateHiringAgreement: NextPage = () => {
                                 color="text.secondary"
                                 variant="h6"
                               >
-                                The Hiring Agreement aims for a long-term
+                                This Hiring Agreement organizes a long-term
                                 collaboration relationship.
                               </Typography>
                               <Typography variant="body2">
                                 <ul>
-                                  <li>
-                                    The arrangement is planned for several
-                                    months (usually 1-3, up to 6 and even more
+                                  <li style={{ paddingBottom: '3px' }}>
+                                    The project underlying the Agreement is planned for several
+                                    months (usually 3-6, or even more
                                     months).
                                   </li>
-                                  <li>
+                                  <li style={{ paddingBottom: '3px' }}>
                                     The project is organized in 2 weeks sprint
                                     iterations.
                                   </li>
-                                  <li>
-                                    Payment will be handled correspondingly by
-                                    the smart contract.
+                                  <li style={{ paddingBottom: '3px' }}>
+                                    Payment will be taken care of automatically, unless the Agreement will be canceled.
                                   </li>
                                 </ul>
                               </Typography>
@@ -430,14 +442,17 @@ const CreateHiringAgreement: NextPage = () => {
                                 >
                                   <DesktopDatePicker
                                     label="Date"
+                                    disablePast={true}
                                     inputFormat="MM/DD/YYYY"
-                                    value={"11/20/2022"}
-                                    onChange={() => { }}
+                                    value={startDate}
+                                    onChange={(newDate) => {
+                                      setStartDate(newDate as Date);
+                                    }}
                                     renderInput={(params) => (
                                       <TextField
                                         name="beginningDate"
-                                        {...params}
                                         variant="standard"
+                                        {...params}
                                       />
                                     )}
                                   />
@@ -469,10 +484,10 @@ const CreateHiringAgreement: NextPage = () => {
                                     id="select-commitment"
                                     label="Commitment"
                                     variant="standard"
-                                    defaultValue={40}
+                                    value={workingCommitment}
                                     onChange={(e) => {
-                                      e.target.value !== 40 &&
-                                        showBetaDialog();
+                                      (e.target.value !== 40) && showBetaDialog()
+                                      setWorkingCommitment(40);
                                     }}
                                     type="number"
                                   >
@@ -566,8 +581,21 @@ const CreateHiringAgreement: NextPage = () => {
                                   name="hourlyRate"
                                   label="Hourly rate"
                                   variant="standard"
+                                  inputProps={{
+                                    inputMode: 'numeric',
+                                    pattern: '[0-9]*\.'
+                                  }}
+                                  type="number"
                                   sx={{
                                     width: "30%",
+                                  }}
+                                  onBlur={(e) => {
+                                    const rateUSD = Number(e.target.value);
+                                    if (!isNaN(rateUSD)) {
+                                      setBudget(rateUSD * DAYS_PER_PAYMENT_PERIOD * WORKING_HOURS_PER_DAY);
+                                    } else {
+                                      setBudget(null);
+                                    };
                                   }}
                                 />
                                 <Typography pl={4}>US$ (in DAI)</Typography>
@@ -601,10 +629,6 @@ const CreateHiringAgreement: NextPage = () => {
                                     variant="standard"
                                     type="number"
                                     defaultValue={14 * 60}
-                                    onChange={(e) => {
-                                      e.target.value !== 14 * 60 &&
-                                        showBetaDialog();
-                                    }}
                                   >
                                     <MenuItem value={14 * 60}>
                                       <b style={{ color: "#d32f2f" }}>
@@ -622,37 +646,37 @@ const CreateHiringAgreement: NextPage = () => {
 
                               <Divider />
 
-                              <Stack
-                                direction="row"
-                                sx={{
-                                  alignItems: "flex-end",
-                                }}
-                                pt={4}
-                              >
+                              <Stack direction="row" pt={3}>
                                 <Typography
+                                  variant="body2"
                                   sx={{
                                     width: "30%",
+                                    display: "flex",
+                                    alignItems: "center",
                                   }}
-                                  variant="body2"
                                 >
                                   Resulting contract budget:
                                 </Typography>
-
-                                <TextField
-                                  id="input-service-provider-addr"
-                                  label="Budget"
-                                  inputProps={{
-                                    readOnly: true,
-                                  }}
-                                  defaultValue={12345.67}
-                                  variant="standard"
-                                  type="number"
-                                  sx={{
-                                    width: "30%",
-                                  }}
-                                />
-                                <Typography pl={4}>DAI</Typography>
+                                {(budget !== null) && (
+                                  <>
+                                    <Typography variant="h6">
+                                      {amountFormatter.format(budget as number)}
+                                    </Typography>
+                                    <Typography
+                                      variant="h6"
+                                      sx={{
+                                        width: "30%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                      }}
+                                      pl={4}
+                                    >
+                                      DAI
+                                    </Typography>
+                                  </>
+                                )}
                               </Stack>
+
                             </CardContent>
                           </Card>
                         </Stack>
@@ -733,8 +757,7 @@ const CreateHiringAgreement: NextPage = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Note: This is a beta implementation deployed to the Polygon Mumbai
-            testnet. If you want to use this in production on mainnet, please
+            Note: This is a beta implementation deployed of the contractful Hiring Agreements. If you are interested in this feature, please
             visit{" "}
             <Link href="https://github.com/contractful" target="_new">
               https://github.com/contractful
