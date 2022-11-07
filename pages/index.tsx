@@ -184,7 +184,7 @@ const HiringAgreementHome: NextPage = () => {
                                             color: '#666',
                                             fontSize: 'smaller'
                                         }}>
-                                            Fair, safe and secure on-chain automated payment processing.
+                                            Easy and secure on-chain automated payment processing. Safe hours of paper work.
                                         </Typography>
                                     </Paper>
                                     <Paper

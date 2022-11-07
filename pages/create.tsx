@@ -234,24 +234,24 @@ const CreateHiringAgreement: NextPage = () => {
                     <Stack direction="column">
                       {isWalletConnected() ? (
 
-                        <Stack direction="column" spacing={1}>
-                          <Stack direction="row" spacing={1}>
-                            <VerifiedUserIcon />
-                            <Typography>
-                              Connected
-                            </Typography>
-                            <Chip
-                              label={address}
-                              variant="outlined"
-                              sx={{
-                                mb: 1
-                              }}
-                            />
-                          </Stack>
+                        <>
+                        <Stack direction="row" spacing={1}>
+                          <VerifiedUserIcon />
                           <Typography>
-                            Please proceed to securely create a Hiring Agreement.
+                            Connected
                           </Typography>
+                          <Chip
+                            label={address}
+                            variant="outlined"
+                            sx={{
+                              mb: 1
+                            }}
+                          />
                         </Stack>
+                        <Typography pt={1}>
+                          Please proceed to securely create a Hiring Agreement.
+                        </Typography>
+                        </>
 
                       ) : (
                         <Stack direction="row" spacing={1}>

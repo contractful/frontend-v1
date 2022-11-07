@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import {
-  Alert,
   AppBar,
   Container,
   Grid,
@@ -19,6 +18,7 @@ export default class ContractfulHeader extends React.Component<
   { withWalletConnect: boolean },
   {}
 > {
+
   render() {
     return (
       <>
@@ -56,15 +56,6 @@ export default class ContractfulHeader extends React.Component<
             </Container>
           </Toolbar>
         </AppBar>
-        <Alert severity="info">
-          Note: This is a beta implementation deployed to the Polygon Mumbai
-          testnet. If you want to use this in production on mainnet, please
-          visit{" "}
-          <Link href="https://github.com/contractful" target="_new">
-            https://github.com/contractful
-          </Link>{" "}
-          to get in touch.
-        </Alert>
       </>
     );
   }
@@ -73,4 +64,5 @@ export default class ContractfulHeader extends React.Component<
   static defaultProps = {
     withWalletConnect: true,
   };
+
 }
