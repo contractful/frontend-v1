@@ -45,7 +45,7 @@ export default class ContractfulFooter extends React.Component<
 
     return (
       <>
-        <Container>
+        <Container sx={{ marginTop: "auto" }}>
           <Grid container pt={6}>
             <Grid item xs>
               <Divider />

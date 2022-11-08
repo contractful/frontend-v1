@@ -10,7 +10,6 @@ import {
   CardContent,
   Chip,
   Container,
-  CssBaseline,
   Dialog,
   DialogActions,
   DialogContent,
@@ -37,12 +36,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import WalletIcon from "@mui/icons-material/Wallet";
-import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import TocIcon from "@mui/icons-material/Toc";
@@ -51,16 +50,14 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { Address } from "../../utils/types";
 import CreateAgreementStatus from "../components/CreateAgreement/CreateAgreementStatus";
-import ContractfulFooter from "../components/Footer";
 import SnackbarAlert from "../components/general/SnackbarAlert";
-import ContractfulHeader from "../components/Header";
 import ContractfulHtmlHead from "../components/HtmlHead";
 import { deployments } from "../deployments";
 import useCoordinateCreateAgreement from "../hooks/useCoordinateCreateAgreement";
 
 const CreateHiringAgreement: NextPage = () => {
-  // hard-coded for now
   const { address } = useAccount();
+  // hard-coded for now
   const [selectedToken, setSelectedToken] = useState<Address>(
     "0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40"
   );
@@ -113,7 +110,6 @@ const CreateHiringAgreement: NextPage = () => {
       contractor: { value: Address };
     };
 
-    console.log("beginningDate", beginningDate.value);
     coordinateCreateAgreement(
       selectedToken,
       {
@@ -135,8 +131,9 @@ const CreateHiringAgreement: NextPage = () => {
         ),
         paymentCycleAmount: BigNumber.from(
           Math.round(
-            //            parseInt(hourlyRate.value) * parseInt(paymentCycleDuration.value)
-            parseInt(hourlyRate.value) * DAYS_PER_PAYMENT_PERIOD * WORKING_HOURS_PER_DAY
+            parseInt(hourlyRate.value) *
+              DAYS_PER_PAYMENT_PERIOD *
+              WORKING_HOURS_PER_DAY
           )
         ),
         underlayingToken: selectedToken,
@@ -174,6 +171,7 @@ const CreateHiringAgreement: NextPage = () => {
   };
 
   // Model state and constants
+  // TODO: move to a separate file
 
   const PAYMENT_TERMS_2WEEKS = 14 * 24 * 60 * 60;
   const DAYS_PER_PAYMENT_PERIOD = 10;
@@ -183,7 +181,7 @@ const CreateHiringAgreement: NextPage = () => {
   const [budget, setBudget] = useState<Number | null>(null);
   const [workingCommitment, setWorkingCommitment] = useState<Number>(40);
 
-  const amountFormatter = new Intl.NumberFormat('en-US', {
+  const amountFormatter = new Intl.NumberFormat("en-US", {
     // These options are needed to round to whole numbers if that's what you want.
     minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
@@ -202,15 +200,15 @@ const CreateHiringAgreement: NextPage = () => {
   return (
     <>
       <ContractfulHtmlHead />
-      <CssBaseline />
-      <ContractfulHeader />
 
       <Container
         sx={{
-          mt: 4
+          mt: 4,
         }}
       >
-        <Typography variant="h6">👋 Welcome - start here to create and deploy your Hiring Agreement.</Typography>
+        <Typography variant="h6">
+          👋 Welcome - start here to create and deploy your Hiring Agreement.
+        </Typography>
       </Container>
 
       <form onSubmit={(e) => handleCreateAgreementSubmit(e)}>
@@ -224,58 +222,49 @@ const CreateHiringAgreement: NextPage = () => {
             orientation="vertical"
           >
             <Step key="1" active={true} completed={isWalletConnected()}>
-              <StepLabel>
-                Your Wallet
-              </StepLabel>
+              <StepLabel>Your Wallet</StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
-
                     <Stack direction="column">
                       {isWalletConnected() ? (
-
-                        <>
-                        <Stack direction="row" spacing={1}>
-                          <VerifiedUserIcon />
+                        <Stack direction="column" spacing={1}>
+                          <Stack direction="row" spacing={1}>
+                            <VerifiedUserIcon />
+                            <Typography>Connected</Typography>
+                            <Chip
+                              label={address}
+                              variant="outlined"
+                              sx={{
+                                mb: 1,
+                              }}
+                            />
+                          </Stack>
                           <Typography>
-                            Connected
+                            Please proceed to securely create a Hiring
+                            Agreement.
                           </Typography>
-                          <Chip
-                            label={address}
-                            variant="outlined"
-                            sx={{
-                              mb: 1
-                            }}
-                          />
                         </Stack>
-                        <Typography pt={1}>
-                          Please proceed to securely create a Hiring Agreement.
-                        </Typography>
-                        </>
-
                       ) : (
                         <Stack direction="row" spacing={1}>
                           <LocalPoliceIcon />
                           <Typography>
-                            Please connect your Wallet to securely create a Hiring Agreement.
+                            Please proceed to securely create a Hiring
+                            Agreement.
                           </Typography>
                         </Stack>
                       )}
                     </Stack>
-
                   </Grid>
                 </Grid>
               </StepContent>
             </Step>
 
             <Step key="2" active={isWalletConnected()} completed={false}>
-              <StepLabel>
-                Contract
-              </StepLabel>
+              <StepLabel>Contract</StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
-
                     <Stack direction="row" spacing={1} mb={4}>
                       <StickyNote2OutlinedIcon />
                       <Typography>
@@ -283,23 +272,22 @@ const CreateHiringAgreement: NextPage = () => {
                       </Typography>
                     </Stack>
 
-                    <Paper elevation={12} sx={{
-                      mb: 4
-                    }}
+                    <Paper
+                      elevation={12}
+                      sx={{
+                        mb: 4,
+                      }}
                     >
                       <FormControl
                         variant="standard"
                         onSubmit={(e) => handleCreateAgreementSubmit(e)}
                       >
-                        <Box
-                          px={4}
-                          pt={4}
-                        >
+                        <Box px={4} pt={4}>
                           <WalletIcon
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              mt: 2
+                              mt: 2,
                             }}
                           />
                           <TextField
@@ -313,15 +301,12 @@ const CreateHiringAgreement: NextPage = () => {
                           />
                         </Box>
 
-                        <Box
-                          px={4}
-                          pt={4}
-                        >
+                        <Box px={4} pt={4}>
                           <TocIcon
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              mt: 2
+                              mt: 2,
                             }}
                           />
                           <TextField
@@ -336,16 +321,12 @@ const CreateHiringAgreement: NextPage = () => {
                           />
                         </Box>
 
-                        <Stack
-                          px={4}
-                          pt={4}
-                          direction="row"
-                        >
+                        <Stack px={4} pt={4} direction="row">
                           <Diversity3Icon
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              mt: 2
+                              mt: 2,
                             }}
                           />
                           <Card
@@ -357,7 +338,7 @@ const CreateHiringAgreement: NextPage = () => {
                             <CardContent>
                               <Typography
                                 sx={{
-                                  mb: 1.5
+                                  mb: 1.5,
                                 }}
                                 color="text.secondary"
                                 variant="h6"
@@ -367,17 +348,18 @@ const CreateHiringAgreement: NextPage = () => {
                               </Typography>
                               <Typography variant="body2">
                                 <ul>
-                                  <li style={{ paddingBottom: '3px' }}>
-                                    The project underlying the Agreement is planned for several
-                                    months (usually 3-6, or even more
-                                    months).
+                                  <li style={{ paddingBottom: "3px" }}>
+                                    The project underlying the Agreement is
+                                    planned for several months (usually 3-6, or
+                                    even more months).
                                   </li>
-                                  <li style={{ paddingBottom: '3px' }}>
+                                  <li style={{ paddingBottom: "3px" }}>
                                     The project is organized in 2 weeks sprint
                                     iterations.
                                   </li>
-                                  <li style={{ paddingBottom: '3px' }}>
-                                    Payment will be taken care of automatically, unless the Agreement will be canceled.
+                                  <li style={{ paddingBottom: "3px" }}>
+                                    Payment will be taken care of automatically,
+                                    unless the Agreement will be canceled.
                                   </li>
                                 </ul>
                               </Typography>
@@ -486,7 +468,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     variant="standard"
                                     value={workingCommitment}
                                     onChange={(e) => {
-                                      (e.target.value !== 40) && showBetaDialog()
+                                      e.target.value !== 40 && showBetaDialog();
                                       setWorkingCommitment(40);
                                     }}
                                     type="number"
@@ -533,15 +515,12 @@ const CreateHiringAgreement: NextPage = () => {
                           </Card>
                         </Stack>
 
-                        <Stack
-                          p={4}
-                          direction="row"
-                        >
+                        <Stack p={4} direction="row">
                           <RequestQuoteIcon
                             sx={{
                               color: "action.active",
                               mr: 1,
-                              mt: 4
+                              mt: 4,
                             }}
                           />
                           <Card
@@ -582,8 +561,8 @@ const CreateHiringAgreement: NextPage = () => {
                                   label="Hourly rate"
                                   variant="standard"
                                   inputProps={{
-                                    inputMode: 'numeric',
-                                    pattern: '[0-9]*\.'
+                                    inputMode: "numeric",
+                                    pattern: "[0-9]*.",
                                   }}
                                   type="number"
                                   sx={{
@@ -592,10 +571,14 @@ const CreateHiringAgreement: NextPage = () => {
                                   onBlur={(e) => {
                                     const rateUSD = Number(e.target.value);
                                     if (!isNaN(rateUSD)) {
-                                      setBudget(rateUSD * DAYS_PER_PAYMENT_PERIOD * WORKING_HOURS_PER_DAY);
+                                      setBudget(
+                                        rateUSD *
+                                          DAYS_PER_PAYMENT_PERIOD *
+                                          WORKING_HOURS_PER_DAY
+                                      );
                                     } else {
                                       setBudget(null);
-                                    };
+                                    }
                                   }}
                                 />
                                 <Typography pl={4}>US$ (in DAI)</Typography>
@@ -657,7 +640,7 @@ const CreateHiringAgreement: NextPage = () => {
                                 >
                                   Resulting contract budget:
                                 </Typography>
-                                {(budget !== null) && (
+                                {budget !== null && (
                                   <>
                                     <Typography variant="h6">
                                       {amountFormatter.format(budget as number)}
@@ -676,7 +659,6 @@ const CreateHiringAgreement: NextPage = () => {
                                   </>
                                 )}
                               </Stack>
-
                             </CardContent>
                           </Card>
                         </Stack>
@@ -688,14 +670,20 @@ const CreateHiringAgreement: NextPage = () => {
             </Step>
 
             <Step key="3" active={isWalletConnected()} completed={false}>
-              <StepLabel>Create and deploy the Agreement to make it available</StepLabel>
+              <StepLabel>
+                Create and deploy the Agreement to make it available
+              </StepLabel>
               <StepContent>
-                <Grid container pt={4} pl={3}>
-                  <Grid item xs={9}>
+                <Grid container pt={4} pl={3} justifyContent="center">
+                  <Grid item xs={7}>
                     <Alert severity="info">
-                      <AlertTitle>Please review all details of the Hiring Agreement carefully.</AlertTitle>
+                      <AlertTitle>
+                        Please review all details of the Hiring Agreement
+                        carefully.
+                      </AlertTitle>
                       If all details are correct, you can continue to create the
-                      Agreement. The Agreement will then be deployed to Polygon and made available to your service provider.
+                      Agreement. The Agreement will then be deployed to Polygon
+                      and made available to your service provider.
                     </Alert>
                     <Stack pt={2}>
                       <Button
@@ -710,7 +698,6 @@ const CreateHiringAgreement: NextPage = () => {
                       </Button>
                     </Stack>
                   </Grid>
-                  <Grid item xs></Grid>
                 </Grid>
               </StepContent>
             </Step>
@@ -738,13 +725,11 @@ const CreateHiringAgreement: NextPage = () => {
             errorMessage
               ? errorMessage.split("(")[0]
               : !address
-                ? "Connect your wallet first"
-                : "Your Agreement has been created! You can review it on your agreements page."
+              ? "Connect your wallet first"
+              : "Your Agreement has been created! You can review it on your agreements page."
           }
         />
       </Box>
-
-      <ContractfulFooter />
 
       <Dialog
         open={betaDialogOpen}
@@ -757,8 +742,9 @@ const CreateHiringAgreement: NextPage = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Note: This is a beta implementation of the contractful Hiring Agreements deployed to the Polygon Network.{" "}
-            If you are interested in functionality for the service beyond the beta scope, please visit{" "}
+            Note: This is a beta implementation of the contractful Hiring
+            Agreements deployed to the Polygon Network. If you are interested in
+            functionality for the service beyond the beta scope, please visit{" "}
             <Link href="https://github.com/contractful" target="_new">
               https://github.com/contractful
             </Link>{" "}

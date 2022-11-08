@@ -6,7 +6,11 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
-import "/public/contractful.css"
+import { CssBaseline } from "@mui/material";
+import { useRouter } from "next/router";
+import ContractfulFooter from "../components/Footer";
+import ContractfulHeader from "../components/Header";
+import "/public/contractful.css";
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -28,10 +32,23 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} modalSize="compact">
-        <Component {...pageProps} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <CssBaseline />
+          <ContractfulHeader withWalletConnect={router.route !== "/" && true} />
+          <Component {...pageProps} />
+          <ContractfulFooter withImageCredits={router.route === "/" && true} />
+        </div>
       </RainbowKitProvider>
     </WagmiConfig>
   );
