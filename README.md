@@ -30,6 +30,10 @@ v18.7.0
 * Use `npx next dev` to start the frontend.
 * Finally, visit: [http://localhost:3000/].
 
+### Use IPFS
+
+Specify the key for a IPFS Gateway API.
+
 👍 Well done - you are now able to create, deploy and sign trustless decentralized Hiring Agreements from your local machine.
 
 ## Notes for development
