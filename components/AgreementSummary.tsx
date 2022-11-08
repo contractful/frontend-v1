@@ -15,9 +15,11 @@ import WalletIcon from "@mui/icons-material/Wallet";
 
 import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
+import { useAccount } from "wagmi";
 import { AgreementParams } from "../utils/types";
 
 const ContractfulAgreementSummary = (props: AgreementParams) => {
+  const { address } = useAccount();
   const {
     acceptanceDeadline,
     beginningDate,
@@ -62,11 +64,12 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 }}
               >
                 <Typography variant="body2">
-                  Public Ethereum address of your client that has created this
-                  Hiring Agreement:
+                  {address === contractor
+                    ? "Wallet address of your client that has created this Hiring Agreement"
+                    : "Wallet address of your service provider"}
                 </Typography>
                 <Typography variant="h6" pt={1}>
-                  {contractor}
+                  {address === contractor ? contractee : contractor}
                 </Typography>
               </Stack>
             </CardContent>
@@ -326,3 +329,6 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 };
 
 export default ContractfulAgreementSummary;
+function useGetAccount(): { address: any } {
+  throw new Error("Function not implemented.");
+}
