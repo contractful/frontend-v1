@@ -8,7 +8,7 @@ const client = new Web3Storage({ token: process.env.WEB3_STORAGE_API_TOKEN! });
 // example system key, need to store this somewhere
 const aesKey = CryptoJS.enc.Hex.parse("000102030405060708090a0b0c0d0e0f").toString();
 
-export const storeDesc = (content: string | null | undefined) => {
+export const storeDesc = (content: string | null | undefined) : string | null | undefined => {
   if (content?.length == 0) return;
   console.log(content);
   const stringifiedContent = JSON.stringify({content});
@@ -18,16 +18,16 @@ export const storeDesc = (content: string | null | undefined) => {
     console.log(encryptedContent);
     const ipfsFile = new File([encryptedContent], CryptoJS.SHA256(encryptedContent), { type: 'text/plain' });
     const ipfsCid = await client.put([ipfsFile]);
-    window.localStorage.setItem('cid', ipfsCid.toString()); // storing cid in local storage for now
+    // window.localStorage.setItem('cid', ipfsCid.toString()); // storing cid in local storage for now
     console.log(ipfsCid);
+    return ipfsCid;
   };
 
   putIPFS();
+  return;
 }
 
-export const retrieveDesc = () : string | null | undefined => {
-
-  const cid = window.localStorage.getItem('cid') ?? ''; // retrieving cid from local storage
+export const retrieveDesc = (cid: string) : string | null | undefined => {
 
   console.log(cid);
   const getFromIPFS = async (cid: string) => {
