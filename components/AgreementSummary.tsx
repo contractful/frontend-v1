@@ -21,7 +21,6 @@ import { AgreementParams } from "../utils/types";
 const ContractfulAgreementSummary = (props: AgreementParams) => {
   const { address } = useAccount();
   const {
-    acceptanceDeadline,
     beginningDate,
     contractee,
     contractor,
@@ -161,30 +160,6 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 
               <Divider />
 
-              <Stack direction="row" pt={2}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    width: "20vh",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  Engagement period:
-                </Typography>
-                <Typography variant="h6">
-                  {maturityDate
-                    ?.sub(
-                      beginningDate.toString() !== "0"
-                        ? beginningDate
-                        : acceptanceDeadline
-                    )
-                    .div(BigNumber.from(24 * 60 * 60 * 30))
-                    .toString()}{" "}
-                  months
-                </Typography>
-              </Stack>
-
               <Stack direction="row" pt={1}>
                 <Typography
                   variant="body2"
@@ -203,25 +178,42 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 </Typography>
               </Stack>
 
-              {acceptanceDeadline?.toString() !== "0" && (
-                <Stack direction="row" pt={2}>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      width: "20vh",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    Acceptance deadline:
-                  </Typography>
-                  <Typography variant="h6">
-                    {new Date(
-                      parseInt(acceptanceDeadline?.toString()) * 1000
-                    ).toLocaleDateString("en-US")}
-                  </Typography>
-                </Stack>
-              )}
+              <Stack direction="row" pt={1}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    width: "20vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Engagement period:
+                </Typography>
+                <Typography variant="h6">
+                  {beginningDate && maturityDate
+                    ? maturityDate
+                        ?.sub(beginningDate)
+                        .div(BigNumber.from(24 * 60 * 60 * 30))
+                        .toString()
+                    : "---"}{" "}
+                  months
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" pt={1} alignItems="center">
+                <Typography
+                  variant="body2"
+                  component="h6"
+                  sx={{ width: "20vh" }}
+                >
+                  Engagement ends on:
+                </Typography>
+                <Typography variant="h6" component="span">
+                  {new Date(
+                    parseInt(maturityDate?.toString()) * 1000
+                  ).toLocaleDateString("en-US")}
+                </Typography>
+              </Stack>
 
               <Typography variant="h6" pt={1}>
                 {""}
@@ -314,10 +306,43 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                     alignItems: "center",
                   }}
                 >
-                  Budget:
+                  Total Budget:
                 </Typography>
                 <Typography variant="h6">
                   {paymentCycleAmount && formatEther(paymentCycleAmount)} DAI
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" pt={1}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    width: "20vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Penalization amount
+                </Typography>
+                <Typography variant="h6">
+                  {penalizationAmount_ && formatEther(penalizationAmount_)} DAI
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" pt={1}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    width: "20vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Establishment fee rate:
+                </Typography>
+                <Typography variant="h6">
+                  {establishmentFeeRate_ && formatEther(establishmentFeeRate_)}{" "}
+                  DAI
                 </Typography>
               </Stack>
             </CardContent>
@@ -329,6 +354,3 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 };
 
 export default ContractfulAgreementSummary;
-function useGetAccount(): { address: any } {
-  throw new Error("Function not implemented.");
-}

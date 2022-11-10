@@ -54,6 +54,8 @@ import SnackbarAlert from "../components/general/SnackbarAlert";
 import ContractfulHtmlHead from "../components/HtmlHead";
 import { deployments } from "../deployments";
 import useCoordinateCreateAgreement from "../hooks/useCoordinateCreateAgreement";
+import useGetEstablishmentFeeRate from "../hooks/useGetEstablishmentFeeRate";
+import useGetPenalizationAmount from "../hooks/useGetPenalizationAmount";
 
 const CreateHiringAgreement: NextPage = () => {
   const { address } = useAccount();
@@ -66,6 +68,9 @@ const CreateHiringAgreement: NextPage = () => {
   const [snackbarAlertSeverity, setSnackbarAlertSeverity] = useState<
     "success" | "info" | "warning" | "error"
   >();
+
+  const { data: penalizationAmount } = useGetPenalizationAmount();
+  const { data: establishmentFeeRate } = useGetEstablishmentFeeRate();
 
   const {
     coordinateCreateAgreement,
@@ -482,35 +487,6 @@ const CreateHiringAgreement: NextPage = () => {
                                   </Select>
                                 </FormControl>
                               </Stack>
-
-                              <Stack
-                                direction="row"
-                                sx={{
-                                  alignItems: "flex-end",
-                                }}
-                                mt={4}
-                              >
-                                <Typography
-                                  sx={{
-                                    width: "30%",
-                                  }}
-                                  variant="body2"
-                                >
-                                  Acceptance period:
-                                </Typography>
-                                <TextField
-                                  id="acceptance-period"
-                                  name="acceptancePeriod"
-                                  inputProps={{
-                                    inputMode: "numeric",
-                                    pattern: "[0-9]*",
-                                  }}
-                                  defaultValue="3"
-                                  label="Days"
-                                  variant="standard"
-                                  type="number"
-                                />
-                              </Stack>
                             </CardContent>
                           </Card>
                         </Stack>
@@ -640,7 +616,7 @@ const CreateHiringAgreement: NextPage = () => {
                                 >
                                   Resulting contract budget:
                                 </Typography>
-                                {budget !== null && (
+                                {budget ? (
                                   <>
                                     <Typography variant="h6">
                                       {amountFormatter.format(budget as number)}
@@ -657,7 +633,37 @@ const CreateHiringAgreement: NextPage = () => {
                                       DAI
                                     </Typography>
                                   </>
+                                ) : (
+                                  "---"
                                 )}
+                              </Stack>
+
+                              <Stack direction="row" pt={1} alignItems="center">
+                                <Typography
+                                  variant="body2"
+                                  sx={{
+                                    width: "30%",
+                                  }}
+                                >
+                                  Penalization fee
+                                </Typography>
+                                <Typography variant="h6" component="span">
+                                  {penalizationAmount?.toString() ?? "---"} DAI
+                                </Typography>
+                              </Stack>
+                              <Stack direction="row" pt={1} alignItems="center">
+                                <Typography
+                                  variant="body2"
+                                  sx={{
+                                    width: "30%",
+                                  }}
+                                >
+                                  Establishment fee rate
+                                </Typography>
+                                <Typography variant="h6" component="span">
+                                  {establishmentFeeRate?.toString() ?? "---"}{" "}
+                                  DAI
+                                </Typography>
                               </Stack>
                             </CardContent>
                           </Card>
