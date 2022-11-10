@@ -3,63 +3,56 @@ import { useEffect, useState } from 'react';
 
 var CryptoJS = require("crypto-js");
 
-const client = new Web3Storage({ token: process.env.WEB3_STORAGE_API_TOKEN! });
+const client = new Web3Storage({ token: process.env.NEXT_PUBLIC_WEB3_STORAGE_API_TOKEN! });
 
-// example system key, need to store this somewhere
-const aesKey = CryptoJS.enc.Hex.parse("000102030405060708090a0b0c0d0e0f").toString();
+const aesKey = process.env.NEXT_PUBLIC_DESC_ENCRYPTION_KEY;
 
-export const storeDesc = (content: string | null | undefined) : string | null | undefined => {
+export const storeDesc = async (content: string | null | undefined) => {
   if (content?.length == 0) return;
-  console.log(content);
   const stringifiedContent = JSON.stringify({content});
 
   const putIPFS = async () => {
-    const encryptedContent = CryptoJS.AES.encrypt(stringifiedContent, aesKey).toString();
-    console.log(encryptedContent);
+    const encryptedContent = aesKey ? CryptoJS.AES.encrypt(stringifiedContent, aesKey).toString() : stringifiedContent;
     const ipfsFile = new File([encryptedContent], CryptoJS.SHA256(encryptedContent), { type: 'text/plain' });
     const ipfsCid = await client.put([ipfsFile]);
-    // window.localStorage.setItem('cid', ipfsCid.toString()); // storing cid in local storage for now
-    console.log(ipfsCid);
     return ipfsCid;
   };
 
-  putIPFS();
-  return;
+  return putIPFS();
 }
 
-export const retrieveDesc = (cid: string) : string | null | undefined => {
+export const retrieveDesc = async (cid: string) => {
 
-  console.log(cid);
-  const getFromIPFS = async (cid: string) => {
-    const res = await client.get(cid);
+  const res = await client.get(cid);
 
-    if (res == null) return;
-  
-    const files = await res.files();
-  
-    if (files == null || files.length == 0) return;
-  
-    const file = files[0];
-    const reader = new FileReader();
-  
-    reader.addEventListener('load', (event) => {
+  if (res == null) return;
+
+  const files = await res.files();
+
+  if (files == null || files.length == 0) return;
+
+  const file = files[0];
+  const reader = new FileReader();
+
+  return new Promise((resolve, reject) => {
+
+    reader.onerror = () => {
+      reader.abort();
+      reject(new DOMException("Error parsing file"));
+    }
+
+    reader.onload = () => {
       let rawContent;
       try {
-        console.log(reader.result);
-        const result = CryptoJS.AES.decrypt(reader.result, aesKey).toString(CryptoJS.enc.Utf8);
+        const result = aesKey ? CryptoJS.AES.decrypt(reader.result, aesKey).toString(CryptoJS.enc.Utf8) : reader.result;
         rawContent = JSON.parse(result);
-        console.log(rawContent.content);
-        return rawContent.content;
+        resolve(rawContent.content);
       } catch (e) {
-        console.error(e);
-        return;
+        resolve(e);
       }
-    });
-  
+    };
     reader.readAsBinaryString(file);
-  };
 
-  getFromIPFS(cid);
-  return;
+  });
 
 }
