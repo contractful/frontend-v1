@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "pre-commit": "next lint"
+    "pre-commit": "npx next lint && npx tsc --noEmit --pretty"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
