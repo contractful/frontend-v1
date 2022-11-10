@@ -129,11 +129,6 @@ export const deployments = {
         },
         {
           inputs: [],
-          name: "MG_ACCEPTANCE_PERIOD_EXPIRED",
-          type: "error",
-        },
-        {
-          inputs: [],
           name: "MG_ADDRESS_ZERO",
           type: "error",
         },
@@ -180,6 +175,11 @@ export const deployments = {
         {
           inputs: [],
           name: "MG_NOT_ONGOING",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "MG_PAST_BEGINNING_DATE",
           type: "error",
         },
         {
@@ -504,11 +504,6 @@ export const deployments = {
                 },
                 {
                   internalType: "uint128",
-                  name: "ACCEPTANCE_DEADLINE",
-                  type: "uint128",
-                },
-                {
-                  internalType: "uint128",
                   name: "MATURITY_DATE",
                   type: "uint128",
                 },
@@ -661,11 +656,6 @@ export const deployments = {
                 },
                 {
                   internalType: "uint128",
-                  name: "acceptanceDeadline",
-                  type: "uint128",
-                },
-                {
-                  internalType: "uint128",
                   name: "maturityDate",
                   type: "uint128",
                 },
@@ -751,11 +741,6 @@ export const deployments = {
             {
               internalType: "uint128",
               name: "beginningDate",
-              type: "uint128",
-            },
-            {
-              internalType: "uint128",
-              name: "acceptanceDeadline",
               type: "uint128",
             },
             {
@@ -1214,13 +1199,8 @@ export const deployments = {
       ],
     },
     Manager_Implementation: {
-      address: "0x2109c6E941d0FD88316c530b000dCB9A54062D82",
+      address: "0xbf33Cf785a4517b556705626705c04611364C98E",
       abi: [
-        {
-          inputs: [],
-          name: "MG_ACCEPTANCE_PERIOD_EXPIRED",
-          type: "error",
-        },
         {
           inputs: [],
           name: "MG_ADDRESS_ZERO",
@@ -1269,6 +1249,11 @@ export const deployments = {
         {
           inputs: [],
           name: "MG_NOT_ONGOING",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "MG_PAST_BEGINNING_DATE",
           type: "error",
         },
         {
@@ -1593,11 +1578,6 @@ export const deployments = {
                 },
                 {
                   internalType: "uint128",
-                  name: "ACCEPTANCE_DEADLINE",
-                  type: "uint128",
-                },
-                {
-                  internalType: "uint128",
                   name: "MATURITY_DATE",
                   type: "uint128",
                 },
@@ -1750,11 +1730,6 @@ export const deployments = {
                 },
                 {
                   internalType: "uint128",
-                  name: "acceptanceDeadline",
-                  type: "uint128",
-                },
-                {
-                  internalType: "uint128",
                   name: "maturityDate",
                   type: "uint128",
                 },
@@ -1840,11 +1815,6 @@ export const deployments = {
             {
               internalType: "uint128",
               name: "beginningDate",
-              type: "uint128",
-            },
-            {
-              internalType: "uint128",
-              name: "acceptanceDeadline",
               type: "uint128",
             },
             {

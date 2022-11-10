@@ -632,7 +632,7 @@ const ReviewHiringAgreement: NextPage = () => {
         </>
         <ActivateAgreementStatus
           open={openActivateAgreementStatusDialog}
-          onClose={(e) => handleCloseActivateAgreementStatuses(e)}
+          onClose={() => handleCloseActivateAgreementStatuses()}
           isActivateAgreementPendingSignature={
             isActivateAgreementPendingSignature
           }
@@ -641,7 +641,7 @@ const ReviewHiringAgreement: NextPage = () => {
         />
         <TransactionStatus
           open={transactionState.open}
-          onClose={(e) => handleCloseTransactionStatuses(e)}
+          onClose={() => handleCloseTransactionStatuses()}
           isTransactionPendingSignature={
             isCancelAgreementPendingSignature ||
             isChallengeAgreementPendingSignature
