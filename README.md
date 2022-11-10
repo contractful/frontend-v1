@@ -4,15 +4,15 @@
 
 The frontend for trustless and decentralized contracting solution.
 
-Official demo: [https://contractful.vercel.app/]
+✨ Official demo: [https://contractful.vercel.app/].
 
-The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, You will learn, how to use the contractful frontend, to create, deploy and sign a Hiring Agreement just from you local machine.
+The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
 
-For details on the project, please visit [https://github.com/contractful/protocol-v1].
+For details on the protocol, please visit [https://github.com/contractful/protocol-v1].
 
 ## Getting started
 
-For firing up the fronted locally, please use the following instructions:
+To fire up the fronted locally, please use the following instructions:
 
 * Make sure, you have `node` and `npm` installed. The project is tested with:
 
@@ -46,6 +46,8 @@ Use the following command to build or lint the frontend application:
 npx next build
 npx next lint
 ```
+
+TODO Using the following VS Code (Version: 1.73.0 (Universal)) formatter for Typescript/React: `vscode.typescript-language-features`.
 
 ### Boostrapping of the frontend application
 
