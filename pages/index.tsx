@@ -36,7 +36,7 @@ const IntroBg = styled("div")({
   backgroundSize: "100% 80%",
 });
 
-const handleClick = (e, targetUrl) => {
+const handleClick = (e: any, targetUrl: string) => {
   e.preventDefault();
   Router.push(targetUrl);
 };

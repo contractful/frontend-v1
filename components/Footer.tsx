@@ -15,26 +15,34 @@ import {
 
 import { Cookies } from 'react-cookie';
 
+interface FooterProps {
+  withImageCredits: boolean;
+  children?: React.ReactNode;
+}
+
 export default class ContractfulFooter extends React.Component<
-  { withImageCredits: boolean },
-  {}
+  FooterProps,
+  {
+    betaAlertOpen: boolean
+  }
 > {
 
-  constructor(props) {
+  constructor(props: FooterProps) {
     super(props);
+
+    // Show beta alert only once per session
+
+    const cookies = new Cookies();
+    const betaAlertDisplayed = (cookies.get('betaAlertDisplayed') === 'undefined') ? false : (cookies.get('beta-alert-displayed') === 'true')
+
     this.state = {
-      betaAlertOpen: false
+      betaAlertOpen: (!betaAlertDisplayed)
     };
   }
 
   render() {
 
-    // Show beta alert only once per session
-    
     const cookies = new Cookies();
-
-    const betaAlertDisplayed = (cookies.get('betaAlertDisplayed') === 'undefined') ? false : (cookies.get('beta-alert-displayed') === 'true')
-    this.state.betaAlertOpen = !betaAlertDisplayed;
     cookies.set('beta-alert-displayed', true);
 
     const handleBetaAlertClose = () => {
@@ -87,7 +95,9 @@ export default class ContractfulFooter extends React.Component<
               </Box>
               <Button
                 onClick={handleBetaAlertClose}
-                pl={4}
+                sx={{
+                  pl:4
+                }}
               >
                 Dismiss
               </Button>
@@ -103,4 +113,5 @@ export default class ContractfulFooter extends React.Component<
   static defaultProps = {
     withImageCredits: false,
   };
+
 }
