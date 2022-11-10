@@ -44,7 +44,7 @@ Use the following command to build or lint the frontend application:
 
 ```
 npx next build
-npx next lint
+npx next lint && npx tsc --noEmit
 ```
 
 TODO Using the following VS Code (Version: 1.73.0 (Universal)) formatter for Typescript/React: `vscode.typescript-language-features`.
