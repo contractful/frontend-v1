@@ -3,7 +3,6 @@ import { BigNumber } from "ethers";
 export type Address = `0x${string}`;
 
 export interface AgreementCreationParams {
-  acceptanceDeadline: BigNumber;
   beginningDate: BigNumber;
   maturityDate: BigNumber;
   paymentCycleDuration: BigNumber;
@@ -14,7 +13,6 @@ export interface AgreementCreationParams {
 }
 
 export type AgreementParams = {
-  acceptanceDeadline: BigNumber;
   beginningDate: BigNumber;
   contractee: Address;
   contractor: Address;
