@@ -1,4 +1,5 @@
 import * as React from "react";
+import Router from "next/router";
 
 import {
   AppBar,
@@ -8,6 +9,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  ButtonBase,
 } from "@mui/material";
 
 import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
@@ -20,6 +22,11 @@ export default class ContractfulHeader extends React.Component<
 > {
 
   render() {
+
+    const handleLogoClick = () => {
+      Router.push('/');
+    }
+  
     return (
       <>
         <AppBar position="static">
@@ -27,12 +34,14 @@ export default class ContractfulHeader extends React.Component<
             <Container>
               <Grid container>
                 <Grid item xs={4}>
-                  <Stack direction="row" spacing={1}>
-                    <StickyNote2OutlinedIcon />
-                    <Typography variant="h6">
-                      contractful Hiring Agreement
-                    </Typography>
-                  </Stack>
+                  <ButtonBase onClick={handleLogoClick}>
+                    <Stack direction="row" spacing={1}>
+                        <StickyNote2OutlinedIcon />
+                        <Typography variant="h6">
+                          contractful Hiring Agreement
+                        </Typography>
+                      </Stack>
+                  </ButtonBase>
                 </Grid>
                 <Grid item xs={4}></Grid>
                 <Grid item xs>
