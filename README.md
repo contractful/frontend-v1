@@ -8,7 +8,7 @@ The frontend for trustless and decentralized contracting solution.
 
 *Quick start:*
 
-* TODO Have fDAI on the Polygon Mumbai network
+* Beta contractful Hiring Agreements can be budgeted using fDAI on the Polygon Mumbai network. You can mint fDAI here: (note )TODO Have fDAI on the Polygon Mumbai network
 * TODO Create
 * TODO Consent
 * TODO ...
