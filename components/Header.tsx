@@ -22,22 +22,6 @@ export default class ContractfulHeader extends React.Component<
   render() {
     return (
       <>
-        <Stack width="100%" direction="row" justifyContent="space-around">
-          <span>DEBUG: </span>
-          <Link href="/">HiringAgreementHome</Link>
-          <span> | </span>
-          <Link href="/create">CreateHiringAgreement</Link>
-          <span> | </span>
-          <span>ReviewHiringAgreement ? </span>
-          <Link href="/review/123456789?useCase=consent">consent</Link>
-          <span> ? </span>
-          <Link href="/review/123456789?useCase=check">check</Link>
-          <span> ? </span>
-          <Link href="/review/123456789?useCase=extend">extend</Link>
-          <span> | </span>
-          <Link href="/examples">/examples</Link>
-        </Stack>
-
         <AppBar position="static">
           <Toolbar>
             <Container>
