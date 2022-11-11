@@ -6,6 +6,13 @@ The frontend for trustless and decentralized contracting solution.
 
 ✨ Official demo: [https://contractful.vercel.app/].
 
+*Quick start:*
+
+* TODO Have fDAI on the Polygon Mumbai network
+* TODO Create
+* TODO Consent
+* TODO ...
+
 The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
 
 For details on the protocol, please visit [https://github.com/contractful/protocol-v1].
@@ -45,6 +52,9 @@ Use the following command to build or lint the frontend application:
 ```
 npx next build
 npx next lint && npx tsc --noEmit
+
+# Combined in a pre-commit hook:
+npm run pre-commit
 ```
 
 TODO Using the following VS Code (Version: 1.73.0 (Universal)) formatter for Typescript/React: `vscode.typescript-language-features`.
