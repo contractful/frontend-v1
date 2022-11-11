@@ -287,12 +287,13 @@ const CreateHiringAgreement: NextPage = () => {
                         />
                         <TextField
                           id="input-service-provider-addr"
-                          label="Ethereum public address or ENS name of your service provider"
+                          label="Public Polygon wallet address your service provider"
                           variant="outlined"
                           sx={{
                             width: "80vh",
                           }}
                           name="contractor"
+                          required
                         />
                       </Box>
 
@@ -313,6 +314,7 @@ const CreateHiringAgreement: NextPage = () => {
                           sx={{
                             width: "80vh",
                           }}
+                          required
                         />
                       </Box>
 
@@ -396,7 +398,8 @@ const CreateHiringAgreement: NextPage = () => {
                                 label="Months"
                                 type="number"
                                 variant="standard"
-                              />
+                                required
+                                />
                             </Stack>
 
                             <Stack
@@ -427,6 +430,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     <TextField
                                       name="beginningDate"
                                       variant="standard"
+                                      required
                                       {...params}
                                     />
                                   )}
@@ -465,6 +469,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     setWorkingCommitment(40);
                                   }}
                                   type="number"
+                                  required
                                 >
                                   <MenuItem value={40}>
                                     Full-time: 40 hours per week
@@ -544,6 +549,7 @@ const CreateHiringAgreement: NextPage = () => {
                                     setBudget(null);
                                   }
                                 }}
+                                required
                               />
                               <Typography pl={4}>US$ (in DAI)</Typography>
                             </Stack>
@@ -576,6 +582,7 @@ const CreateHiringAgreement: NextPage = () => {
                                   variant="standard"
                                   type="number"
                                   defaultValue={14 * 60}
+                                  required
                                 >
                                   <MenuItem value={14 * 60}>
                                     <b style={{ color: "#d32f2f" }}>TESTING:</b>{" "}
@@ -602,28 +609,21 @@ const CreateHiringAgreement: NextPage = () => {
                               >
                                 Resulting contract budget:
                               </Typography>
-                              {budget ? (
-                                <>
-                                  <Typography variant="h6">
-                                    {amountFormatter.format(budget as number)}
-                                  </Typography>
-                                  <Typography
-                                    variant="h6"
-                                    sx={{
-                                      width: "30%",
-                                      display: "flex",
-                                      alignItems: "center",
-                                    }}
-                                    pl={4}
-                                  >
-                                    DAI
-                                  </Typography>
-                                </>
-                              ) : (
-                                "---"
-                              )}
+                              <Typography variant="h6">
+                                {budget ? (amountFormatter.format(budget as number)) : ("---")}
+                              </Typography>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                pl={4}
+                              >
+                                DAI
+                              </Typography>
                             </Stack>
-
                             <Stack direction="row" pt={1} alignItems="center">
                               <Typography
                                 variant="body2"
@@ -633,8 +633,19 @@ const CreateHiringAgreement: NextPage = () => {
                               >
                                 Penalization fee
                               </Typography>
-                              <Typography variant="h6" component="span">
-                                {penalizationAmount?.toString() ?? "---"} DAI
+                              <Typography variant="h6">
+                                {((penalizationAmount?.toString() + '.00') ?? "---")}
+                              </Typography>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                pl={4}
+                              >
+                                DAI
                               </Typography>
                             </Stack>
                             <Stack direction="row" pt={1} alignItems="center">
@@ -646,8 +657,19 @@ const CreateHiringAgreement: NextPage = () => {
                               >
                                 Establishment fee rate
                               </Typography>
-                              <Typography variant="h6" component="span">
-                                {establishmentFeeRate?.toString() ?? "---"} DAI
+                              <Typography variant="h6">
+                                {((establishmentFeeRate?.toString() + '.00') ?? "---")}
+                              </Typography>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                pl={4}
+                              >
+                                DAI
                               </Typography>
                             </Stack>
                           </CardContent>
