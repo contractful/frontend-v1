@@ -693,8 +693,8 @@ const CreateHiringAgreement: NextPage = () => {
                 Create and deploy the Agreement to make it available
               </StepLabel>
               <StepContent>
-                <Grid container pt={4} pl={3} justifyContent="center">
-                  <Grid item xs={7}>
+                <Grid container pt={4} pl={3}>
+                  <Grid item xs={8}>
                     <Alert severity="info">
                       <AlertTitle>
                         Please review all details of the Hiring Agreement
@@ -716,6 +716,8 @@ const CreateHiringAgreement: NextPage = () => {
                         Create Agreement
                       </Button>
                     </Stack>
+                  </Grid>
+                  <Grid item xs>
                   </Grid>
                 </Grid>
               </StepContent>
