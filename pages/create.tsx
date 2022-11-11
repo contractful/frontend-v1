@@ -232,31 +232,33 @@ const CreateHiringAgreement: NextPage = () => {
                   <Grid item xs>
                     <Stack direction="column">
                       {isWalletConnected() ? (
-                        <Stack direction="column" spacing={1}>
-                          <Stack direction="row" spacing={1}>
-                            <VerifiedUserIcon />
-                            <Typography>Connected</Typography>
-                            <Chip
-                              label={address}
-                              variant="outlined"
-                              sx={{
-                                mb: 1,
-                              }}
-                            />
-                          </Stack>
-                          <Typography>
-                            Please proceed to securely create a Hiring
-                            Agreement.
-                          </Typography>
+                        <>
+                        <Stack direction="row" spacing={1}>
+                          <VerifiedUserIcon />
+                          <Typography>Connected</Typography>
+                          <Chip
+                            label={address}
+                            variant="outlined"
+                            sx={{
+                              mb: 1,
+                            }}
+                          />
                         </Stack>
+                        <Typography pt={1}>
+                          Please proceed to securely create a Hiring
+                          Agreement.
+                        </Typography>
+                        </>
                       ) : (
+                        <>
                         <Stack direction="row" spacing={1}>
                           <LocalPoliceIcon />
                           <Typography>
                             Please proceed to securely create a Hiring
-                            Agreement.
+                            Agreement. Start with connecting your Wallet.
                           </Typography>
                         </Stack>
+                        </>
                       )}
                     </Stack>
                   </Grid>
@@ -292,7 +294,7 @@ const CreateHiringAgreement: NextPage = () => {
                         />
                         <TextField
                           id="input-service-provider-addr"
-                          label="Public Polygon wallet address your service provider"
+                          label="Public Polygon Wallet address your contract partner"
                           variant="outlined"
                           sx={{
                             width: "80vh",
