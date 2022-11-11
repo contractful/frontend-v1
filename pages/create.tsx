@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import * as React from "react";
+import Router from "next/router";
 
 import {
   Alert,
@@ -149,6 +150,10 @@ const CreateHiringAgreement: NextPage = () => {
   ) => {
     if (isError || isCreateAgreementSuccess || !address) {
       setOpenStatusesDialog(false);
+    }
+
+    if(isCreateAgreementSuccess) {
+      Router.push('/review/123456789');
     }
   };
 
