@@ -1,18 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { retrieveDesc } from '../../hooks/useStoreIPFS'
 
-type Data = {
-  desc: string
-}
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export default async function handler(req, res) {
     if (req.method === 'POST') {
         const cid = req.body.cid;
-        const desc = retrieveDesc(cid);
-        res.status(200).json({ desc: desc });
+        try {
+          const desc = await retrieveDesc(cid);
+          res.status(200).json({ desc: desc ?? ""});
+        } catch(err) {
+          res.status(500).json({ error: "failed to retrieve description, " + err});
+        }
+        
     }
 
 }
