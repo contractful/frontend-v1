@@ -1,23 +1,33 @@
 # contractful frontend
 
-![Vercel](https://vercelbadge.vercel.app/api/[owner]/[repo])
+![Vercel](https://vercelbadge.vercel.app/api/[TODO]/[TODO])
 
 The frontend for trustless and decentralized contracting solution.
 
 ✨ Official demo: [https://contractful.vercel.app/].
 
+For details on the protocol and user case in general, please visit (the contractful protocol's README)[https://github.com/contractful/protocol-v1].
+You will also find (additional details on the project on the devpost page about contractful)[https://devpost.com/TODO].
+
 *Quick start:*
 
-* Beta contractful Hiring Agreements can be budgeted using fDAI on the Polygon Mumbai network. You can mint fDAI here: (note )TODO Have fDAI on the Polygon Mumbai network
-* TODO Create
-* TODO Consent
-* TODO ...
+* Beta contractful Hiring Agreements run on the Polygon Mumbai testnet and are quoted in fDAI (fake DAI). You can mint fDAI here: [https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract]. You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask). Note: You also need testnet MATIC in order to mint fDAI. You can receive these MATIC (using the faucet for the Polygon Mumbai testnet)[https://faucet.polygon.technology/].
+* As a client:
+    * Visit: [https://contractful.vercel.app/].
+    * Choose to create an Agreement.
+    * Connect your Wallet.
+    * Fill out the details of Hiring Agreement (incl. a description, engagement period and start, as well as the pre-defined hourly rate) and create it.
+    * You are now able to review the newly created Hiring Agreement. Your partner is now able to consent to it.
+* As a freelancer or service provider:
+    * Also, visit: [https://contractful.vercel.app/].
+    * Choose to review an Agreement created for you.
+    * TODO Consent
 
-The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
-
-For details on the protocol, please visit [https://github.com/contractful/protocol-v1].
+😃 Enjoy full security and automation while focussing on building awesome web3 tech.
 
 ## Getting started
+
+The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
 
 To fire up the fronted locally, please use the following instructions:
 
@@ -39,7 +49,7 @@ v18.7.0
 
 ### Use IPFS
 
-Specify the key for a IPFS Gateway API.
+Specify the key to access the IPFS Gateway API in the `.env` variables.
 
 👍 Well done - you are now able to create, deploy and sign trustless decentralized Hiring Agreements from your local machine.
 
@@ -50,14 +60,15 @@ Specify the key for a IPFS Gateway API.
 Use the following command to build or lint the frontend application:
 
 ```
+# Building:
 npx next build
+
+# Linting:
 npx next lint && npx tsc --noEmit
 
 # Combined in a pre-commit hook:
 npm run pre-commit
 ```
-
-TODO Using the following VS Code (Version: 1.73.0 (Universal)) formatter for Typescript/React: `vscode.typescript-language-features`.
 
 ### Boostrapping of the frontend application
 
