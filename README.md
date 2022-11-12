@@ -7,25 +7,26 @@ The frontend for trustless and decentralized contracting solution.
 ✨ Official demo: [https://contractful.vercel.app/].
 
 For details on the protocol and user case in general, please visit (the contractful protocol's README)[https://github.com/contractful/protocol-v1].
+
 You will also find (additional details on the project on the devpost page about contractful)[https://devpost.com/TODO].
 
-*Quick start:*
+## Quick start
 
-* Beta contractful Hiring Agreements run on the Polygon Mumbai testnet and are quoted in fDAI (fake DAI). You can mint fDAI here: [https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract]. You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask). Note: You also need testnet MATIC in order to mint fDAI. You can receive these MATIC (using the faucet for the Polygon Mumbai testnet)[https://faucet.polygon.technology/].
+* Beta contractful Hiring Agreements run on the Polygon Mumbai testnet and are quoted in fDAI (fake DAI). You can mint fDAI here, [using the contract here](https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract). You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask). Note: You also need testnet MATIC in order to mint fDAI. You can receive these MATIC [using the faucet for the Polygon Mumbai testnet](https://faucet.polygon.technology/).
 * As a client:
-    * Visit: [https://contractful.vercel.app/].
+    * Visit: <https://contractful.vercel.app/>.
     * Choose to create an Agreement.
     * Connect your Wallet.
     * Fill out the details of Hiring Agreement (incl. a description, engagement period and start, as well as the pre-defined hourly rate) and create it.
     * You are now able to review the newly created Hiring Agreement. Your partner is now able to consent to it.
 * As a freelancer or service provider:
-    * Also, visit: [https://contractful.vercel.app/].
-    * Choose to review an Agreement created for you.
-    * TODO Consent
+    * Also, visit: <https://contractful.vercel.app/>.
+    * Navigate to review an Agreement and connect your Wallet.
+    * Read the Agreement carefully, and choose to consent to it.
 
 😃 Enjoy full security and automation while focussing on building awesome web3 tech.
 
-## Getting started
+## Local setup and development
 
 The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
 
