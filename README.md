@@ -90,6 +90,6 @@ npm i react-cookie
 [...]
 ```
 
-There are several other libraries involved (e.g. for the integration with the Wallet / blockchain). Please check: [./package.json] for all dependencies.
+There are several other libraries involved (e.g. for the integration with the Wallet / blockchain). Please visit (./package.json) for a complete list of all dependencies.
 
 😀 Have fun coding!
