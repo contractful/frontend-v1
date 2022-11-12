@@ -48,7 +48,7 @@ v18.7.0
 * `cd` into `frontend-v1`.
 * When starting the frontend for the first time, please install all dependencies: `npm i`.
 * Use `npx next dev` to start the frontend.
-* Finally, visit: [http://localhost:3000/].
+* Finally, visit: <http://localhost:3000/>.
 
 ### Use IPFS
 
@@ -90,6 +90,6 @@ npm i react-cookie
 [...]
 ```
 
-There are several other libraries involved (e.g. for the integration with the Wallet / blockchain). Please visit (./package.json) for a complete list of all dependencies.
+There are several other libraries involved (e.g. for the integration with the Wallet / blockchain). Please visit [./package.json](./package.json) for a complete list of all dependencies.
 
 😀 Have fun coding!
