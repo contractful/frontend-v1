@@ -160,9 +160,10 @@ const CreateHiringAgreement: NextPage = () => {
             Math.round(
               parseInt(hourlyRate.value) *
                 DAYS_PER_PAYMENT_PERIOD *
-                WORKING_HOURS_PER_DAY *
-                (10e18)
+                WORKING_HOURS_PER_DAY
             )
+          ).mul(
+            BigNumber.from(10).pow(BigNumber.from(18))
           ),
           underlayingToken: selectedToken,
           contractor: contractor.value,
