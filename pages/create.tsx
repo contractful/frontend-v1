@@ -160,7 +160,8 @@ const CreateHiringAgreement: NextPage = () => {
             Math.round(
               parseInt(hourlyRate.value) *
                 DAYS_PER_PAYMENT_PERIOD *
-                WORKING_HOURS_PER_DAY
+                WORKING_HOURS_PER_DAY *
+                (10e18)
             )
           ),
           underlayingToken: selectedToken,
