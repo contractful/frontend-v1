@@ -6,13 +6,15 @@ The frontend for trustless and decentralized contracting solution.
 
 ✨ Official demo: [https://contractful.vercel.app/].
 
-For details on the protocol and user case in general, please visit (the contractful protocol's README)[https://github.com/contractful/protocol-v1].
+For details on the protocol and user case in general, please visit [the contractful protocol's README](https://github.com/contractful/protocol-v1).
 
-You will also find (additional details on the project on the devpost page about contractful)[https://devpost.com/TODO].
+You will also find [additional details on the project on the devpost page about contractful](https://devpost.com/TODO).
 
 ## Quick start
 
-* Beta contractful Hiring Agreements run on the Polygon Mumbai testnet and are quoted in fDAI (fake DAI). You can mint fDAI here, [using the contract here](https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract). You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask). Note: You also need testnet MATIC in order to mint fDAI. You can receive these MATIC [using the faucet for the Polygon Mumbai testnet](https://faucet.polygon.technology/).
+* Beta contractful Hiring Agreements run on the Polygon Mumbai testnet and are quoted in fDAI (fake DAI).
+    * You can mint fDAI, [using the contract here](https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract).
+    * You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask). Note: You also need testnet MATIC in order to mint fDAI. You can receive these MATIC [using the faucet for the Polygon Mumbai testnet](https://faucet.polygon.technology/).
 * As a client:
     * Visit: <https://contractful.vercel.app/>.
     * Choose to create an Agreement.
