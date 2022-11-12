@@ -4,7 +4,7 @@
 
 The frontend for trustless and decentralized contracting solution.
 
-✨ Official demo: [https://contractful.vercel.app/].
+✨ Official demo: <https://contractful.vercel.app/>.
 
 For details on the protocol and user case in general, please visit [the contractful protocol's README](https://github.com/contractful/protocol-v1).
 
@@ -28,7 +28,7 @@ You will also find [additional details on the project on the devpost page about 
 
 😃 Enjoy full security and automation while focussing on building awesome web3 tech.
 
-## Local setup and development
+## Local setup
 
 The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
 
