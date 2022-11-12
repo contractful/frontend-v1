@@ -13,8 +13,8 @@ You will also find [additional details on the project on the devpost page about 
 ## Quick start
 
 * Beta contractful Hiring Agreements run on the Polygon Mumbai testnet and are quoted in fDAI (fake DAI).
-    * You can mint fDAI, [using the contract here](https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract).
-    * You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask). Note: You also need testnet MATIC in order to mint fDAI. You can receive these MATIC [using the faucet for the Polygon Mumbai testnet](https://faucet.polygon.technology/).
+    * You can mint fDAI, [using the contract here](https://mumbai.polygonscan.com/address/0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40#writeContract). Note: You might need to add fDAI as a custom token to your Wallet (e.g. MetaMask).
+    * You might also need testnet MATIC in order to mint fDAI. You can receive these MATIC [using the faucet for the Polygon Mumbai testnet](https://faucet.polygon.technology/).
 * As a client:
     * Visit: <https://contractful.vercel.app/>.
     * Choose to create an Agreement.
