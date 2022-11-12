@@ -70,6 +70,8 @@ const CreateHiringAgreement: NextPage = () => {
     "success" | "info" | "warning" | "error"
   >();
 
+  const [desc, setDesc] = useState<string>();
+
   const { data: penalizationAmount } = useGetPenalizationAmount();
   const { data: establishmentFeeRate } = useGetEstablishmentFeeRate();
 
@@ -115,34 +117,60 @@ const CreateHiringAgreement: NextPage = () => {
       contractor: { value: Address };
     };
 
-    coordinateCreateAgreement(
-      selectedToken,
+    const sendDesc = fetch('/api/sendDesc', {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify({desc: desc}),
+      headers: {'Content-Type': 'application/json'} 
+    });
+    
+    sendDesc
+    .then((response) => {
+      if (!response.ok) 
+      { 
+        console.error("Error ", response.status);
+      }
+      else if (response.status >= 400) 
       {
-        beginningDate: BigNumber.from(
-          Math.round(Date.parse(beginningDate.value) / 1000)
-        ),
-        maturityDate: BigNumber.from(
-          Math.round(
-            Date.now() / 1000 + parseInt(engagementPeriod.value) * 86400 * 30
-          ) // months
-        ),
-        paymentCycleDuration: BigNumber.from(
-          Math.round(parseInt(paymentCycleDuration.value))
-        ),
-        paymentCycleAmount: BigNumber.from(
-          Math.round(
-            parseInt(hourlyRate.value) *
-              DAYS_PER_PAYMENT_PERIOD *
-              WORKING_HOURS_PER_DAY
-          )
-        ),
-        underlayingToken: selectedToken,
-        contractor: contractor.value,
-        descriptionURI: "IPFS",
-      },
-      manager.address,
-      ethers.constants.MaxUint256
-    );
+        console.error('HTTP Error: ' + response.status + ' - ' + response.json());
+      }
+      else
+      {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      const cid = data.cid;
+      console.log("cid desc ", cid);
+      coordinateCreateAgreement(
+        selectedToken,
+        {
+          beginningDate: BigNumber.from(
+            Math.round(Date.parse(beginningDate.value) / 1000)
+          ),
+          maturityDate: BigNumber.from(
+            Math.round(
+              Date.now() / 1000 + parseInt(engagementPeriod.value) * 86400 * 30
+            ) // months
+          ),
+          paymentCycleDuration: BigNumber.from(
+            Math.round(parseInt(paymentCycleDuration.value))
+          ),
+          paymentCycleAmount: BigNumber.from(
+            Math.round(
+              parseInt(hourlyRate.value) *
+                DAYS_PER_PAYMENT_PERIOD *
+                WORKING_HOURS_PER_DAY
+            )
+          ),
+          underlayingToken: selectedToken,
+          contractor: contractor.value,
+          descriptionURI: cid.toString(),
+        },
+        manager.address,
+        ethers.constants.MaxUint256
+      );
+    });
   };
 
   const handleCloseCreateAgreementStatuses = (
@@ -320,6 +348,9 @@ const CreateHiringAgreement: NextPage = () => {
                           rows={4}
                           sx={{
                             width: "80vh",
+                          }}
+                          onChange={(e) => {
+                            setDesc(e.target.value);
                           }}
                           required
                         />
