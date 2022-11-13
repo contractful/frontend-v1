@@ -141,7 +141,6 @@ const CreateHiringAgreement: NextPage = () => {
     })
     .then((data) => {
       const cid = data.cid;
-      console.log("cid desc ", cid);
       coordinateCreateAgreement(
         selectedToken,
         {

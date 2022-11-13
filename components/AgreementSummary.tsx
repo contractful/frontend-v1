@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useState } from "react";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import TocIcon from "@mui/icons-material/Toc";
@@ -30,7 +31,36 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
     paymentCycleDuration,
     penalizationAmount_,
     underlayingToken,
+    descriptionURI
   } = props;
+
+  const [description, setDescription] = useState<string>();
+
+  const retrieveDesc = fetch('/api/getDesc', {
+    method: 'POST',
+    mode: 'cors',
+    body: JSON.stringify({cid: descriptionURI}),
+    headers: {'Content-Type': 'application/json'} 
+  });
+  
+  retrieveDesc
+  .then((response) => {
+    if (!response.ok) 
+    { 
+      console.error("Error ", response.status);
+    }
+    else if (response.status >= 400) 
+    {
+      console.error('HTTP Error: ' + response.status + ' - ' + response.json());
+    }
+    else
+    {
+      return response.json();
+    }
+  })
+  .then((data) => {
+    setDescription(data.desc);
+  });
 
   return (
     <>
@@ -119,8 +149,9 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   backgroundColor: "rgba(0, 0, 0, 0.04)",
                 }}
                 pt={2}
+
               >
-                {""}
+                {description}
               </Typography>
             </CardContent>
           </Card>
