@@ -57,9 +57,8 @@ const ActionSection = (props: Props) => {
       <>
         <StepLabel>{"Consent to the Hiring Agreement"}</StepLabel>
         <StepContent>
-          <Grid container pt={2}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs>
+          <Grid container pt={4} pl={3}>
+            <Grid item xs={8}>
               <Alert severity="info">
                 <AlertTitle>Please review the Agreement carefully.</AlertTitle>
                 If all details are correct, you can continue to consent to the
@@ -95,7 +94,7 @@ const ActionSection = (props: Props) => {
                 </Stack>
               }
             </Grid>
-            <Grid item xs={3}></Grid>
+            <Grid item xs></Grid>
           </Grid>
         </StepContent>
       </>
@@ -143,9 +142,8 @@ const ActionSection = (props: Props) => {
       <>
         <StepLabel>{"Cancel or Challenge Agreement"}</StepLabel>
         <StepContent>
-          <Grid container pt={2}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs>
+          <Grid container pt={4} pl={3}>
+            <Grid item xs={8}>
               <Alert severity="error">
                 <AlertTitle sx={{ pb: 2 }}>
                   {!active && !closed
@@ -237,7 +235,7 @@ const ActionSection = (props: Props) => {
                 </Stack>
               }
             </Grid>
-            <Grid item xs={3}></Grid>
+            <Grid item xs></Grid>
           </Grid>
         </StepContent>
       </>

@@ -62,6 +62,12 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
     setDescription(data.desc);
   });
 
+  const amountFormatter = new Intl.NumberFormat("en-US", {
+    // These options are needed to round to whole numbers if that's what you want.
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
+  });
+
   return (
     <>
       <Paper elevation={12}>
@@ -224,10 +230,11 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   {beginningDate && maturityDate
                     ? maturityDate
                         ?.sub(beginningDate)
-                        .div(BigNumber.from(24 * 60 * 60 * 30))
+                        .div(BigNumber.from(24*60*60))
+                        .add(BigNumber.from(1))
                         .toString()
                     : "---"}{" "}
-                  months
+                  days
                 </Typography>
               </Stack>
 
@@ -285,29 +292,6 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 
               <Divider />
 
-              <Stack direction="row" pt={2}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    width: "20vh",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  Hourly rate:
-                </Typography>
-                <Typography variant="h6">
-                  {paymentCycleAmount &&
-                    paymentCycleDuration.toNumber() &&
-                    formatEther(
-                      paymentCycleAmount
-                        ?.div(paymentCycleDuration)
-                        .mul(BigNumber.from(60 * 60))
-                    )}{" "}
-                  DAI
-                </Typography>
-              </Stack>
-
               <Stack direction="row" pt={1}>
                 <Typography
                   variant="body2"
@@ -321,10 +305,18 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 </Typography>
                 <Typography variant="h6">
                   Every{" "}
-                  {paymentCycleDuration
-                    ?.div(BigNumber.from(24 * 60 * 60))
-                    .toString()}{" "}
-                  days
+                  {
+                    (paymentCycleDuration?.lt(BigNumber.from((24 * 60 * 60))))
+                    ? 
+                    <>
+                    {paymentCycleDuration?.div(BigNumber.from(60)).toString() + " minutes "}
+                    {"("}<b style={{ color: "#d32f2f" }}>TESTING</b>{")"}
+                    </>
+                    : 
+                    <>
+                    (paymentCycleDuration?.div(BigNumber.from(24 * 60 * 60)).toString + " days")
+                    </>
+                  }
                 </Typography>
               </Stack>
 
@@ -340,7 +332,18 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   Total Budget:
                 </Typography>
                 <Typography variant="h6">
-                  {paymentCycleAmount && formatEther(paymentCycleAmount)} DAI
+                  {paymentCycleAmount && amountFormatter.format(Number(formatEther(paymentCycleAmount)))}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  pl={4}
+                >
+                  DAI
                 </Typography>
               </Stack>
 
@@ -356,7 +359,18 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   Penalization amount
                 </Typography>
                 <Typography variant="h6">
-                  {penalizationAmount_ && formatEther(penalizationAmount_)} DAI
+                  {penalizationAmount_ && amountFormatter.format(Number(formatEther(penalizationAmount_)))}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  pl={4}
+                >
+                  DAI
                 </Typography>
               </Stack>
 
@@ -372,7 +386,17 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   Establishment fee rate:
                 </Typography>
                 <Typography variant="h6">
-                  {establishmentFeeRate_ && formatEther(establishmentFeeRate_)}{" "}
+                  {establishmentFeeRate_ && amountFormatter.format(Number(formatEther(establishmentFeeRate_)))}{" "}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  pl={4}
+                >
                   DAI
                 </Typography>
               </Stack>
