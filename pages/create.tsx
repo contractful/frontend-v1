@@ -141,7 +141,6 @@ const CreateHiringAgreement: NextPage = () => {
     })
     .then((data) => {
       const cid = data.cid;
-      console.log("cid desc ", cid);
       coordinateCreateAgreement(
         selectedToken,
         {
@@ -162,6 +161,8 @@ const CreateHiringAgreement: NextPage = () => {
                 DAYS_PER_PAYMENT_PERIOD *
                 WORKING_HOURS_PER_DAY
             )
+          ).mul(
+            BigNumber.from(10).pow(BigNumber.from(18))
           ),
           underlayingToken: selectedToken,
           contractor: contractor.value,
@@ -181,7 +182,7 @@ const CreateHiringAgreement: NextPage = () => {
     }
 
     if(isCreateAgreementSuccess) {
-      Router.push('/review/123456789');
+      Router.push('/review');
     }
   };
 
