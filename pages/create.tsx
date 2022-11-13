@@ -123,7 +123,7 @@ const CreateHiringAgreement: NextPage = () => {
       body: JSON.stringify({desc: desc}),
       headers: {'Content-Type': 'application/json'} 
     });
-    
+
     sendDesc
     .then((response) => {
       if (!response.ok) 
@@ -149,7 +149,7 @@ const CreateHiringAgreement: NextPage = () => {
           ),
           maturityDate: BigNumber.from(
             Math.round(
-              Date.now() / 1000 + parseInt(engagementPeriod.value) * 86400 * 30
+              (Date.parse(beginningDate.value) / 1000) + (parseInt(engagementPeriod.value) * (24*60*60) * 30)
             ) // months
           ),
           paymentCycleDuration: BigNumber.from(
@@ -424,7 +424,8 @@ const CreateHiringAgreement: NextPage = () => {
                                 }}
                                 variant="body2"
                               >
-                                Engagement period:
+                                Engagement period<br/>
+                                (30 days each):
                               </Typography>
                               <TextField
                                 id="input-engagement-period"

@@ -98,16 +98,7 @@ const ReviewHiringAgreement: NextPage = () => {
       } else if (agreementState.active) {
         setAgreementProcessedState(AgreementProcessedState.active);
       } else if (!agreementState.active) {
-        if (
-          new Date(Date.now()) >
-          new Date(
-            parseInt(agreementParameters.beginningDate.toString()) * 1000
-          )
-        ) {
-          setAgreementProcessedState(AgreementProcessedState.closed);
-        } else {
-          setAgreementProcessedState(AgreementProcessedState.inactive);
-        }
+        setAgreementProcessedState(AgreementProcessedState.inactive);
       }
     }
   }, [
@@ -605,7 +596,7 @@ const ReviewHiringAgreement: NextPage = () => {
                                     <Typography>
                                       👉 In case of a critical violation of the
                                       Agreement, you are able to review and
-                                      challenge it.
+                                      cancel or challenge it.
                                     </Typography>
                                   </>
                                 )}
