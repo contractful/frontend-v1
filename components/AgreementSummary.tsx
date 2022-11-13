@@ -314,7 +314,7 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                     </>
                     : 
                     <>
-                    (paymentCycleDuration?.div(BigNumber.from(24 * 60 * 60)).toString + " days")
+                    {(paymentCycleDuration?.div(BigNumber.from(24 * 60 * 60)).toString + " days")}
                     </>
                   }
                 </Typography>
