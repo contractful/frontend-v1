@@ -182,7 +182,7 @@ const CreateHiringAgreement: NextPage = () => {
     }
 
     if(isCreateAgreementSuccess) {
-      Router.push('/review/123456789');
+      Router.push('/review');
     }
   };
 

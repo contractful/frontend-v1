@@ -42,6 +42,7 @@ import useCancelAgreement from "../../hooks/useCancellAgreement";
 import useChallengeAgreement from "../../hooks/useChallengeAgreement";
 import useGetAgreementParameters from "../../hooks/useGetAgreementParameters";
 import useGetAgreementState from "../../hooks/useGetAgreementState";
+import useGetUserAgreements from "../../hooks/useGetUserAgreements";
 
 const ReviewHiringAgreement: NextPage = () => {
   const router = useRouter();
