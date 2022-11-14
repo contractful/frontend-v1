@@ -153,9 +153,9 @@ const CreateHiringAgreement: NextPage = () => {
             && (dateBeginningDate.getMonth() == nowDateTime.getMonth())
             && (dateBeginningDate.getDay() == nowDateTime.getDay())
           )
-          ? (nowDateTime.getUTCSeconds() * 1000)
+          ? nowDateTime.getTime()
           : parsedBeginningDate
-
+      
       coordinateCreateAgreement(
         selectedToken,
         {
