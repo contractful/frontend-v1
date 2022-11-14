@@ -231,7 +231,6 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                     ? maturityDate
                         ?.sub(beginningDate)
                         .div(BigNumber.from(24*60*60))
-                        .add(BigNumber.from(1))
                         .toString()
                     : "---"}{" "}
                   days

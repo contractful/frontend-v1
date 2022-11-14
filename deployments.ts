@@ -3,7 +3,7 @@ export const deployments = {
   chainId: "80001",
   contracts: {
     Manager: {
-      address: "0x271ecC5C07A80891ec552156675Ecc4260B3B0dE",
+      address: "0xE4930EDeAd758036Bd830983A26340ac7F366869",
       abi: [
         {
           anonymous: false,
@@ -175,11 +175,6 @@ export const deployments = {
         {
           inputs: [],
           name: "MG_NOT_ONGOING",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "MG_PAST_BEGINNING_DATE",
           type: "error",
         },
         {
@@ -629,6 +624,49 @@ export const deployments = {
               name: "agreementID",
               type: "uint256",
             },
+          ],
+          name: "checkFundsMigration",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          name: "checkUpkeep",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "upkeepNeeded",
+              type: "bool",
+            },
+            {
+              internalType: "bytes",
+              name: "performData",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agreementID",
+              type: "uint256",
+            },
             {
               internalType: "uint128",
               name: "amount",
@@ -981,6 +1019,19 @@ export const deployments = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "performData",
+              type: "bytes",
+            },
+          ],
+          name: "performUpkeep",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -1199,7 +1250,7 @@ export const deployments = {
       ],
     },
     Manager_Implementation: {
-      address: "0xbf33Cf785a4517b556705626705c04611364C98E",
+      address: "0xEa733Ac48D748c1D360508a1e8c53c5b6c7a3F47",
       abi: [
         {
           inputs: [],
@@ -1249,11 +1300,6 @@ export const deployments = {
         {
           inputs: [],
           name: "MG_NOT_ONGOING",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "MG_PAST_BEGINNING_DATE",
           type: "error",
         },
         {
@@ -1703,6 +1749,49 @@ export const deployments = {
               name: "agreementID",
               type: "uint256",
             },
+          ],
+          name: "checkFundsMigration",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          name: "checkUpkeep",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "upkeepNeeded",
+              type: "bool",
+            },
+            {
+              internalType: "bytes",
+              name: "performData",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agreementID",
+              type: "uint256",
+            },
             {
               internalType: "uint128",
               name: "amount",
@@ -2060,6 +2149,19 @@ export const deployments = {
         {
           inputs: [
             {
+              internalType: "bytes",
+              name: "performData",
+              type: "bytes",
+            },
+          ],
+          name: "performUpkeep",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "bytes32",
               name: "role",
               type: "bytes32",
@@ -2271,7 +2373,7 @@ export const deployments = {
       ],
     },
     Manager_Proxy: {
-      address: "0x271ecC5C07A80891ec552156675Ecc4260B3B0dE",
+      address: "0xE4930EDeAd758036Bd830983A26340ac7F366869",
       abi: [
         {
           inputs: [
@@ -2419,7 +2521,7 @@ export const deployments = {
       ],
     },
     fDAI: {
-      address: "0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40",
+      address: "0x66fa40559c66614fEf8b6D745104dB22fd9772E0",
       abi: [
         {
           inputs: [],
