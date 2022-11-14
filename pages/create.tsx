@@ -141,15 +141,30 @@ const CreateHiringAgreement: NextPage = () => {
     })
     .then((data) => {
       const cid = data.cid;
+
+      const nowDateTime = new Date();
+      const parsedPaymentCycleDuration = parseInt(paymentCycleDuration.value);
+      const parsedBeginningDate = Date.parse(beginningDate.value);
+      const dateBeginningDate = new Date(beginningDate.value);
+      const tratedBeginningDate = (parsedPaymentCycleDuration > (24*60*60))
+        ? parsedBeginningDate
+        : (
+            (dateBeginningDate.getFullYear() == nowDateTime.getFullYear())
+            && (dateBeginningDate.getMonth() == nowDateTime.getMonth())
+            && (dateBeginningDate.getDay() == nowDateTime.getDay())
+          )
+          ? (nowDateTime.getUTCSeconds() * 1000)
+          : parsedBeginningDate
+
       coordinateCreateAgreement(
         selectedToken,
         {
           beginningDate: BigNumber.from(
-            Math.round(Date.parse(beginningDate.value) / 1000)
+            Math.round(tratedBeginningDate / 1000)
           ),
           maturityDate: BigNumber.from(
             Math.round(
-              (Date.parse(beginningDate.value) / 1000) + (parseInt(engagementPeriod.value) * (24*60*60) * 30)
+              (tratedBeginningDate / 1000) + (parseInt(engagementPeriod.value) * (24*60*60) * 30)
             ) // months
           ),
           paymentCycleDuration: BigNumber.from(
