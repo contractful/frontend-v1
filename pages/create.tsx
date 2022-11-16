@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import * as React from "react";
 import Router from "next/router";
+import * as React from "react";
 
 import {
   Alert,
@@ -92,14 +92,13 @@ const CreateHiringAgreement: NextPage = () => {
 
   const handleCreateAgreementSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setOpenSnackbarAlert(false);
     reset();
     if (!address) {
       setSnackbarAlertSeverity("error");
       setOpenSnackbarAlert(true);
       return;
     }
-
-    setOpenStatusesDialog(true);
 
     // deconstruct form data
     const {
@@ -117,76 +116,73 @@ const CreateHiringAgreement: NextPage = () => {
       contractor: { value: Address };
     };
 
-    const sendDesc = fetch('/api/sendDesc', {
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify({desc: desc}),
-      headers: {'Content-Type': 'application/json'} 
+    const sendDesc = fetch("/api/sendDesc", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({ desc: desc }),
+      headers: { "Content-Type": "application/json" },
     });
 
     sendDesc
-    .then((response) => {
-      if (!response.ok) 
-      { 
-        console.error("Error ", response.status);
-      }
-      else if (response.status >= 400) 
-      {
-        console.error('HTTP Error: ' + response.status + ' - ' + response.json());
-      }
-      else
-      {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      const cid = data.cid;
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Error ", response.status);
+        } else if (response.status >= 400) {
+          console.error(
+            "HTTP Error: " + response.status + " - " + response.json()
+          );
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        const cid = data?.cid;
 
-      const nowDateTime = new Date();
-      const parsedPaymentCycleDuration = parseInt(paymentCycleDuration.value);
-      const parsedBeginningDate = Date.parse(beginningDate.value);
-      const dateBeginningDate = new Date(beginningDate.value);
-      const tratedBeginningDate = (parsedPaymentCycleDuration > (24*60*60))
-        ? parsedBeginningDate
-        : (
-            (dateBeginningDate.getFullYear() == nowDateTime.getFullYear())
-            && (dateBeginningDate.getMonth() == nowDateTime.getMonth())
-            && (dateBeginningDate.getDay() == nowDateTime.getDay())
-          )
-          ? nowDateTime.getTime()
-          : parsedBeginningDate
-      
-      coordinateCreateAgreement(
-        selectedToken,
-        {
-          beginningDate: BigNumber.from(
-            Math.round(tratedBeginningDate / 1000)
-          ),
-          maturityDate: BigNumber.from(
-            Math.round(
-              (tratedBeginningDate / 1000) + (parseInt(engagementPeriod.value) * (24*60*60) * 30)
-            ) // months
-          ),
-          paymentCycleDuration: BigNumber.from(
-            Math.round(parseInt(paymentCycleDuration.value))
-          ),
-          paymentCycleAmount: BigNumber.from(
-            Math.round(
-              parseInt(hourlyRate.value) *
-                DAYS_PER_PAYMENT_PERIOD *
-                WORKING_HOURS_PER_DAY
-            )
-          ).mul(
-            BigNumber.from(10).pow(BigNumber.from(18))
-          ),
-          underlayingToken: selectedToken,
-          contractor: contractor.value,
-          descriptionURI: cid.toString(),
-        },
-        manager.address,
-        ethers.constants.MaxUint256
-      );
-    });
+        const nowDateTime = new Date();
+        const parsedPaymentCycleDuration = parseInt(paymentCycleDuration.value);
+        const parsedBeginningDate = Date.parse(beginningDate.value);
+        const dateBeginningDate = new Date(beginningDate.value);
+        const tratedBeginningDate =
+          parsedPaymentCycleDuration > 24 * 60 * 60
+            ? parsedBeginningDate
+            : dateBeginningDate.getFullYear() == nowDateTime.getFullYear() &&
+              dateBeginningDate.getMonth() == nowDateTime.getMonth() &&
+              dateBeginningDate.getDay() == nowDateTime.getDay()
+            ? nowDateTime.getTime()
+            : parsedBeginningDate;
+
+        coordinateCreateAgreement(
+          selectedToken,
+          {
+            beginningDate: BigNumber.from(
+              Math.round(tratedBeginningDate / 1000)
+            ),
+            maturityDate: BigNumber.from(
+              Math.round(
+                tratedBeginningDate / 1000 +
+                  parseInt(engagementPeriod.value) * (24 * 60 * 60) * 30
+              ) // months
+            ),
+            paymentCycleDuration: BigNumber.from(
+              Math.round(parseInt(paymentCycleDuration.value))
+            ),
+            paymentCycleAmount: BigNumber.from(
+              Math.round(
+                parseInt(hourlyRate.value) *
+                  DAYS_PER_PAYMENT_PERIOD *
+                  WORKING_HOURS_PER_DAY
+              )
+            ).mul(BigNumber.from(10).pow(BigNumber.from(18))),
+            underlayingToken: selectedToken,
+            contractor: contractor.value,
+            descriptionURI: cid.toString(),
+          },
+          manager.address,
+          ethers.constants.MaxUint256
+        );
+      });
+
+    setOpenStatusesDialog(true);
   };
 
   const handleCloseCreateAgreementStatuses = (
@@ -196,8 +192,8 @@ const CreateHiringAgreement: NextPage = () => {
       setOpenStatusesDialog(false);
     }
 
-    if(isCreateAgreementSuccess) {
-      Router.push('/review');
+    if (isCreateAgreementSuccess) {
+      Router.push("/review");
     }
   };
 
@@ -277,31 +273,31 @@ const CreateHiringAgreement: NextPage = () => {
                     <Stack direction="column">
                       {isWalletConnected() ? (
                         <>
-                        <Stack direction="row" spacing={1}>
-                          <VerifiedUserIcon />
-                          <Typography>Connected</Typography>
-                          <Chip
-                            label={address}
-                            variant="outlined"
-                            sx={{
-                              mb: 1,
-                            }}
-                          />
-                        </Stack>
-                        <Typography pt={1}>
-                          Please proceed to securely create a Hiring
-                          Agreement.
-                        </Typography>
+                          <Stack direction="row" spacing={1}>
+                            <VerifiedUserIcon />
+                            <Typography>Connected</Typography>
+                            <Chip
+                              label={address}
+                              variant="outlined"
+                              sx={{
+                                mb: 1,
+                              }}
+                            />
+                          </Stack>
+                          <Typography pt={1}>
+                            Please proceed to securely create a Hiring
+                            Agreement.
+                          </Typography>
                         </>
                       ) : (
                         <>
-                        <Stack direction="row" spacing={1}>
-                          <LocalPoliceIcon />
-                          <Typography>
-                            Please proceed to securely create a Hiring
-                            Agreement. Start with connecting your Wallet.
-                          </Typography>
-                        </Stack>
+                          <Stack direction="row" spacing={1}>
+                            <LocalPoliceIcon />
+                            <Typography>
+                              Please proceed to securely create a Hiring
+                              Agreement. Start with connecting your Wallet.
+                            </Typography>
+                          </Stack>
                         </>
                       )}
                     </Stack>
@@ -439,7 +435,8 @@ const CreateHiringAgreement: NextPage = () => {
                                 }}
                                 variant="body2"
                               >
-                                Engagement period<br/>
+                                Engagement period
+                                <br />
                                 (30 days each):
                               </Typography>
                               <TextField
@@ -454,7 +451,7 @@ const CreateHiringAgreement: NextPage = () => {
                                 type="number"
                                 variant="standard"
                                 required
-                                />
+                              />
                             </Stack>
 
                             <Stack
@@ -665,7 +662,9 @@ const CreateHiringAgreement: NextPage = () => {
                                 Resulting contract budget:
                               </Typography>
                               <Typography variant="h6">
-                                {budget ? (amountFormatter.format(budget as number)) : ("---")}
+                                {budget
+                                  ? amountFormatter.format(budget as number)
+                                  : "---"}
                               </Typography>
                               <Typography
                                 variant="h6"
@@ -689,7 +688,8 @@ const CreateHiringAgreement: NextPage = () => {
                                 Penalization fee
                               </Typography>
                               <Typography variant="h6">
-                                {((penalizationAmount?.toString() + '.00') ?? "---")}
+                                {penalizationAmount?.toString() + ".00" ??
+                                  "---"}
                               </Typography>
                               <Typography
                                 variant="h6"
@@ -713,7 +713,8 @@ const CreateHiringAgreement: NextPage = () => {
                                 Establishment fee rate
                               </Typography>
                               <Typography variant="h6">
-                                {((establishmentFeeRate?.toString() + '.00') ?? "---")}
+                                {establishmentFeeRate?.toString() + ".00" ??
+                                  "---"}
                               </Typography>
                               <Typography
                                 variant="h6"
@@ -765,8 +766,7 @@ const CreateHiringAgreement: NextPage = () => {
                       </Button>
                     </Stack>
                   </Grid>
-                  <Grid item xs>
-                  </Grid>
+                  <Grid item xs></Grid>
                 </Grid>
               </StepContent>
             </Step>
@@ -783,6 +783,7 @@ const CreateHiringAgreement: NextPage = () => {
         isCreateAgreementPendingSignature={isCreateAgreementPendingSignature}
         isCreateAgreementMining={isCreateAgreementMining}
         isCreateAgreementSuccess={isCreateAgreementSuccess}
+        isError={isError}
       />
 
       <Box maxWidth={300}>
@@ -791,11 +792,13 @@ const CreateHiringAgreement: NextPage = () => {
           onClose={() => setOpenSnackbarAlert(false)}
           severity={snackbarAlertSeverity}
           message={
-            errorMessage
-              ? errorMessage.split("(")[0]
+            isError
+              ? errorMessage?.split("(")[0]
               : !address
               ? "Connect your wallet first"
-              : "Your Agreement has been created! You can review it on your agreements page."
+              : isCreateAgreementSuccess
+              ? "Your Agreement has been created! You can review it on your agreements page."
+              : ""
           }
         />
       </Box>
