@@ -2,13 +2,15 @@
 
 ![Vercel](https://vercelbadge.vercel.app/api/Mijail-Piekarz/contractful-frontend-v1)
 
-The frontend for trustless and decentralized contracting solution.
+🙌️  News: **[For early MVP access, click here to participate in our survey from Nov to Dec 2022](https://forms.gle/E3xPJwu6wBbnvB7t6)**.
+
+The frontend that makes peer-2-peer, safe and secure Hiring Agreements accessible to everyone.
 
 ✨ Official demo: <https://contractful.vercel.app/>.
 
 For details on the protocol and user case in general, please visit [the contractful protocol's README](https://github.com/contractful/protocol-v1).
 
-You will also find [additional details on the project on the devpost page about contractful](https://devpost.com/TODO).
+You will also find [more details on the project on the devpost page about contractful](https://devpost.com/software/contractful-hiring-agreements).
 
 ## Quick start
 
@@ -30,7 +32,7 @@ You will also find [additional details on the project on the devpost page about 
 
 ## Local setup
 
-The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn, how to use the contractful frontend - to create, deploy and sign a Hiring Agreement - just from you local machine.
+The full protocol of the solution can be interfaced by using the official demo (see above). Anyway, here you will learn here, how to use the contractful frontend just from your local machine.
 
 To fire up the fronted locally, please use the following instructions:
 
@@ -73,7 +75,7 @@ npx next lint && npx tsc --noEmit
 npm run pre-commit
 ```
 
-### Boostrapping of the frontend application
+### Initial bootstrap of the frontend application
 
 Initially, this application was bootstrapped using the following commands (for the UI application skeleton):
 
@@ -90,6 +92,6 @@ npm i react-cookie
 [...]
 ```
 
-There are several other libraries involved (e.g. for the integration with the Wallet / blockchain). Please visit [./package.json](./package.json) for a complete list of all dependencies.
+There are several other libraries involved (e.g. for the integration of the browser Wallet and the Polygon blockchain). Please visit [./package.json](./package.json) for a complete list of all dependencies.
 
 😀 Have fun coding!
