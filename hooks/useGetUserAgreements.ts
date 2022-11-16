@@ -1,8 +1,9 @@
 import { useContractRead } from "wagmi";
 import { deployments } from "../deployments";
 import { Address } from "../utils/types";
+import { BigNumber } from "ethers";
 
-const useGetUserAgreements = (address: Address | undefined) => {
+const useGetUserAgreements = (address: Address | undefined, onSuccessFn: ( data: readonly BigNumber[] ) => void) => {
   const manager = deployments.contracts.Manager;
 
   return useContractRead({
@@ -13,6 +14,9 @@ const useGetUserAgreements = (address: Address | undefined) => {
     // we cast undefined as Address
     args: [address ? address : (address as unknown as Address)],
     enabled: address ? true : false,
+    onSuccess: (data) => {
+      onSuccessFn(data);
+    }
   });
 };
 

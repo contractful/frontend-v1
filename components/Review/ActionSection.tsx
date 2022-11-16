@@ -24,6 +24,8 @@ type Props = {
   challengeDuration: BigNumber;
   showConfirmDialog: ({}) => void;
   handleConsentToAgreement: () => void;
+  handleCancelAgreement: () => void;
+  handleChallengeAgreement: () => void;
 };
 
 const ActionSection = (props: Props) => {
@@ -33,6 +35,8 @@ const ActionSection = (props: Props) => {
     challengeDuration,
     showConfirmDialog,
     handleConsentToAgreement,
+    handleCancelAgreement,
+    handleChallengeAgreement,
   } = props;
 
   const { address } = useAccount();
@@ -53,14 +57,15 @@ const ActionSection = (props: Props) => {
       <>
         <StepLabel>{"Consent to the Hiring Agreement"}</StepLabel>
         <StepContent>
-          <Grid container pt={2}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs>
+          <Grid container pt={4} pl={3}>
+            <Grid item xs={8}>
               <Alert severity="info">
                 <AlertTitle>Please review the Agreement carefully.</AlertTitle>
                 If all details are correct, you can continue to consent to the
                 Agreement.
                 <br />
+                (If the agreement is not consented until the start date it will
+                be closed automatically.)
               </Alert>
               {
                 <Stack pt={2} spacing={2}>
@@ -86,32 +91,10 @@ const ActionSection = (props: Props) => {
                   >
                     Consent to the Agreement
                   </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    size="large"
-                    startIcon={<NotInterested />}
-                    fullWidth
-                    onClick={() => {
-                      showConfirmDialog({
-                        dialogTitle:
-                          "Are you sure you want to decline the Hiring Agreement?",
-                        dialogBody:
-                          "Declining the Hiring Agreement invalidates the Smart Contract to which the budget has been transfered. Be very sure you really want to decline the Hiring Agreement.",
-                        cancelCaption: "Cancel",
-                        okCaption: "Really decline Agreement",
-                        okFunc: () => {
-                          console.log("DEBUG In okFunc");
-                        },
-                      });
-                    }}
-                  >
-                    Decline Agreement
-                  </Button>
                 </Stack>
               }
             </Grid>
-            <Grid item xs={3}></Grid>
+            <Grid item xs></Grid>
           </Grid>
         </StepContent>
       </>
@@ -159,15 +142,16 @@ const ActionSection = (props: Props) => {
       <>
         <StepLabel>{"Cancel or Challenge Agreement"}</StepLabel>
         <StepContent>
-          <Grid container pt={2}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs>
+          <Grid container pt={4} pl={3}>
+            <Grid item xs={8}>
               <Alert severity="error">
-                <AlertTitle>
-                  These actions are final and cannot be undone.
+                <AlertTitle sx={{ pb: 2 }}>
+                  {!active && !closed
+                    ? "This action is final and cannot be undone."
+                    : "These actions are final and cannot be undone"}
                 </AlertTitle>
                 {!active && !closed ? (
-                  "Since the Contractor has not consented to the Agreement yet, you can cancel the Agreement without being penalized. The agreement will be invalidated and the budget will be returned to you."
+                  "Since the Contractor has not consented to the Agreement yet you can cancel it without being penalized and the budget will be returned to you."
                 ) : (
                   <List>
                     <ListItem>
@@ -218,7 +202,7 @@ const ActionSection = (props: Props) => {
                         cancelCaption: "Keep Agreement",
                         okCaption: "Cancel Agreement",
                         okFunc: () => {
-                          handleConsentToAgreement();
+                          handleCancelAgreement();
                         },
                       });
                     }}
@@ -241,7 +225,7 @@ const ActionSection = (props: Props) => {
                         cancelCaption: "Cancel",
                         okCaption: "Challenge Sprint",
                         okFunc: () => {
-                          console.log("DEBUG In okFunc");
+                          handleChallengeAgreement();
                         },
                       });
                     }}
@@ -251,7 +235,7 @@ const ActionSection = (props: Props) => {
                 </Stack>
               }
             </Grid>
-            <Grid item xs={3}></Grid>
+            <Grid item xs></Grid>
           </Grid>
         </StepContent>
       </>

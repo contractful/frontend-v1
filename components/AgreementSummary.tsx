@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useState } from "react";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import TocIcon from "@mui/icons-material/Toc";
@@ -15,11 +16,12 @@ import WalletIcon from "@mui/icons-material/Wallet";
 
 import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
+import { useAccount } from "wagmi";
 import { AgreementParams } from "../utils/types";
 
 const ContractfulAgreementSummary = (props: AgreementParams) => {
+  const { address } = useAccount();
   const {
-    acceptanceDeadline,
     beginningDate,
     contractee,
     contractor,
@@ -29,7 +31,42 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
     paymentCycleDuration,
     penalizationAmount_,
     underlayingToken,
+    descriptionURI
   } = props;
+
+  const [description, setDescription] = useState<string>();
+
+  const retrieveDesc = fetch('/api/getDesc', {
+    method: 'POST',
+    mode: 'cors',
+    body: JSON.stringify({cid: descriptionURI}),
+    headers: {'Content-Type': 'application/json'} 
+  });
+  
+  retrieveDesc
+  .then((response) => {
+    if (!response.ok) 
+    { 
+      console.error("Error ", response.status);
+    }
+    else if (response.status >= 400) 
+    {
+      console.error('HTTP Error: ' + response.status + ' - ' + response.json());
+    }
+    else
+    {
+      return response.json();
+    }
+  })
+  .then((data) => {
+    setDescription(data.desc);
+  });
+
+  const amountFormatter = new Intl.NumberFormat("en-US", {
+    // These options are needed to round to whole numbers if that's what you want.
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
+  });
 
   return (
     <>
@@ -62,11 +99,12 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 }}
               >
                 <Typography variant="body2">
-                  Public Ethereum address of your client that has created this
-                  Hiring Agreement:
+                  {address === contractor
+                    ? "Wallet address of your client that has created this Hiring Agreement"
+                    : "Wallet address of your service provider"}
                 </Typography>
                 <Typography variant="h6" pt={1}>
-                  {contractor}
+                  {address === contractor ? contractee : contractor}
                 </Typography>
               </Stack>
             </CardContent>
@@ -117,8 +155,9 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                   backgroundColor: "rgba(0, 0, 0, 0.04)",
                 }}
                 pt={2}
+
               >
-                {""}
+                {description}
               </Typography>
             </CardContent>
           </Card>
@@ -158,30 +197,6 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 
               <Divider />
 
-              <Stack direction="row" pt={2}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    width: "20vh",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  Engagement period:
-                </Typography>
-                <Typography variant="h6">
-                  {maturityDate
-                    ?.sub(
-                      beginningDate.toString() !== "0"
-                        ? beginningDate
-                        : acceptanceDeadline
-                    )
-                    .div(BigNumber.from(24 * 60 * 60 * 30))
-                    .toString()}{" "}
-                  months
-                </Typography>
-              </Stack>
-
               <Stack direction="row" pt={1}>
                 <Typography
                   variant="body2"
@@ -200,25 +215,42 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 </Typography>
               </Stack>
 
-              {acceptanceDeadline?.toString() !== "0" && (
-                <Stack direction="row" pt={2}>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      width: "20vh",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    Acceptance deadline:
-                  </Typography>
-                  <Typography variant="h6">
-                    {new Date(
-                      parseInt(acceptanceDeadline?.toString()) * 1000
-                    ).toLocaleDateString("en-US")}
-                  </Typography>
-                </Stack>
-              )}
+              <Stack direction="row" pt={1}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    width: "20vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Engagement period:
+                </Typography>
+                <Typography variant="h6">
+                  {beginningDate && maturityDate
+                    ? maturityDate
+                        ?.sub(beginningDate)
+                        .div(BigNumber.from(24*60*60))
+                        .toString()
+                    : "---"}{" "}
+                  days
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" pt={1} alignItems="center">
+                <Typography
+                  variant="body2"
+                  component="h6"
+                  sx={{ width: "20vh" }}
+                >
+                  Engagement ends on:
+                </Typography>
+                <Typography variant="h6" component="span">
+                  {new Date(
+                    parseInt(maturityDate?.toString()) * 1000
+                  ).toLocaleDateString("en-US")}
+                </Typography>
+              </Stack>
 
               <Typography variant="h6" pt={1}>
                 {""}
@@ -259,29 +291,6 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
 
               <Divider />
 
-              <Stack direction="row" pt={2}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    width: "20vh",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  Hourly rate:
-                </Typography>
-                <Typography variant="h6">
-                  {paymentCycleAmount &&
-                    paymentCycleDuration.toNumber() &&
-                    formatEther(
-                      paymentCycleAmount
-                        ?.div(paymentCycleDuration)
-                        .mul(BigNumber.from(60 * 60))
-                    )}{" "}
-                  DAI
-                </Typography>
-              </Stack>
-
               <Stack direction="row" pt={1}>
                 <Typography
                   variant="body2"
@@ -295,10 +304,18 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                 </Typography>
                 <Typography variant="h6">
                   Every{" "}
-                  {paymentCycleDuration
-                    ?.div(BigNumber.from(24 * 60 * 60))
-                    .toString()}{" "}
-                  days
+                  {
+                    (paymentCycleDuration?.lt(BigNumber.from((24 * 60 * 60))))
+                    ? 
+                    <>
+                    {paymentCycleDuration?.div(BigNumber.from(60)).toString() + " minutes "}
+                    {"("}<b style={{ color: "#d32f2f" }}>TESTING</b>{")"}
+                    </>
+                    : 
+                    <>
+                    {(paymentCycleDuration?.div(BigNumber.from(24 * 60 * 60)).toString + " days")}
+                    </>
+                  }
                 </Typography>
               </Stack>
 
@@ -311,10 +328,75 @@ const ContractfulAgreementSummary = (props: AgreementParams) => {
                     alignItems: "center",
                   }}
                 >
-                  Budget:
+                  Total Budget:
                 </Typography>
                 <Typography variant="h6">
-                  {paymentCycleAmount && formatEther(paymentCycleAmount)} DAI
+                  {paymentCycleAmount && amountFormatter.format(Number(formatEther(paymentCycleAmount)))}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  pl={4}
+                >
+                  DAI
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" pt={1}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    width: "20vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Penalization amount
+                </Typography>
+                <Typography variant="h6">
+                  {penalizationAmount_ && amountFormatter.format(Number(formatEther(penalizationAmount_)))}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  pl={4}
+                >
+                  DAI
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" pt={1}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    width: "20vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Establishment fee rate:
+                </Typography>
+                <Typography variant="h6">
+                  {establishmentFeeRate_ && amountFormatter.format(Number(formatEther(establishmentFeeRate_)))}{" "}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  pl={4}
+                >
+                  DAI
                 </Typography>
               </Stack>
             </CardContent>

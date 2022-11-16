@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import * as React from "react";
+import Router from "next/router";
 
 import {
   Alert,
@@ -10,7 +11,6 @@ import {
   CardContent,
   Chip,
   Container,
-  CssBaseline,
   Dialog,
   DialogActions,
   DialogContent,
@@ -18,14 +18,11 @@ import {
   DialogTitle,
   Divider,
   FormControl,
-  FormControlLabel,
   Grid,
   InputLabel,
   Link,
   MenuItem,
   Paper,
-  Radio,
-  RadioGroup,
   Select,
   Stack,
   Step,
@@ -40,8 +37,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import BrushIcon from "@mui/icons-material/Brush";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import WalletIcon from "@mui/icons-material/Wallet";
 
 import Diversity3Icon from "@mui/icons-material/Diversity3";
@@ -50,17 +50,17 @@ import { BigNumber, ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import CreateAgreementStatus from "../components/CreateAgreement/CreateAgreementStatus";
-import ContractfulFooter from "../components/Footer";
 import SnackbarAlert from "../components/general/SnackbarAlert";
-import ContractfulHeader from "../components/Header";
 import ContractfulHtmlHead from "../components/HtmlHead";
 import { deployments } from "../deployments";
 import useCoordinateCreateAgreement from "../hooks/useCoordinateCreateAgreement";
+import useGetEstablishmentFeeRate from "../hooks/useGetEstablishmentFeeRate";
+import useGetPenalizationAmount from "../hooks/useGetPenalizationAmount";
 import { Address } from "../utils/types";
 
 const CreateHiringAgreement: NextPage = () => {
-  // hard-coded for now
   const { address } = useAccount();
+  // hard-coded for now
   const [selectedToken, setSelectedToken] = useState<Address>(
     "0x10055ef62E88eF68b5011F4c7b5Ab9B99f00BB40"
   );
@@ -69,6 +69,11 @@ const CreateHiringAgreement: NextPage = () => {
   const [snackbarAlertSeverity, setSnackbarAlertSeverity] = useState<
     "success" | "info" | "warning" | "error"
   >();
+
+  const [desc, setDesc] = useState<string>();
+
+  const { data: penalizationAmount } = useGetPenalizationAmount();
+  const { data: establishmentFeeRate } = useGetEstablishmentFeeRate();
 
   const {
     coordinateCreateAgreement,
@@ -98,7 +103,6 @@ const CreateHiringAgreement: NextPage = () => {
 
     // deconstruct form data
     const {
-      acceptancePeriod,
       beginningDate,
       engagementPeriod,
       paymentCycleDuration,
@@ -113,38 +117,76 @@ const CreateHiringAgreement: NextPage = () => {
       contractor: { value: Address };
     };
 
-    console.log("beginningDate", beginningDate.value);
-    coordinateCreateAgreement(
-      selectedToken,
+    const sendDesc = fetch('/api/sendDesc', {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify({desc: desc}),
+      headers: {'Content-Type': 'application/json'} 
+    });
+
+    sendDesc
+    .then((response) => {
+      if (!response.ok) 
+      { 
+        console.error("Error ", response.status);
+      }
+      else if (response.status >= 400) 
       {
-        acceptanceDeadline: BigNumber.from(
-          Math.round(
-            Date.now() / 1000 + parseInt(acceptancePeriod.value) * 86400
-          ) // days
-        ),
-        beginningDate: BigNumber.from(
-          Math.round(Date.parse(beginningDate.value) / 1000)
-        ),
-        maturityDate: BigNumber.from(
-          Math.round(
-            Date.now() / 1000 + parseInt(engagementPeriod.value) * 86400 * 30
-          ) // months
-        ),
-        paymentCycleDuration: BigNumber.from(
-          Math.round(parseInt(paymentCycleDuration.value))
-        ),
-        paymentCycleAmount: BigNumber.from(
-          Math.round(
-            parseInt(hourlyRate.value) * parseInt(paymentCycleDuration.value)
+        console.error('HTTP Error: ' + response.status + ' - ' + response.json());
+      }
+      else
+      {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      const cid = data.cid;
+
+      const nowDateTime = new Date();
+      const parsedPaymentCycleDuration = parseInt(paymentCycleDuration.value);
+      const parsedBeginningDate = Date.parse(beginningDate.value);
+      const dateBeginningDate = new Date(beginningDate.value);
+      const tratedBeginningDate = (parsedPaymentCycleDuration > (24*60*60))
+        ? parsedBeginningDate
+        : (
+            (dateBeginningDate.getFullYear() == nowDateTime.getFullYear())
+            && (dateBeginningDate.getMonth() == nowDateTime.getMonth())
+            && (dateBeginningDate.getDay() == nowDateTime.getDay())
           )
-        ),
-        underlayingToken: selectedToken,
-        contractor: contractor.value,
-        descriptionURI: "IPFS",
-      },
-      manager.address,
-      ethers.constants.MaxUint256
-    );
+          ? nowDateTime.getTime()
+          : parsedBeginningDate
+      
+      coordinateCreateAgreement(
+        selectedToken,
+        {
+          beginningDate: BigNumber.from(
+            Math.round(tratedBeginningDate / 1000)
+          ),
+          maturityDate: BigNumber.from(
+            Math.round(
+              (tratedBeginningDate / 1000) + (parseInt(engagementPeriod.value) * (24*60*60) * 30)
+            ) // months
+          ),
+          paymentCycleDuration: BigNumber.from(
+            Math.round(parseInt(paymentCycleDuration.value))
+          ),
+          paymentCycleAmount: BigNumber.from(
+            Math.round(
+              parseInt(hourlyRate.value) *
+                DAYS_PER_PAYMENT_PERIOD *
+                WORKING_HOURS_PER_DAY
+            )
+          ).mul(
+            BigNumber.from(10).pow(BigNumber.from(18))
+          ),
+          underlayingToken: selectedToken,
+          contractor: contractor.value,
+          descriptionURI: cid.toString(),
+        },
+        manager.address,
+        ethers.constants.MaxUint256
+      );
+    });
   };
 
   const handleCloseCreateAgreementStatuses = (
@@ -152,6 +194,10 @@ const CreateHiringAgreement: NextPage = () => {
   ) => {
     if (isError || isCreateAgreementSuccess || !address) {
       setOpenStatusesDialog(false);
+    }
+
+    if(isCreateAgreementSuccess) {
+      Router.push('/review');
     }
   };
 
@@ -172,9 +218,22 @@ const CreateHiringAgreement: NextPage = () => {
     return address !== undefined;
   };
 
-  // Model constants
+  // Model state and constants
+  // TODO: move to a separate file
 
   const PAYMENT_TERMS_2WEEKS = 14 * 24 * 60 * 60;
+  const DAYS_PER_PAYMENT_PERIOD = 10;
+  const WORKING_HOURS_PER_DAY = 8;
+
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [budget, setBudget] = useState<Number | null>(null);
+  const [workingCommitment, setWorkingCommitment] = useState<Number>(40);
+
+  const amountFormatter = new Intl.NumberFormat("en-US", {
+    // These options are needed to round to whole numbers if that's what you want.
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
+  });
 
   // State of ConfirmDialog
 
@@ -189,8 +248,16 @@ const CreateHiringAgreement: NextPage = () => {
   return (
     <>
       <ContractfulHtmlHead />
-      <CssBaseline />
-      <ContractfulHeader />
+
+      <Container
+        sx={{
+          mt: 4,
+        }}
+      >
+        <Typography variant="h6">
+          👋 Welcome - start here to create and deploy your Hiring Agreement.
+        </Typography>
+      </Container>
 
       <form onSubmit={(e) => handleCreateAgreementSubmit(e)}>
         <Container
@@ -203,82 +270,90 @@ const CreateHiringAgreement: NextPage = () => {
             orientation="vertical"
           >
             <Step key="1" active={true} completed={isWalletConnected()}>
-              <StepLabel>Connect Wallet</StepLabel>
+              <StepLabel>Your Wallet</StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
-                    <Stack direction="row">
-                      <Typography variant="h6">👋 Welcome</Typography>
-                      {isWalletConnected() && (
-                        <Chip
-                          label={address}
-                          variant="outlined"
-                          sx={{
-                            ml: 2,
-                          }}
-                        />
+                    <Stack direction="column">
+                      {isWalletConnected() ? (
+                        <>
+                        <Stack direction="row" spacing={1}>
+                          <VerifiedUserIcon />
+                          <Typography>Connected</Typography>
+                          <Chip
+                            label={address}
+                            variant="outlined"
+                            sx={{
+                              mb: 1,
+                            }}
+                          />
+                        </Stack>
+                        <Typography pt={1}>
+                          Please proceed to securely create a Hiring
+                          Agreement.
+                        </Typography>
+                        </>
+                      ) : (
+                        <>
+                        <Stack direction="row" spacing={1}>
+                          <LocalPoliceIcon />
+                          <Typography>
+                            Please proceed to securely create a Hiring
+                            Agreement. Start with connecting your Wallet.
+                          </Typography>
+                        </Stack>
+                        </>
                       )}
                     </Stack>
-                    <Typography pt={1}>
-                      {isWalletConnected()
-                        ? "Wallet connected. Please proceed with the creating a Hiring Agreement."
-                        : "Please connect your Wallet to start creating a Hiring Agreement."}
-                    </Typography>
                   </Grid>
                 </Grid>
               </StepContent>
             </Step>
 
             <Step key="2" active={isWalletConnected()} completed={false}>
-              <StepLabel>Fill in details for the Hiring Agreement</StepLabel>
+              <StepLabel>Contract</StepLabel>
               <StepContent>
                 <Grid container pt={2} pl={3}>
                   <Grid item xs>
-                    <Typography variant="h6">📝 Contract</Typography>
-                    <Typography pt={1} pb={4}>
-                      Please fill in the details of the Hiring Agreement.
-                    </Typography>
+                    <Stack direction="row" spacing={1} mb={4}>
+                      <StickyNote2OutlinedIcon />
+                      <Typography>
+                        Please fill in the details of the Hiring Agreement.
+                      </Typography>
+                    </Stack>
 
-                    <Paper elevation={12}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        px={4}
-                        pt={4}
-                      >
+                    <Paper
+                      elevation={12}
+                      sx={{
+                        mb: 4,
+                      }}
+                    >
+                      <Box px={4} pt={4}>
                         <WalletIcon
                           sx={{
                             color: "action.active",
                             mr: 1,
-                            my: 0.5,
+                            mt: 2,
                           }}
                         />
                         <TextField
                           id="input-service-provider-addr"
-                          label="Ethereum public address or ENS name of your service provider"
+                          label="Public Polygon Wallet address your contract partner"
                           variant="outlined"
                           sx={{
                             width: "80vh",
                           }}
                           name="contractor"
+                          required
                         />
                       </Box>
 
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        px={4}
-                        pt={4}
-                      >
+                      <Box px={4} pt={4}>
                         <TocIcon
                           sx={{
                             color: "action.active",
                             mr: 1,
-                            my: 0.5,
+                            mt: 2,
                           }}
                         />
                         <TextField
@@ -290,236 +365,186 @@ const CreateHiringAgreement: NextPage = () => {
                           sx={{
                             width: "80vh",
                           }}
+                          onChange={(e) => {
+                            setDesc(e.target.value);
+                          }}
+                          required
                         />
                       </Box>
 
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        px={4}
-                        pt={4}
-                      >
+                      <Stack px={4} pt={4} direction="row">
                         <Diversity3Icon
                           sx={{
                             color: "action.active",
                             mr: 1,
-                            my: 0.5,
+                            mt: 2,
                           }}
                         />
-                        <RadioGroup
-                          aria-labelledby="demo-radio-buttons-group-label"
-                          defaultValue="longterm"
-                          name="radio-buttons-group"
+                        <Card
+                          sx={{
+                            width: "80vh",
+                          }}
+                          variant="outlined"
                         >
-                          <Card
-                            sx={{
-                              width: "80vh",
-                            }}
-                            variant="outlined"
-                          >
-                            <CardContent>
-                              <Typography
-                                sx={{ mb: 1.5 }}
-                                color="text.secondary"
-                              >
-                                The Hiring Agreement aims for a long-term
-                                collaboration relationship.
-                              </Typography>
-                              <Typography variant="body2">
-                                <ul>
-                                  <li>
-                                    The arrangement is planned for several
-                                    months (usually 1-3, up to 6 and even more
-                                    months).
-                                  </li>
-                                  <li>
-                                    The project is organized in 2 weeks sprint
-                                    iterations.
-                                  </li>
-                                  <li>
-                                    Payment will be handled correspondingly by
-                                    the smart contract.
-                                  </li>
-                                </ul>
-                              </Typography>
+                          <CardContent>
+                            <Typography
+                              sx={{
+                                mb: 1.5,
+                              }}
+                              color="text.secondary"
+                              variant="h6"
+                            >
+                              This Hiring Agreement organizes a long-term
+                              collaboration relationship.
+                            </Typography>
+                            <Typography variant="body2">
+                              <ul>
+                                <li style={{ paddingBottom: "3px" }}>
+                                  The project underlying the Agreement is
+                                  planned for several months (usually 3-6, or
+                                  even more months).
+                                </li>
+                                <li style={{ paddingBottom: "3px" }}>
+                                  The project is organized in 2 weeks sprint
+                                  iterations.
+                                </li>
+                                <li style={{ paddingBottom: "3px" }}>
+                                  Payment will be taken care of automatically,
+                                  unless the Agreement will be canceled.
+                                </li>
+                              </ul>
+                            </Typography>
 
-                              <Divider />
+                            <Divider />
 
+                            <Typography
+                              sx={{
+                                my: 1.5,
+                              }}
+                              color="text.secondary"
+                              variant="h6"
+                            >
+                              Contractual details of the arrangement:
+                            </Typography>
+
+                            <Stack
+                              direction="row"
+                              sx={{
+                                alignItems: "flex-end",
+                              }}
+                            >
                               <Typography
                                 sx={{
-                                  my: 1.5,
+                                  width: "30%",
                                 }}
-                                color="text.secondary"
+                                variant="body2"
                               >
-                                Contractual details of the arrangement:
+                                Engagement period<br/>
+                                (30 days each):
                               </Typography>
-
-                              <Stack
-                                direction="row"
-                                sx={{
-                                  alignItems: "flex-end",
+                              <TextField
+                                id="input-engagement-period"
+                                name="engagementPeriod"
+                                inputProps={{
+                                  inputMode: "numeric",
+                                  pattern: "[0-9]*",
                                 }}
-                              >
-                                <Typography
-                                  sx={{
-                                    width: "30%",
-                                  }}
-                                  variant="body2"
-                                >
-                                  Engagement period:
-                                </Typography>
-                                <TextField
-                                  id="input-engagement-period"
-                                  name="engagementPeriod"
-                                  inputProps={{
-                                    inputMode: "numeric",
-                                    pattern: "[0-9]*",
-                                  }}
-                                  defaultValue="3"
-                                  label="Months"
-                                  variant="standard"
-                                  type="string"
+                                defaultValue="3"
+                                label="Months"
+                                type="number"
+                                variant="standard"
+                                required
                                 />
-                              </Stack>
+                            </Stack>
 
-                              <Stack
-                                direction="row"
+                            <Stack
+                              direction="row"
+                              sx={{
+                                alignItems: "flex-end",
+                              }}
+                              pt={4}
+                            >
+                              <Typography
                                 sx={{
-                                  alignItems: "flex-end",
+                                  width: "30%",
                                 }}
-                                pt={4}
+                                variant="body2"
                               >
-                                <Typography
-                                  sx={{
-                                    width: "30%",
+                                Engagement begins on:
+                              </Typography>
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DesktopDatePicker
+                                  label="Date"
+                                  disablePast={true}
+                                  inputFormat="MM/DD/YYYY"
+                                  value={startDate}
+                                  onChange={(newDate) => {
+                                    setStartDate(newDate as Date);
                                   }}
-                                  variant="body2"
-                                >
-                                  Engagement begins on:
-                                </Typography>
-                                <LocalizationProvider
-                                  dateAdapter={AdapterDayjs}
-                                >
-                                  <DesktopDatePicker
-                                    label="Date"
-                                    inputFormat="MM/DD/YYYY"
-                                    value={"11/20/2022"}
-                                    onChange={() => {}}
-                                    renderInput={(params) => (
-                                      <TextField
-                                        name="beginningDate"
-                                        {...params}
-                                        variant="standard"
-                                      />
-                                    )}
-                                  />
-                                </LocalizationProvider>
-                              </Stack>
+                                  renderInput={(params) => (
+                                    <TextField
+                                      name="beginningDate"
+                                      variant="standard"
+                                      required
+                                      {...params}
+                                    />
+                                  )}
+                                />
+                              </LocalizationProvider>
+                            </Stack>
 
-                              <Stack
-                                direction="row"
+                            <Stack
+                              direction="row"
+                              sx={{
+                                alignItems: "flex-end",
+                              }}
+                              pt={4}
+                            >
+                              <Typography
                                 sx={{
-                                  alignItems: "flex-end",
+                                  width: "30%",
                                 }}
-                                pt={4}
+                                variant="body2"
                               >
-                                <Typography
-                                  sx={{
-                                    width: "30%",
-                                  }}
-                                  variant="body2"
-                                >
-                                  Working hours:
-                                </Typography>
+                                Working hours:
+                              </Typography>
 
-                                <FormControl sx={{ width: "50%" }}>
-                                  <InputLabel id="label-select-commitment">
-                                    Commitment
-                                  </InputLabel>
-                                  <Select
-                                    labelId="label-select-commitment"
-                                    id="select-commitment"
-                                    label="Commitment"
-                                    variant="standard"
-                                    defaultValue={40}
-                                    onChange={(e) => {
-                                      e.target.value !== 40 && showBetaDialog();
-                                    }}
-                                    type="number"
-                                  >
-                                    <MenuItem value={40}>
-                                      Full-time: 40 hours per week
-                                    </MenuItem>
-                                    <MenuItem value={20}>
-                                      Part-time: 20 hours per week
-                                    </MenuItem>
-                                  </Select>
-                                </FormControl>
-                              </Stack>
-
-                              <Stack
-                                direction="row"
-                                sx={{
-                                  alignItems: "flex-end",
-                                }}
-                                mt={4}
-                              >
-                                <Typography
-                                  sx={{
-                                    width: "30%",
-                                  }}
-                                  variant="body2"
-                                >
-                                  Acceptance period:
-                                </Typography>
-                                <TextField
-                                  id="acceptance-period"
-                                  name="acceptancePeriod"
-                                  inputProps={{
-                                    inputMode: "numeric",
-                                    pattern: "[0-9]*",
-                                  }}
-                                  defaultValue="3"
-                                  label="Days"
+                              <FormControl sx={{ width: "50%" }}>
+                                <InputLabel id="label-select-commitment">
+                                  Commitment
+                                </InputLabel>
+                                <Select
+                                  labelId="label-select-commitment"
+                                  id="select-commitment"
+                                  label="Commitment"
                                   variant="standard"
+                                  value={workingCommitment}
+                                  onChange={(e) => {
+                                    e.target.value !== 40 && showBetaDialog();
+                                    setWorkingCommitment(40);
+                                  }}
                                   type="number"
-                                />
-                              </Stack>
-                            </CardContent>
-                          </Card>
+                                  required
+                                >
+                                  <MenuItem value={40}>
+                                    Full-time: 40 hours per week
+                                  </MenuItem>
+                                  <MenuItem value={20}>
+                                    Part-time: 20 hours per week
+                                  </MenuItem>
+                                </Select>
+                              </FormControl>
+                            </Stack>
+                          </CardContent>
+                        </Card>
+                      </Stack>
 
-                          <Card
-                            sx={{
-                              width: "80vh",
-                              mt: 1,
-                            }}
-                            variant="outlined"
-                          >
-                            <CardContent>
-                              <FormControlLabel
-                                value="shortterm"
-                                control={<Radio />}
-                                label="Short-term Agreement"
-                              />
-                            </CardContent>
-                          </Card>
-                        </RadioGroup>
-                      </Box>
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        p={4}
-                      >
+                      <Stack p={4} direction="row">
                         <RequestQuoteIcon
                           sx={{
                             color: "action.active",
                             mr: 1,
-                            my: 0.5,
+                            mt: 4,
                           }}
                         />
                         <Card
@@ -534,8 +559,9 @@ const CreateHiringAgreement: NextPage = () => {
                                 my: 1.5,
                               }}
                               color="text.secondary"
+                              variant="h6"
                             >
-                              Financial details of the Hiring Agreement:
+                              Financial arrangement of the Hiring Agreement:
                             </Typography>
 
                             <Stack
@@ -558,9 +584,27 @@ const CreateHiringAgreement: NextPage = () => {
                                 name="hourlyRate"
                                 label="Hourly rate"
                                 variant="standard"
-                                sx={{
-                                  width: "15vh",
+                                inputProps={{
+                                  inputMode: "numeric",
+                                  pattern: "[0-9]*.",
                                 }}
+                                type="number"
+                                sx={{
+                                  width: "30%",
+                                }}
+                                onBlur={(e) => {
+                                  const rateUSD = Number(e.target.value);
+                                  if (!isNaN(rateUSD)) {
+                                    setBudget(
+                                      rateUSD *
+                                        DAYS_PER_PAYMENT_PERIOD *
+                                        WORKING_HOURS_PER_DAY
+                                    );
+                                  } else {
+                                    setBudget(null);
+                                  }
+                                }}
+                                required
                               />
                               <Typography pl={4}>US$ (in DAI)</Typography>
                             </Stack>
@@ -593,15 +637,10 @@ const CreateHiringAgreement: NextPage = () => {
                                   variant="standard"
                                   type="number"
                                   defaultValue={14 * 60}
-                                  onChange={(e) => {
-                                    e.target.value !== 14 * 60 &&
-                                      showBetaDialog();
-                                  }}
+                                  required
                                 >
                                   <MenuItem value={14 * 60}>
-                                    <b style={{ color: "#d32f2f" }}>
-                                      TESTING ONLY:
-                                    </b>{" "}
+                                    <b style={{ color: "#d32f2f" }}>TESTING:</b>{" "}
                                     Payment in 14 minutes (imitating 2 weeks)
                                   </MenuItem>
                                   <MenuItem value={PAYMENT_TERMS_2WEEKS}>
@@ -614,40 +653,83 @@ const CreateHiringAgreement: NextPage = () => {
 
                             <Divider />
 
-                            <Stack
-                              direction="row"
-                              sx={{
-                                alignItems: "flex-end",
-                              }}
-                              pt={4}
-                            >
+                            <Stack direction="row" pt={3}>
                               <Typography
+                                variant="body2"
                                 sx={{
                                   width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
                                 }}
-                                variant="body2"
                               >
                                 Resulting contract budget:
                               </Typography>
-
-                              <TextField
-                                id="input-service-provider-addr"
-                                label="Budget"
-                                inputProps={{
-                                  readOnly: true,
-                                }}
-                                defaultValue={12345.67}
-                                variant="standard"
-                                type="number"
+                              <Typography variant="h6">
+                                {budget ? (amountFormatter.format(budget as number)) : ("---")}
+                              </Typography>
+                              <Typography
+                                variant="h6"
                                 sx={{
-                                  width: "15vh",
+                                  width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
                                 }}
-                              />
-                              <Typography pl={4}>DAI</Typography>
+                                pl={4}
+                              >
+                                DAI
+                              </Typography>
+                            </Stack>
+                            <Stack direction="row" pt={1} alignItems="center">
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  width: "30%",
+                                }}
+                              >
+                                Penalization fee
+                              </Typography>
+                              <Typography variant="h6">
+                                {((penalizationAmount?.toString() + '.00') ?? "---")}
+                              </Typography>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                pl={4}
+                              >
+                                DAI
+                              </Typography>
+                            </Stack>
+                            <Stack direction="row" pt={1} alignItems="center">
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  width: "30%",
+                                }}
+                              >
+                                Establishment fee rate
+                              </Typography>
+                              <Typography variant="h6">
+                                {((establishmentFeeRate?.toString() + '.00') ?? "---")}
+                              </Typography>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  width: "30%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                pl={4}
+                              >
+                                DAI
+                              </Typography>
                             </Stack>
                           </CardContent>
                         </Card>
-                      </Box>
+                      </Stack>
                     </Paper>
                   </Grid>
                 </Grid>
@@ -655,34 +737,36 @@ const CreateHiringAgreement: NextPage = () => {
             </Step>
 
             <Step key="3" active={isWalletConnected()} completed={false}>
-              <StepLabel>Sign the Agreement to make it available</StepLabel>
+              <StepLabel>
+                Create and deploy the Agreement to make it available
+              </StepLabel>
               <StepContent>
-                <Grid container pt={4}>
-                  <Grid item xs={2}></Grid>
-                  <Grid item xs>
+                <Grid container pt={4} pl={3}>
+                  <Grid item xs={8}>
                     <Alert severity="info">
                       <AlertTitle>
                         Please review all details of the Hiring Agreement
                         carefully.
                       </AlertTitle>
-                      If all details are correct, you can continue to sign the
-                      Agreement. It will be made available to your service
-                      provider.
+                      If all details are correct, you can continue to create the
+                      Agreement. The Agreement will then be deployed to Polygon
+                      and made available to your service provider.
                     </Alert>
                     <Stack pt={2}>
                       <Button
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<BrushIcon />}
+                        startIcon={<DriveFileRenameOutlineIcon />}
                         fullWidth
                         type="submit"
                       >
-                        Sign Agreement
+                        Create Agreement
                       </Button>
                     </Stack>
                   </Grid>
-                  <Grid item xs={3}></Grid>
+                  <Grid item xs>
+                  </Grid>
                 </Grid>
               </StepContent>
             </Step>
@@ -716,8 +800,6 @@ const CreateHiringAgreement: NextPage = () => {
         />
       </Box>
 
-      <ContractfulFooter />
-
       <Dialog
         open={betaDialogOpen}
         onClose={betaDialogOk}
@@ -729,9 +811,9 @@ const CreateHiringAgreement: NextPage = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Note: This is a beta implementation deployed to the Polygon Mumbai
-            testnet. If you want to use this in production on mainnet, please
-            visit{" "}
+            Note: This is a beta implementation of the contractful Hiring
+            Agreements deployed to the Polygon Network. If you are interested in
+            functionality for the service beyond the beta scope, please visit{" "}
             <Link href="https://github.com/contractful" target="_new">
               https://github.com/contractful
             </Link>{" "}

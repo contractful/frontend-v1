@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Container,
-  CssBaseline,
   Divider,
   Grid,
   Paper,
@@ -17,11 +16,10 @@ import {
 
 import { styled } from "@mui/system";
 
-import BrushIcon from "@mui/icons-material/Brush";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import GppGoodTwoToneIcon from "@mui/icons-material/GppGoodTwoTone";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import PieChartTwoToneIcon from "@mui/icons-material/PieChartTwoTone";
-import ReplyIcon from "@mui/icons-material/Reply";
 import SmartToyTwoToneIcon from "@mui/icons-material/SmartToyTwoTone";
 
 import imgBgStructureIntro from "../public/static/bg-structure-intro.png";
@@ -31,8 +29,6 @@ import imgIconChainlink from "../public/static/icon-Chainlink.png";
 import imgIconPolygon from "../public/static/icon-Polygon.png";
 import imgMoodImage from "../public/static/mood-image.png";
 
-import ContractfulFooter from "../components/Footer";
-import ContractfulHeader from "../components/Header";
 import ContractfulHtmlHead from "../components/HtmlHead";
 
 const IntroBg = styled("div")({
@@ -40,7 +36,7 @@ const IntroBg = styled("div")({
   backgroundSize: "100% 80%",
 });
 
-const handleClick = (e: React.MouseEvent<HTMLElement>, targetUrl: string) => {
+const handleClick = (e: any, targetUrl: string) => {
   e.preventDefault();
   Router.push(targetUrl);
 };
@@ -49,68 +45,10 @@ const HiringAgreementHome: NextPage = () => {
   return (
     <>
       <ContractfulHtmlHead />
-      <CssBaseline />
-      <ContractfulHeader withWalletConnect={false} />
 
       <IntroBg>
         <Container>
-          <Grid container pt={4}>
-            <Grid item xs={5} px={2}>
-              <Button
-                variant="outlined"
-                startIcon={<NoteAddIcon />}
-                size="large"
-                onClick={(e) => handleClick(e, "/create")}
-                fullWidth
-              >
-                Create Hiring Agreement
-              </Button>
-            </Grid>
-            <Grid
-              item
-              xs={2}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ReplyIcon
-                sx={{
-                  pb: 1,
-                }}
-              />
-              <Typography
-                sx={{
-                  fontSize: "smaller",
-                  color: "#666",
-                }}
-              >
-                Quick links
-              </Typography>
-              <ReplyIcon
-                sx={{
-                  transform: "scaleX(-1)",
-                  pb: 1,
-                }}
-              />
-            </Grid>
-            <Grid item xs={5} px={2}>
-              <Button
-                variant="outlined"
-                startIcon={<BrushIcon />}
-                size="large"
-                onClick={(e) => handleClick(e, "/review")}
-                fullWidth
-              >
-                Sign existing Agreement
-              </Button>
-            </Grid>
-          </Grid>
-        </Container>
-
-        <Container>
-          <Grid container pt={8}>
+          <Grid container pt={6}>
             <Grid item xs={8}>
               <Typography variant="subtitle1">
                 What is a contractful Hiring Agreement?
@@ -126,15 +64,44 @@ const HiringAgreementHome: NextPage = () => {
         </Container>
 
         <Container>
+          <Grid container pt={6} pb={4}>
+            <Grid item xs={5} px={2}>
+              <Button
+                variant="outlined"
+                startIcon={<DriveFileRenameOutlineIcon />}
+                size="large"
+                onClick={(e) => handleClick(e, "/create")}
+                fullWidth
+              >
+                Create Hiring Agreement
+              </Button>
+            </Grid>
+            <Grid item xs></Grid>
+            <Grid item xs={5} px={2}>
+              <Button
+                variant="outlined"
+                startIcon={<AutorenewIcon />}
+                size="large"
+                onClick={(e) => handleClick(e, "/review")}
+                fullWidth
+              >
+                Review Agreement
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+
+        <Container>
           <Grid
             container
-            pt={4}
             sx={{
               background: "url(" + imgMoodImage.src + ") no-repeat",
               height: "564px",
             }}
           >
-            <Grid item xs={6}></Grid>
+            <Grid item xs={6}>
+              {" "}
+            </Grid>
             <Grid item xs>
               <Stack direction="column" spacing={4} pt={4}>
                 <Stack direction="row" spacing={4}>
@@ -223,8 +190,8 @@ const HiringAgreementHome: NextPage = () => {
                         fontSize: "smaller",
                       }}
                     >
-                      Fair, safe and secure on-chain automated payment
-                      processing.
+                      Easy and secure on-chain automated payment processing.
+                      Safe hours of paper work.
                     </Typography>
                   </Paper>
                   <Paper
@@ -257,9 +224,132 @@ const HiringAgreementHome: NextPage = () => {
           </Grid>
         </Container>
 
+        <Container>
+          <Grid container>
+            <Grid item xs={6} p={4}>
+              <Stack>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Avatar
+                    sx={{
+                      width: "150px",
+                      height: "150px",
+                      border: "1px solid #bbb",
+                    }}
+                    src={imgForClient.src}
+                  ></Avatar>
+                </div>
+                <Paper
+                  elevation={12}
+                  style={{
+                    marginTop: "-45px",
+                  }}
+                >
+                  <Typography variant="h4" pt={7} pl={4}>
+                    Build your team
+                  </Typography>
+                  <Typography px={4} pt={1}>
+                    <b>As a client:</b> Ready to use contractful to create a
+                    Hiring Agreement.
+                  </Typography>
+                  <Box
+                    pt={2}
+                    px={4}
+                    pb={4}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button
+                      onClick={(e) => handleClick(e, "/create")}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      startIcon={<DriveFileRenameOutlineIcon />}
+                      sx={{
+                        width: "75%",
+                        boxShadow: "none",
+                      }}
+                    >
+                      Create Hiring Agreement
+                    </Button>
+                  </Box>
+                </Paper>
+              </Stack>
+            </Grid>
+            <Grid item xs p={4}>
+              <Stack>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Avatar
+                    sx={{
+                      width: "150px",
+                      height: "150px",
+                      border: "1px solid #bbb",
+                    }}
+                    src={imgForServiceProvider.src}
+                  ></Avatar>
+                </div>
+                <Paper
+                  elevation={12}
+                  style={{
+                    marginTop: "-45px",
+                  }}
+                >
+                  <Typography variant="h4" pt={7} pl={4}>
+                    Start your collaboration
+                  </Typography>
+                  <Typography px={4} pt={1}>
+                    <b>As a service provider:</b> Review and consent to an
+                    Agreement prepared for you.
+                  </Typography>
+                  <Box
+                    pt={2}
+                    px={4}
+                    pb={4}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button
+                      onClick={(e) => handleClick(e, "/review")}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      startIcon={<AutorenewIcon />}
+                      sx={{
+                        width: "75%",
+                        boxShadow: "none",
+                      }}
+                    >
+                      Review Agreement
+                    </Button>
+                  </Box>
+                </Paper>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Container>
+
         <Container
           sx={{
-            pt: 4,
+            pt: 8,
           }}
         >
           <Typography
@@ -273,7 +363,7 @@ const HiringAgreementHome: NextPage = () => {
           </Typography>
         </Container>
 
-        <Container>
+        <Container maxWidth="sm">
           <Typography variant="h5">
             <ol>
               <li style={{ paddingBottom: 32 }}>
@@ -291,129 +381,6 @@ const HiringAgreementHome: NextPage = () => {
           </Typography>
         </Container>
       </IntroBg>
-
-      <Container>
-        <Grid container pt={4}>
-          <Grid item xs={6} p={4}>
-            <Stack>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Avatar
-                  sx={{
-                    width: "150px",
-                    height: "150px",
-                    border: "1px solid #bbb",
-                  }}
-                  src={imgForClient.src}
-                ></Avatar>
-              </div>
-              <Paper
-                elevation={12}
-                style={{
-                  marginTop: "-45px",
-                }}
-              >
-                <Typography variant="h4" pt={7} pl={4}>
-                  Build your team
-                </Typography>
-                <Typography px={4} pt={1}>
-                  <b>As a client:</b> Ready to use contractful to create a
-                  Hiring Agreement.
-                </Typography>
-                <Box
-                  pt={1}
-                  px={4}
-                  pb={4}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
-                    onClick={(e) => handleClick(e, "/create")}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    startIcon={<NoteAddIcon />}
-                    sx={{
-                      width: "75%",
-                    }}
-                  >
-                    Create Hiring Agreement
-                  </Button>
-                </Box>
-              </Paper>
-            </Stack>
-          </Grid>
-          <Grid item xs p={4}>
-            <Stack>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Avatar
-                  sx={{
-                    width: "150px",
-                    height: "150px",
-                    border: "1px solid #bbb",
-                  }}
-                  src={imgForServiceProvider.src}
-                ></Avatar>
-              </div>
-              <Paper
-                elevation={12}
-                style={{
-                  marginTop: "-45px",
-                }}
-              >
-                <Typography variant="h4" pt={7} pl={4}>
-                  Start your collaboration
-                </Typography>
-                <Typography px={4} pt={1}>
-                  <b>As a service provider:</b> Review and consent to an
-                  Agreement prepared for you.
-                </Typography>
-                <Box
-                  pt={1}
-                  px={4}
-                  pb={4}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
-                    onClick={(e) => handleClick(e, "/review")}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    startIcon={<BrushIcon />}
-                    sx={{
-                      width: "75%",
-                    }}
-                  >
-                    Sign existing Agreement
-                  </Button>
-                </Box>
-              </Paper>
-            </Stack>
-          </Grid>
-        </Grid>
-      </Container>
-
-      <ContractfulFooter withImageCredits={true} />
     </>
   );
 };
