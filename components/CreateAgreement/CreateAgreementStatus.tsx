@@ -1,17 +1,16 @@
-import { ThumbDown } from "@mui/icons-material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import PendingIcon from "@mui/icons-material/Pending";
 import { CircularProgress } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
 
 export interface Props {
   open: boolean;
@@ -22,6 +21,7 @@ export interface Props {
   isCreateAgreementPendingSignature: boolean;
   isCreateAgreementMining: boolean;
   isCreateAgreementSuccess: boolean;
+  isError: boolean;
 }
 
 const CreateAgreementStatus = (props: Props) => {
@@ -34,6 +34,7 @@ const CreateAgreementStatus = (props: Props) => {
     isCreateAgreementPendingSignature,
     isCreateAgreementMining,
     isCreateAgreementSuccess,
+    isError,
   } = props;
 
   return (
@@ -47,8 +48,10 @@ const CreateAgreementStatus = (props: Props) => {
                   <CircularProgress />
                 ) : isTokenApproveSuccess ? (
                   <CheckCircleOutlineIcon color="success" />
-                ) : (
+                ) : isError ? (
                   <ErrorOutlineIcon color="error" />
+                ) : (
+                  <CircularProgress />
                 )}
               </Avatar>
             </ListItemAvatar>
@@ -61,7 +64,9 @@ const CreateAgreementStatus = (props: Props) => {
                   ? "Mining. We'll be done in a second"
                   : isTokenApproveSuccess
                   ? "Done!"
-                  : "Something went wrong"
+                  : isError
+                  ? "Something went wrong"
+                  : "Loading the transaction"
               }
             />
           </ListItem>
@@ -69,12 +74,15 @@ const CreateAgreementStatus = (props: Props) => {
             <ListItemAvatar>
               <Avatar>
                 {isTokenApproveSuccess ? (
-                  isCreateAgreementPendingSignature || isCreateAgreementMining ? (
+                  isCreateAgreementPendingSignature ||
+                  isCreateAgreementMining ? (
                     <CircularProgress />
                   ) : isCreateAgreementSuccess ? (
                     <CheckCircleOutlineIcon color="success" />
-                  ) : (
+                  ) : isError ? (
                     <ErrorOutlineIcon color="error" />
+                  ) : (
+                    <PendingIcon color="primary" />
                   )
                 ) : (
                   <PendingIcon color="primary" />
@@ -91,41 +99,26 @@ const CreateAgreementStatus = (props: Props) => {
                     ? "Mining. We'll be done in a second"
                     : isCreateAgreementSuccess
                     ? "Done!"
-                    : "Something went wrong"
+                    : isError && "Something went wrong"
                   : "Waiting for token approval"
               }
             />
           </ListItem>
         </List>
       </DialogContent>
-      <DialogActions>
-        {((!isTokenApprovePendingSignature)
-          && (!isCreateAgreementPendingSignature))
-          && (!(isTokenApproveMining || isCreateAgreementMining))
-          && (!(isTokenApproveSuccess && isCreateAgreementSuccess))
-          && (
-          <>
-            <Button
-              onClick={onClose}
-              variant="text"
-              autoFocus
-            >
-              Done
-            </Button>
-          </>
-        )}
+      <DialogActions sx={{ justifyContent: "center", gap: "1.5rem" }}>
+        <Button disabled={!isError} onClick={onClose} autoFocus>
+          close
+        </Button>
 
-        {isCreateAgreementSuccess && (
-            <>
-            <Button
-              onClick={onClose}
-              variant="text"
-              autoFocus
-            >
-              Review the agreement
-            </Button>
-            </>
-        )}
+        <Button
+          disabled={!isCreateAgreementSuccess}
+          onClick={onClose}
+          variant="contained"
+          autoFocus
+        >
+          Review the agreement
+        </Button>
       </DialogActions>
     </Dialog>
   );
