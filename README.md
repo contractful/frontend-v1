@@ -54,7 +54,7 @@ v18.7.0
 
 ### Use IPFS
 
-Specify the key to access the IPFS Gateway API in the `.env` variables.
+Specify the key to access the IPFS Gateway API in the `.env.local` variables. The contractful frontend uses the following service: <https://web3.storage/>. Also, you can optionally specify an AES encryption key in your `.env.local`.
 
 👍 Well done - you are now able to create, deploy and sign trustless decentralized Hiring Agreements from your local machine.
 
