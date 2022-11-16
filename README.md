@@ -10,7 +10,7 @@ The frontend that makes peer-2-peer, safe and secure Hiring Agreements accessibl
 
 For details on the protocol and user case in general, please visit [the contractful protocol's README](https://github.com/contractful/protocol-v1).
 
-You will also find [more details on the project on the devpost page about contractful](https://devpost.com/software/contractful-hiring-agreements).
+You will also find [more details on the devpost page on the contractful project](https://devpost.com/software/contractful-hiring-agreements).
 
 ## Quick start
 
