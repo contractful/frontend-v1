@@ -20,12 +20,12 @@ You will also find [more details on the devpost page on the contractful project]
 - As a client:
   - Visit: <https://contractful.vercel.app/>.
   - Choose to create an Agreement.
-  - Connect your Wallet.
+  - Connect your Wallet (specifically for the client).
   - Fill out the details of Hiring Agreement (incl. a description, engagement period and start, as well as the pre-defined hourly rate) and create it.
   - You are now able to review the newly created Hiring Agreement. Your partner is now able to consent to it.
 - As a freelancer or service provider:
   - Also, visit: <https://contractful.vercel.app/>.
-  - Navigate to review an Agreement and connect your Wallet.
+  - Navigate to review an Agreement and connect the Wallet of the freelancer or service provider (**that is different to the client's wallet address**).
   - Read the Agreement carefully, and choose to consent to it.
 
 😃 Enjoy full security and automation while focussing on building awesome web3 tech.
